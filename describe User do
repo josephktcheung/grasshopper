@@ -1,0 +1,29 @@
+describe User do
+	it "is valid with an email"
+	
+	describe "password is provided" do 
+		it "should be valid with password_confirmation"
+		
+		context "password_confirmation is provided as empty" do
+			it "should be invalid without password_confirmation"
+		end
+		
+		context "password_confirmation is provided as nil"
+			it "should be valid without password_confirmation"
+		end
+	end
+end
+
+describe "authenticate username and password" do
+	
+	describe "self.authenticate" do
+		
+		context "correct password" do
+			it "should be valid to authenticate"
+		end
+		
+		context "incorrect password" do
+			it "should return nil to authenticate"
+		end
+	end
+end
