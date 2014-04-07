@@ -1,42 +1,20 @@
 require 'spec_helper'
 
 describe User do
-  it "is valid with an email" do
-    user = User.new(email: 'harryworld@gmail.com', password: '1234', password_confirmation: '1234')
-    user.save
-    expect(user).to be_valid
-  end
 
-  it "is invalid without an email" do
-    user = User.new(password: '1234', password_confirmation: '1234')
-    user.save
-    expect(user).to have(1).errors_on(:email)
-  end
+	it "is valid with an email"
+
+  it "is invalid without an email"
 
   describe "password is provided" do
-    before :each do
-      @user = User.new(email: 'harryworld@gmail.com', password: '1234', password_confirmation: '1234')
-    end
-
-    it "should be valid with password_confirmation" do
-      @user.save
-      expect(@user).to be_valid
-    end
+    it "should be valid with password_confirmation"
 
     context "password_confirmation is provided as empty" do
-      it "should be invalid without password_confirmation" do
-        @user.password_confirmation = ''
-        @user.save
-        expect(@user).to have(1).errors_on(:password_confirmation)
-      end
+      it "should be invalid without password_confirmation"
     end
 
     context "password_confirmation is provided as nil" do
-      it "should be valid without password_confirmation" do
-        @user.password_confirmation = nil
-        @user.save
-        expect(@user).to be_valid
-      end
+      it "should be valid without password_confirmation"
     end
   end
 
