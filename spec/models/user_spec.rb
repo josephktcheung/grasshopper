@@ -145,23 +145,20 @@ describe User do
   end
 
   describe "first name and last name" do
-    it "should only contain letters" do
-
-    end
     it "should be a capital letter followed by lowercase letters" do
-
+      expect(user.first_name).to match /[A-Z][a-z]*/
     end
   end
 
   describe "email" do
     it "should be a valid email format" do
-
+      expect(user.first_name).to match /.*@.*\..*/
     end
   end
 
   describe "role" do
     it "should be either 'master' or 'apprentice'" do
-
+      expect(user.first_name).to match /(master)|(apprentice)/
     end
   end
 
