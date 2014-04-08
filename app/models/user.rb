@@ -4,12 +4,20 @@ class User < ActiveRecord::Base
 
   attr_accessor :password, :password_confirmation
 
+  after_initialize :set_active
   before_create :set_random_password, unless: :password
   before_save :encrypt_password, if: :password
   before_save :downcase_attributes
 
   validates :email, presence: true, uniqueness: { case_sensitive: false }
   validates :password, confirmation: true
+  validates :is_active, inclusion: { :in => [true, false] }
+  validates :first_name, presence: true
+  validates :last_name, presence: true
+
+  def set_active
+    self.is_active = true
+  end
 
   def self.nil_expired_reset_codes
     User.where( :reset_expires_at.lt => Time.now.gmtime ).unset(
@@ -66,6 +74,7 @@ class User < ActiveRecord::Base
 
   def downcase_attributes
     self.email.downcase!
+    binding.pry
   end
 
   def set_salt

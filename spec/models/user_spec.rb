@@ -3,13 +3,10 @@ require 'spec_helper'
 describe User do
 
   before :each do
-    user = User.create(first_name: 'Grass', last_name: 'Hopper', email: 'gh@ga.co', password: '123', password_confirmation: '123', role: 'master')
+    @user = User.create(first_name: 'Grass', last_name: 'Hopper', email: 'gh@ga.co', password: '123', password_confirmation: '123', role: 'master')
   end
 
   describe "password is provided" do
-    before :each do
-      @user = User.new(email: 'gh@ga.co', password: '123', password_confirmation: '123')
-    end
 
     it "should be valid with password_confirmation" do
       @user.save
@@ -108,52 +105,52 @@ describe User do
   # Our own user tests
 
   it "should be valid with a first name, last name, email, role, and status" do
-    expect(user).to be_valid
+    expect(@user).to be_valid
   end
 
   it "should not be valid without a first name" do
-    user.first_name = nil
-    expect(user).to_not be_valid
+    @user.first_name = nil
+    expect(@user).to_not be_valid
   end
   it "should not be valid without a last name" do
-    user.last_name = nil
-    expect(user).to_not be_valid
+    @user.last_name = nil
+    expect(@user).to_not be_valid
   end
   it "should not be valid without an email" do
-    user.email = nil
-    expect(user).to_not be_valid
+    @user.email = nil
+    expect(@user).to_not be_valid
   end
   it "should not be valid without a role" do
-    user.role = nil
-    expect(user).to_not be_valid
+    @user.role = nil
+    expect(@user).to_not be_valid
   end
   it "should not be valid without is_active" do
-    user.is_active = nil
-    expect(user).to_not be_valid
+    @user.is_active = nil
+    expect(@user).to_not be_valid
   end
 
   describe "first name and last name" do
     it "should be a capital letter followed by lowercase letters" do
-      expect(user.first_name).to match /[A-Z][a-z]*/
-      expect(user.last_name).to match /[A-Z][a-z]*/
+      expect(@user.first_name).to match /[A-Z][a-z]*/
+      expect(@user.last_name).to match /[A-Z][a-z]*/
     end
   end
 
   describe "email" do
     it "should be a valid email format" do
-      expect(user.email).to match /.*@.*\..*/
+      expect(@user.email).to match /.*@.*\..*/
     end
   end
 
   describe "role" do
     it "should be either 'master' or 'apprentice'" do
-      expect(user.role).to match /(master)|(apprentice)/
+      expect(@user.role).to match /(master)|(apprentice)/
     end
   end
 
   describe "is_active" do
     it "should be true when user is saved" do
-      expect(user.is_active).to eq true
+      expect(@user.is_active).to eq true
     end
   end
 
