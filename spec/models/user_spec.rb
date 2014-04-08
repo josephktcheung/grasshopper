@@ -75,9 +75,9 @@ describe User do
       context "password with confirmation matches" do
         it "should have the fish and salt changed" do
           @user = User.find_by email: 'harry@ga.co'
-          @user.set_password_reset
-          expect(@user.code).to_not be_nil
-          expect(@user.expires_at).to_not be_nil
+          @user.set_reset_code
+          expect(@user.reset_code).to_not be_nil
+          expect(@user.reset_expires_at).to_not be_nil
         end
 
         it "should have code and expires_at set to nil"
