@@ -131,3 +131,4 @@ describe User do
     it "should be unique"
     it "is not valid if username is empty"
   end
+end

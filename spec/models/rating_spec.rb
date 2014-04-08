@@ -8,14 +8,17 @@ describe Rating do
   end
 
   describe "rated_by" do
-    it "should log who the rating is by"
+    it "should not have a user id the same as the assigned_to id"
+    it "should contain the user_id of the master or grasshopper of the associated apprenticeship"
   end
 
   describe "assigned_to" do
-    it "should assign the rating to the correct user"
+    it "should not have a user id the same as the rated_by id"
+    it "should contain the user_id of the master or grasshopper of the associated apprenticeship"
   end
 
   describe "score" do
-    it "it should update the score when the user is rated"
+    it "should not be less than 0"
+    it "should not be greater than 5"
   end
 end
