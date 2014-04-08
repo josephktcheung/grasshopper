@@ -116,4 +116,19 @@ describe User do
       it "should not have value in salt and fish"
     end
   end
+
+  # Our own user tests
+  describe "status" do
+    it "should be active when user is saved"
+  end
+
+  it "should not be valid without first name"
+  it "should be valid with first name"
+  it "should not be valid without last name"
+  it "should be valid with last name"
+
+  describe "username" do
+    it "should be unique"
+    it "is not valid if username is empty"
+  end
 end
