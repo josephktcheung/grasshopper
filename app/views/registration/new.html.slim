@@ -1,6 +1,6 @@
 = form_for @user, url: register_url( params[:code] ), html: { class: "registration-form", autocomplete: "off" } do |f|
   fieldset
-    legend.col-md-8.col-md-offset-2.col-sm-12 Complete registration for #{@user}
+    legend.col-md-8.col-md-offset-2.col-sm-12 Complete registration for #{@user.email}
     .registration-form.row
       .col-md-4.col-md-offset-2.col-sm-6.col-xs-12
         .form-group.name-field.name-given

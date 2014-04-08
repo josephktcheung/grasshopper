@@ -21,7 +21,9 @@ $ ->
     pw = $('#user_password').val()
     pc = $('#user_password_confirmation').val()
 
-    if pw == pc
+    if !pw && !pc
+      $('#match-div').html("").addClass('pmatch')
+    else if pw == pc
       $('#match-div').html("Passwords match!").addClass('pmatch')
     else
       $('#match-div').html("Passwords don't match!").removeClass('pmatch')
