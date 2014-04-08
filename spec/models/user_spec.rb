@@ -59,7 +59,7 @@ describe User do
     context "password is not blank" do
       context "password with confirmation matches" do
         it "should have the fish and salt changed" do
-          @user = User.find_by email: 'harry@ga.co'
+          @user = User.find_by email: 'gh@ga.co'
           @user.set_reset_code
           expect(@user.reset_code).to_not be_nil
           expect(@user.reset_expires_at).to_not be_nil
