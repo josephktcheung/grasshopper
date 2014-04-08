@@ -1,5 +1,5 @@
 class SiteController < ApplicationController
-  before_action :is_authenticated?
+  before_action :is_authenticated?, except: [:privacy, :terms]
 
   def index
     @users = User.all.entries

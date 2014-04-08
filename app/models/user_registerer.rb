@@ -26,9 +26,7 @@ class UserRegisterer
   end
 
   def create_new_user_from_registrant(registrant, user_params)
-    binding.pry
     params = user_params.merge( email: registrant.email )
-    binding.pry
 
     if user = User.create( params )
       registrant.destroy
