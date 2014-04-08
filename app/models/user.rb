@@ -14,6 +14,7 @@ class User < ActiveRecord::Base
   validates :is_active, inclusion: { :in => [true, false] }
   validates :first_name, presence: true
   validates :last_name, presence: true
+  validates :role, presence: true
 
   def set_active
     self.is_active = true
@@ -74,7 +75,6 @@ class User < ActiveRecord::Base
 
   def downcase_attributes
     self.email.downcase!
-    binding.pry
   end
 
   def set_salt
