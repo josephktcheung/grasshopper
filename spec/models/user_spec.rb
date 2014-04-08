@@ -6,18 +6,6 @@ describe User do
     user = User.create(first_name: 'Grass', last_name: 'Hopper', email: 'gh@ga.co', password: '123', password_confirmation: '123', role: 'master')
   end
 
-  # it "is valid with an email" do
-  #   user = User.new(email: 'gh@ga.co', password: '123', password_confirmation: '123')
-  #   user.save
-  #   expect(user).to be_valid
-  # end
-
-  # it "is invalid without an email" do
-  #   user = User.new(password: '123', password_confirmation: '123')
-  #   user.save
-  #   expect(user).to have(1).errors_on(:email)
-  # end
-
   describe "password is provided" do
     before :each do
       @user = User.new(email: 'gh@ga.co', password: '123', password_confirmation: '123')
@@ -147,24 +135,24 @@ describe User do
   describe "first name and last name" do
     it "should be a capital letter followed by lowercase letters" do
       expect(user.first_name).to match /[A-Z][a-z]*/
+      expect(user.last_name).to match /[A-Z][a-z]*/
     end
   end
 
   describe "email" do
     it "should be a valid email format" do
-      expect(user.first_name).to match /.*@.*\..*/
+      expect(user.email).to match /.*@.*\..*/
     end
   end
 
   describe "role" do
     it "should be either 'master' or 'apprentice'" do
-      expect(user.first_name).to match /(master)|(apprentice)/
+      expect(user.role).to match /(master)|(apprentice)/
     end
   end
 
   describe "is_active" do
     it "should be true when user is saved" do
-      user.save
       expect(user.is_active).to eq true
     end
   end
