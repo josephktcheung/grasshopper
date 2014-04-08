@@ -9,19 +9,19 @@ class User < ActiveRecord::Base
   before_save :encrypt_password, if: :password
   before_save :downcase_attributes
 
-  validates :email, presence: true, uniqueness: { case_sensitive: false }
+  validates :email, format: { with: /.*@.*\..*/ }, uniqueness: { case_sensitive: false }
   validates :password, confirmation: true
   validates :is_active, inclusion: { :in => [true, false] }
-  validates :first_name, presence: true
-  validates :last_name, presence: true
-  validates :role, presence: true
+  validates :first_name, format: { with: /[A-Z][a-z].*/ }
+  validates :last_name, format: { with: /[A-Z][a-z].*/ }
+  validates :role, format: { with: /(^master$)|(^apprentice$)/ }
 
   def set_active
     self.is_active = true
   end
 
   def self.nil_expired_reset_codes
-    User.where( "reset_expires_at < ?", Time.now.gmtime ).update_all(
+    User.where( "reset_expires_at < ?", Time.now.gmtime ).update_attributes(
       reset_code: nil,
       reset_expires_at: nil
     )
@@ -64,7 +64,10 @@ class User < ActiveRecord::Base
       return false
     else
       if self.update_attributes( user_params )
-        self.update_attributes( reset_code: nil, reset_expires_at: nil)
+        self.update_attributes(
+          reset_code: nil,
+          reset_expires_at: nil
+        )
       end
     end
   end

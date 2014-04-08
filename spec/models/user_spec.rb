@@ -134,22 +134,31 @@ describe User do
     expect(@user).to_not be_valid
   end
 
-  describe "first name and last name" do
+  describe "first_name" do
     it "should be a capital letter followed by lowercase letters" do
-      expect(@user.first_name).to match /[A-Z][a-z]*/
-      expect(@user.last_name).to match /[A-Z][a-z]*/
+      @user.first_name = 'gRass'
+      expect(@user).to_not be_valid
+    end
+  end
+
+  describe "last_name" do
+    it "should be a capital letter followed by lowercase letters" do
+      @user.last_name = '@)#(*$&E@)#'
+      expect(@user).to_not be_valid
     end
   end
 
   describe "email" do
     it "should be a valid email format" do
-      expect(@user.email).to match /.*@.*\..*/
+      @user.email = 'gh.ga@co'
+      expect(@user).to_not be_valid
     end
   end
 
   describe "role" do
     it "should be either 'master' or 'apprentice'" do
-      expect(@user.role).to match /(master)|(apprentice)/
+      @user.role = 'masters'
+      expect(@user).to_not be_valid
     end
   end
 
