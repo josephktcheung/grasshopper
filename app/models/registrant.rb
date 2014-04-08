@@ -6,10 +6,13 @@ class Registrant < ActiveRecord::Base
   before_save :set_registration_expiration
 
   validates :email, presence: true, uniqueness: { case_sensitive: false }
+  validates :first_name, presence: true
+  validates :last_name, presence: true
+  validates :role, presence: true
 
   def self.destroy_expired_registrants
     Registrant.where(
-      :registration_expires_at.lt => Time.now.gmtime
+      "registration_expires_at < ?", Time.now.gmtime
     ).destroy_all
   end
 
@@ -17,12 +20,10 @@ class Registrant < ActiveRecord::Base
     Registrant.destroy_expired_registrants
 
     if registrant = Registrant.find_by(
-        :registration_code => code,
-        :registration_expires_at.gte => Time.now.gmtime
+      "registration_code = ? AND registration_expires_at > ?", code, Time.now.gmtime
       )
       registrant.save
     end
-
     registrant
   end
 

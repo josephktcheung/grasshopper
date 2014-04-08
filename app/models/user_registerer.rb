@@ -27,10 +27,13 @@ class UserRegisterer
 
   def create_new_user_from_registrant(registrant, user_params)
     params = user_params.merge( email: registrant.email )
+    binding.pry
 
     if user = User.create( params )
       registrant.destroy
       send_welcome_email(user)
+    else
+      @flash.now[:alert] = SAVE_FAILED
     end
 
     user

@@ -17,9 +17,9 @@ ActiveRecord::Schema.define(version: 20140408152034) do
   enable_extension "plpgsql"
 
   create_table "registrants", force: true do |t|
-    t.string "email"
-    t.string "registration_code"
-    t.time   "registration_expires_at"
+    t.string   "email"
+    t.string   "registration_code"
+    t.datetime "registration_expires_at"
   end
 
   create_table "users", force: true do |t|
