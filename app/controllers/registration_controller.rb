@@ -34,7 +34,9 @@ class RegistrationController < ApplicationController
     params.require(:user).permit(
       :password,
       :password_confirmation,
-      :name_attributes => [ :first_name, :last_name ]
+      :first_name,
+      :last_name,
+      :role
     )
   end
 end

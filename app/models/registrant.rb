@@ -6,9 +6,6 @@ class Registrant < ActiveRecord::Base
   before_save :set_registration_expiration
 
   validates :email, presence: true, uniqueness: { case_sensitive: false }
-  validates :first_name, presence: true
-  validates :last_name, presence: true
-  validates :role, presence: true
 
   def self.destroy_expired_registrants
     Registrant.where(
