@@ -7,6 +7,8 @@ gem 'coffee-rails', '~> 4.0.0'
 gem 'jquery-rails'
 gem 'bcrypt'
 gem 'slim'
+gem 'rabl'
+gem 'oj'
 
 
 group :doc do
