@@ -1,0 +1,15 @@
+.row
+  .col-md-4.col-md-offset-4
+    = form_for :user, url: log_in_url, html: { class: "login-form" } do |f|
+      fieldset
+        legend Please sign in
+        .form-group
+          = f.label :email, class: "sr-only"
+          = f.text_field :email, class: "form-control", placeholder: "Email address"
+        .form-group
+          = f.label :password, class: "sr-only"
+          = f.password_field :password, class: "form-control", placeholder: "Password"
+        .form-group
+          = f.submit "Sign in", class: "btn btn-success"
+
+    p To reset your password, simply leave the password field blank and submit the form.

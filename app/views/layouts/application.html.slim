@@ -1,10 +1,32 @@
 doctype html
 html
   head
-    title Grasshopper
-    = stylesheet_link_tag "application", "semantic", media: "all"
-    / = javascript_include_tag "application"
+    meta charset="utf-8"
+    meta content="width=device-width, initial-scale=1.0" name="viewport"
     = csrf_meta_tags
-  body
 
-    = yield
+    title Grasshopper
+
+    link rel="stylesheet" media="all" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css"
+    = stylesheet_link_tag "application", media: "all"
+
+    = javascript_include_tag "application"
+  body
+    #wrap
+      header.navbar.navbar-inverse.navbar-fixed-top role="banner"
+        .container
+          .pull-right
+            = link_to( "Log out", log_out_url, method: :delete, class: "btn btn-danger logout-link" ) if current_user
+          h1.navbar-brand Grasshopper
+      main.container.main role="main"
+        == yield
+    footer>
+      .container
+        .row
+          p.text-muted.credit
+            => link_to "Privacy Policy", privacy_url
+            ' &bull;
+            => link_to "Terms of Use", terms_url
+            ' &bull; &copy; 2013 Grasshopper
+    script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"
+    == flash_noty_script_tag
