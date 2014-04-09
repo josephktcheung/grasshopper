@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Conversation do
+describe Message do
 
   it "should not be valid without to_user"
   it "should be valid with to_user"
