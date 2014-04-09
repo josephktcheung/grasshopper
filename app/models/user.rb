@@ -12,9 +12,9 @@ class User < ActiveRecord::Base
   validates :email, format: { with: /.*@.*\..*/ }, uniqueness: { case_sensitive: false }
   validates :password, confirmation: true
   validates :is_active, inclusion: { :in => [true, false] }
-  validates :first_name, format: { with: /[A-Z][a-z].*/ }
-  validates :last_name, format: { with: /[A-Z][a-z].*/ }
-  validates :role, format: { with: /(^master$)|(^apprentice$)/ }
+  validates :first_name, format: { with: /\A[A-Z][a-z].*\z/ }
+  validates :last_name, format: { with: /\A[A-Z][a-z].*\z/ }
+  validates :role, format: { with: /(\Amaster\z)|(\Aapprentice\z)/ }
 
   def set_active
     self.is_active = true
