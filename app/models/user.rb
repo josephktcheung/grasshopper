@@ -9,21 +9,21 @@ class User < ActiveRecord::Base
   before_save :encrypt_password, if: :password
   before_save :downcase_attributes
 
-  validates :email, presence: true, uniqueness: { case_sensitive: false }
+  validates :email, format: { with: /.*@.*\..*/ }, uniqueness: { case_sensitive: false }
   validates :password, confirmation: true
   validates :is_active, inclusion: { :in => [true, false] }
-  validates :first_name, presence: true
-  validates :last_name, presence: true
-  validates :role, presence: true
+  validates :first_name, format: { with: /\A[A-Z][a-z].*\z/ }
+  validates :last_name, format: { with: /\A[A-Z][a-z].*\z/ }
+  validates :role, format: { with: /(\Amaster\z)|(\Aapprentice\z)/ }
 
   def set_active
     self.is_active = true
   end
 
   def self.nil_expired_reset_codes
-    User.where( :reset_expires_at.lt => Time.now.gmtime ).unset(
-      :reset_code,
-      :reset_expires_at
+    User.where( "reset_expires_at < ?", Time.now.gmtime ).update_attributes(
+      reset_code: nil,
+      reset_expires_at: nil
     )
   end
 
@@ -31,8 +31,7 @@ class User < ActiveRecord::Base
     User.nil_expired_reset_codes
 
     if user = User.find_by(
-        :reset_code => code,
-        :reset_expires_at.gte => Time.now.gmtime
+        "reset_code = ? AND reset_expires_at > ?", code, Time.now.gmtime
       )
       user.set_reset_expiration
     end
@@ -65,8 +64,10 @@ class User < ActiveRecord::Base
       return false
     else
       if self.update_attributes( user_params )
-        self.unset( :reset_code )
-        self.unset( :reset_expires_at )
+        self.update_attributes(
+          reset_code: nil,
+          reset_expires_at: nil
+        )
       end
     end
   end
