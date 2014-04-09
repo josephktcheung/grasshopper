@@ -14,14 +14,14 @@ class User < ActiveRecord::Base
   validates :is_active, inclusion: { :in => [true, false] }
   validates :first_name, format: { with: /\A[A-Z][a-z].*\z/ }
   validates :last_name, format: { with: /\A[A-Z][a-z].*\z/ }
-  validates :role, format: { with: /(\Amaster\z)|(\Aapprentice\z)/ }
+  validates :role, format: { with: /\Amaster\z|\Aapprentice\z/ }
 
   def set_active
     self.is_active = true
   end
 
   def self.nil_expired_reset_codes
-    User.where( "reset_expires_at < ?", Time.now.gmtime ).update_attributes(
+    User.where( "reset_expires_at < ?", Time.now.gmtime ).update_all(
       reset_code: nil,
       reset_expires_at: nil
     )
