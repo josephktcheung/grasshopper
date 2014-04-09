@@ -6,6 +6,18 @@ class User < ActiveRecord::Base
 
   attr_accessor :password, :password_confirmation
 
+    # t.string   "email"
+    # t.string   "salt"
+    # t.string   "fish"
+    # t.string   "reset_code"
+    # t.datetime "reset_expires_at"
+    # t.datetime "created_at"
+    # t.datetime "updated_at"
+    # t.string   "first_name"
+    # t.string   "last_name"
+    # t.string   "role"
+    # t.boolean  "is_active"
+
   after_initialize :set_active
   before_create :set_random_password, unless: :password
   before_save :encrypt_password, if: :password
@@ -78,9 +90,14 @@ class User < ActiveRecord::Base
   protected
 
   def upcase_name
-    self.first_name.capitalize!
-    self.last_name.capitalize!
 
+    if self.first_name != nil
+      self.first_name.capitalize!
+    end
+
+    if self.last_name != nil
+      self.last_name.capitalize!
+    end
   end
 
   def downcase_attributes

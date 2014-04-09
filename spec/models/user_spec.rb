@@ -54,58 +54,81 @@ describe User do
     end
   end
 
-  # describe "reset password" do
-  #   context "password is blank" do
-  #     it "should be invalid if password is blank"
-  #   end
+  describe "reset password" do
+    before :each do
+      @params = { password: "1234", password_confirmation: "1234" }
+    end
+    context "password is blank" do
+      it "should be invalid if password is blank" do
+        @user.password = nil
+        expect(@user).to_not be_valid
+      end
+    end
 
-  #   context "password is not blank" do
-  #     context "password with confirmation matches" do
-  #       it "should have the fish and salt changed" do
-  #         @user.set_reset_code
-  #         expect(@user.reset_code).to_not be_nil
-  #         expect(@user.reset_expires_at).to_not be_nil
-  #       end
+    context "password is not blank" do
+      context "password with confirmation matches" do
+        it "should have the fish and salt changed" do
+          fish = @user.fish
+          salt = @user.salt
+          @user.reset_password(@params)
+          expect(@user.fish).to_not eq fish
+          expect(@user.salt).to_not eq salt
+        end
+      end
+    end
 
-  #       it "should have code and expires_at set to nil" do
-  #         @user.set_reset_code
-  #         expect(@user.reset_code).to be_nil
-  #         expect(@user.reset_expires_at).to be_nil
-  #       end
-  #     end
+    it "should have code and expires_at to not be nil" do
+      @user.reset_password(@params)
+      expect(@user.reset_code).to be_nil
+      expect(@user.reset_expires_at).to be_nil
+    end
 
-  #     context "password with confirmation not matches" do
-  #       it "should have the fish and salt unchanged"
+    context "password with confirmation not matches" do
+      it "should have the fish and salt unchanged" do
+        @params[:password_confirmation] = 'abcd'
+        old_fish = @user.fish
+        @user.reset_password @params
+        expect(old_fish).to eq @user.fish
+      end
+    end
+  end
 
-  #       it "should have code and expires_at unchanged"
-  #     end
-  #   end
-  # end
+  describe "Set random password if password is not provided" do
+    before :each do
+      @user = User.new email: 'harry@ga.co'
+    end
 
-  # describe "Set random password if password is not provided" do
-  #   context "salt and fish exists" do
-  #     it "should have value in salt and fish"
-  #   end
-  # end
+    context "salt and fish exists" do
+      it "should have value in salt and fish" do
+        @user.send(:set_random_password)
+        expect(@user.salt).to_not be_nil
+        expect(@user.fish).to_not be_nil
+      end
+    end
+  end
 
-  # describe "Password is encrypted before save" do
-  #   context "password is present" do
-  #     it "should have value in salt and fish" do
-  #       @user.password = '123'
-  #       @user.send(:encrypt_password)
-  #       expect(@user.salt).to_not be_nil
-  #       expect(@user.fish).to_not be_nil
-  #     end
+  describe "Password is encrypted before save" do
+    before :each do
+      @new_user = User.new first_name: 'Grass', last_name: 'Hopper', email: 'gn@ga.co', password: '123', password_confirmation: '123', role: 'master'
+    end
 
-  #     context "encrypted password is not the same as plain" do
-  #       it "should have values of password and fish differently"
-  #     end
-  #   end
+    context "password is present" do
+      it "should have value in salt and fish" do
+        @user.password = '1234'
+        @user.send(:encrypt_password)
+        expect(@user.salt).to_not be_nil
+        expect(@user.fish).to_not be_nil
+      end
 
-  #   context "password is not present" do
-  #     it "should not have value in salt and fish"
-  #   end
-  # end
+      context "encrypted password is not the same as plain" do
+        it "should have values of password and fish differently" do
+          @user.password = '1234'
+          @user.send(:encrypt_password)
+          expect(@user.password).to_not eq @user.fish
+        end
+      end
+    end
+  end
 
   # Our own user tests
 
