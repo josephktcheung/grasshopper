@@ -8,7 +8,7 @@ class User < ActiveRecord::Base
   before_create :set_random_password, unless: :password
   before_save :encrypt_password, if: :password
   before_save :downcase_attributes
-  after_initialize :upcase_name
+  before_validation :upcase_name
 
   validates :email, format: { with: /.*@.*\..*/ }, uniqueness: { case_sensitive: false }
   validates :password, confirmation: true
