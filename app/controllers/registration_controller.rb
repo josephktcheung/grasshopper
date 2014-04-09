@@ -7,7 +7,7 @@ class RegistrationController < ApplicationController
   }.squish
 
   def new
-    @user = User.new email: @registrant.email
+    @user = User.new email: @registrant.email, first_name: "", last_name: ""
   end
 
   def create

@@ -1,20 +1,34 @@
 class User < ActiveRecord::Base
+  has_many :proficiencies
+  has_many :skills, through: :proficiencies
 
   PASSWORD_RESET_TIME_LIMIT = 1.day
 
   attr_accessor :password, :password_confirmation
 
-  after_initialize :set_active
-  before_create :set_random_password, unless: :password
+    # t.string   "email"
+    # t.string   "salt"
+    # t.string   "fish"
+    # t.string   "reset_code"
+    # t.datetime "reset_expires_at"
+    # t.datetime "created_at"
+    # t.datetime "updated_at"
+    # t.string   "first_name"
+    # t.string   "last_name"
+    # t.string   "role"
+    # t.boolean  "is_active"
+
   before_save :encrypt_password, if: :password
-  before_save :downcase_attributes
+  before_save :format_attributes
+  before_create :set_random_password, unless: :password
+  after_initialize :set_active
 
   validates :email, format: { with: /.*@.*\..*/ }, uniqueness: { case_sensitive: false }
   validates :password, confirmation: true
   validates :is_active, inclusion: { :in => [true, false] }
-  validates :first_name, format: { with: /\A[A-Z][a-z].*\z/ }
-  validates :last_name, format: { with: /\A[A-Z][a-z].*\z/ }
-  validates :role, format: { with: /\Amaster\z|\Aapprentice\z/ }
+  validates :first_name, format: { with: /\A[A-Z]{1}[a-z]*\z/ }
+  validates :last_name, format: { with: /\A[A-Z]{1}[a-z]*\z/ }
+  validates :role, format: { with: /(\Amaster\z)|(\Aapprentice\z)/ }
 
   def set_active
     self.is_active = true
@@ -74,8 +88,10 @@ class User < ActiveRecord::Base
 
   protected
 
-  def downcase_attributes
+  def format_attributes
     self.email.downcase!
+    self.first_name.capitalize!
+    self.last_name.capitalize!
   end
 
   def set_salt
