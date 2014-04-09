@@ -130,8 +130,6 @@ describe User do
     end
   end
 
-  # Our own user tests
-
   it "should be valid with a first name, last name, email, role, and status" do
     expect(@user).to be_valid
   end
