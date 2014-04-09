@@ -12,7 +12,11 @@ describe Conversation do
     expect(@conversation).to_not be_valid
   end
 
-  it "should not valid without created_at"
+  it "should not valid without created_by" do
+    @conversation.created_by = nil
+    expect(@conversation).to_not be_valid
+  end
+
   it "should not valid without updated_at"
   it "should update updated_at when new message is created"
 
