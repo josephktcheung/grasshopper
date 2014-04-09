@@ -31,7 +31,12 @@ describe Conversation do
         expect(conversation).to_not be_valid
       end
 
-      it "should not have existing conversation with the initiater"
+      it "should not have existing conversation with the initiater" do
+        new_conversation_same_initiater = Conversation.create(created_by: @grasshopper.id, created_for: @master.id)
+        new_conversation_different_initiater = Conversation.create(created_by: @master.id, created_for: @grasshopper.id)
+        expect(new_conversation_same_initiater).to_not be_valid
+        expect(new_conversation_different_initiater).to_not be_valid
+      end
     end
   end
 
