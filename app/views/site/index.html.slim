@@ -1,1 +1,6 @@
-p This is the site index.
+h2 = "Welcome, #{@current_user.id}"
+
+ol
+  - @users.each do |user|
+    li
+      = user.email
