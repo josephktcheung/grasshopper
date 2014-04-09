@@ -23,12 +23,14 @@ describe Conversation do
     expect(Conversation.find(@conversation.id).updated_at).to_not eq previous_updated_at_time
   end
 
-  describe "created_by initiater" do
-    it "should not valid without created_by"
-    it "should be valid with created_by"
-
+  describe "when created_by initiater" do
     describe "recipient" do
-      it "should not be the same as initiater"
+      it "should not be the same as initiater" do
+        conversation = Conversation.new(created_by: @grasshopper.id, created_for: @grasshopper.id)
+        conversation.save
+        expect(conversation).to_not be_valid
+      end
+
       it "should not have existing conversation with the initiater"
     end
   end
