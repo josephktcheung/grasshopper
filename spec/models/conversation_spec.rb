@@ -17,8 +17,11 @@ describe Conversation do
     expect(@conversation).to_not be_valid
   end
 
-  it "should not valid without updated_at"
-  it "should update updated_at when new message is created"
+  it "should update updated_at when new message is created" do
+    previous_updated_at_time = @conversation.updated_at
+    @conversation.messages.create(from_user: @grasshopper.id, to_user: @master.id)
+    expect(Conversation.find(@conversation.id).updated_at).to_not eq previous_updated_at_time
+  end
 
   describe "created_by initiater" do
     it "should not valid without created_by"
