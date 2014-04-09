@@ -54,18 +54,24 @@ describe User do
     end
   end
 
-  # describe "reset password" do
-  #   context "password is blank" do
-  #     it "should be invalid if password is blank"
-  #   end
+  describe "reset password" do
+    context "password is blank" do
+      it "should be invalid if password is blank" do
+        @user.password = nil
+        expect(@user).to_not be_valid
+      end
+    end
+  end
 
-  #   context "password is not blank" do
-  #     context "password with confirmation matches" do
-  #       it "should have the fish and salt changed" do
-  #         @user.set_reset_code
-  #         expect(@user.reset_code).to_not be_nil
-  #         expect(@user.reset_expires_at).to_not be_nil
-  #       end
+  context "password is not blank" do
+    context "password with confirmation matches" do
+      it "should have the fish and salt changed" do
+        @user.set_reset_code
+        expect(@user.reset_code).to_not be_nil
+        expect(@user.reset_expires_at).to_not be_nil
+      end
+    end
+  end
 
   #       it "should have code and expires_at set to nil" do
   #         @user.set_reset_code
