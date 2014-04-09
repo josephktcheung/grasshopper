@@ -4,6 +4,18 @@ class User < ActiveRecord::Base
 
   attr_accessor :password, :password_confirmation
 
+    # t.string   "email"
+    # t.string   "salt"
+    # t.string   "fish"
+    # t.string   "reset_code"
+    # t.datetime "reset_expires_at"
+    # t.datetime "created_at"
+    # t.datetime "updated_at"
+    # t.string   "first_name"
+    # t.string   "last_name"
+    # t.string   "role"
+    # t.boolean  "is_active"
+
   after_initialize :set_active
   before_create :set_random_password, unless: :password
   before_save :encrypt_password, if: :password
