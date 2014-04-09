@@ -8,7 +8,7 @@ class User < ActiveRecord::Base
   before_create :set_random_password, unless: :password
   before_save :encrypt_password, if: :password
   before_save :downcase_attributes
-  before_validation :upcase_name
+  before_save :upcase_name
 
   validates :email, format: { with: /.*@.*\..*/ }, uniqueness: { case_sensitive: false }
   validates :password, confirmation: true
@@ -22,7 +22,7 @@ class User < ActiveRecord::Base
   end
 
   def self.nil_expired_reset_codes
-    User.where( "reset_expires_at < ?", Time.now.gmtime ).update_attributes(
+    User.where( "reset_expires_at < ?", Time.now.gmtime ).update_all(
       reset_code: nil,
       reset_expires_at: nil
     )
