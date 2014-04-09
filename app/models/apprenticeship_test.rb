@@ -1,7 +1,7 @@
 class Apprenticeship < ActiveRecord::Base
 
-  belongs_to :master, class_name: "User", foreign_key: "user_id"
-  belongs_to :apprentice, class_name: "User", foreign_key: "user_id"
+  belongs_to :master, class_name: "User"
+  belongs_to :apprentice, class_name: "User"
   has_many :ratings
 
   created_at
@@ -9,6 +9,6 @@ class Apprenticeship < ActiveRecord::Base
   end_date
   master
   apprentice
-  rating_id
+  rating
 
 end

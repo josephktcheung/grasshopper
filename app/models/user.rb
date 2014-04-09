@@ -2,8 +2,7 @@ class User < ActiveRecord::Base
 
   has_many :proficiencies
   has_many :skills, through: :proficiencies
-  # has_many :apprenticeships, foreign_key: "master_id"
-  # has_many :apprenticeships, foreign_key: "apprentice_id"
+  has_many :apprenticeships
 
   PASSWORD_RESET_TIME_LIMIT = 1.day
 
