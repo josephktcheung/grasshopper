@@ -1,10 +1,10 @@
 class Skill < ActiveRecord::Base
-  has_many  :proficiencys
-  has_many :users, through: :proficiencys
+  has_many  :proficiencies
+  has_many :users, through: :proficiencies
 
   before_validation :downcase_name
 
-  validates :skill_name, uniqueness: { case_sensitive: false }
+  validates :skill_name, presence: true, uniqueness: { case_sensitive: false }
 
 
   def downcase_name
