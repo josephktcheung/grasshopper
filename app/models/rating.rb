@@ -1,5 +1,7 @@
 class Rating < ActiveRecord::Base
-  belongs_to :rater
-  belongs_to :ratee
+
+  belongs_to :rater, class_name: "User"
+  belongs_to :ratee, class_name: "User"
   belongs_to :apprenticeship
+
 end
