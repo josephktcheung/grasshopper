@@ -4,7 +4,7 @@ describe Skill do
 
   before :each do
     @skill_invalid = Skill.create
-    @skill_valid = Skill.create (skill_name: "Wood Carving")
+    @skill_valid = Skill.create(skill_name: "Wood Carving")
   end
 
   context "has skill_name" do
