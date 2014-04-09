@@ -1,6 +1,6 @@
-requires 'spec_helper'
+require 'spec_helper'
 
-describe UsersController
+describe UsersController do
 
   render_views
 

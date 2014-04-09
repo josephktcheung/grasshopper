@@ -3,7 +3,6 @@ require 'spec_helper'
 describe Rating do
 
   describe "apprenticeship_id" do
-    it "should be valid with an apprenticeship_id"
     it "should not be valid without an apprenticeship_id"
   end
 
@@ -18,7 +17,7 @@ describe Rating do
   end
 
   describe "score" do
-    it "should not be less than 0"
+    it "should not be less than 1"
     it "should not be greater than 5"
   end
 end

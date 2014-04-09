@@ -3,25 +3,10 @@ require 'spec_helper'
 describe User do
 
   before :each do
-    User.create(email: 'harry@ga.co', password: '1234', password_confirmation: '1234')
-  end
-
-  it "is valid with an email" do
-    user = User.new(email: 'harryworld@gmail.com', password: '1234', password_confirmation: '1234')
-    user.save
-    expect(user).to be_valid
-  end
-
-  it "is invalid without an email" do
-    user = User.new(password: '1234', password_confirmation: '1234')
-    user.save
-    expect(user).to have(1).errors_on(:email)
+    @user = User.create(first_name: 'Grass', last_name: 'Hopper', email: 'gh@ga.co', password: '123', password_confirmation: '123', role: 'master')
   end
 
   describe "password is provided" do
-    before :each do
-      @user = User.new(email: 'harryworld@gmail.com', password: '1234', password_confirmation: '1234')
-    end
 
     it "should be valid with password_confirmation" do
       @user.save
@@ -48,87 +33,139 @@ describe User do
   describe "authenticate username and password" do
     describe "self.authenticate" do
       context "correct password" do
-        it "should be valid to authenticate"
+        it "should be valid to authenticate" do
+          expect(User.authenticate('gh@ga.co', '123')).to eq(@user)
+        end
       end
 
       context "incorrect password" do
-        it "should return nil to authenticate"
+        it "should return nil to authenticate" do
+          expect(User.authenticate('gh@ga.co', '122')).to eq(nil)
+        end
       end
     end
 
     describe "authenticate" do
-      it "authenticate correctly" do
-        user = User.find_by email: 'harry@ga.co'
-        auth_result = user.authenticate '1234'
-        result = user.fish == BCrypt::Engine.hash_secret('1234', user.salt)
+      it "should authenticate correctly" do
+        auth_result = @user.authenticate '123'
+        result = @user.fish == BCrypt::Engine.hash_secret('123', @user.salt)
         expect(auth_result).to eq result
       end
     end
   end
 
-  describe "reset password" do
-    context "password is blank" do
-      it "should be invalid if password is blank"
-    end
+  # describe "reset password" do
+  #   context "password is blank" do
+  #     it "should be invalid if password is blank"
+  #   end
 
-    context "password is not blank" do
-      context "password with confirmation matches" do
-        it "should have the fish and salt changed" do
-          @user = User.find_by email: 'harry@ga.co'
-          @user.set_password_reset
-          expect(@user.code).to_not be_nil
-          expect(@user.expires_at).to_not be_nil
-        end
+  #   context "password is not blank" do
+  #     context "password with confirmation matches" do
+  #       it "should have the fish and salt changed" do
+  #         @user.set_reset_code
+  #         expect(@user.reset_code).to_not be_nil
+  #         expect(@user.reset_expires_at).to_not be_nil
+  #       end
 
-        it "should have code and expires_at set to nil"
-      end
+  #       it "should have code and expires_at set to nil" do
+  #         @user.set_reset_code
+  #         expect(@user.reset_code).to be_nil
+  #         expect(@user.reset_expires_at).to be_nil
+  #       end
+  #     end
 
-      context "password with confirmation not matches" do
-        it "should have the fish and salt unchanged"
+  #     context "password with confirmation not matches" do
+  #       it "should have the fish and salt unchanged"
 
-        it "should have code and expires_at unchanged"
-      end
-    end
-  end
+  #       it "should have code and expires_at unchanged"
+  #     end
+  #   end
+  # end
 
-  describe "Set random password if password is not provided" do
-    context "salt and fish exists" do
-      it "should have value in salt and fish"
-    end
-  end
+  # describe "Set random password if password is not provided" do
+  #   context "salt and fish exists" do
+  #     it "should have value in salt and fish"
+  #   end
+  # end
 
-  describe "Password is encrypted before save" do
-    context "password is present" do
-      it "should have value in salt and fish" do
-        @user = User.new email: 'harryworld@gmail.com'
-        @user.password = '1234'
-        @user.send(:encrypt_password)
-        expect(@user.salt).to_not be_nil
-        expect(@user.fish).to_not be_nil
-      end
+  # describe "Password is encrypted before save" do
+  #   context "password is present" do
+  #     it "should have value in salt and fish" do
+  #       @user.password = '123'
+  #       @user.send(:encrypt_password)
+  #       expect(@user.salt).to_not be_nil
+  #       expect(@user.fish).to_not be_nil
+  #     end
 
-      context "encrypted password is not the same as plain" do
-        it "should have values of password and fish differently"
-      end
-    end
+  #     context "encrypted password is not the same as plain" do
+  #       it "should have values of password and fish differently"
+  #     end
+  #   end
 
-    context "password is not present" do
-      it "should not have value in salt and fish"
-    end
-  end
+  #   context "password is not present" do
+  #     it "should not have value in salt and fish"
+  #   end
+  # end
 
   # Our own user tests
-  describe "status" do
-    it "should be active when user is saved"
+
+  it "should be valid with a first name, last name, email, role, and status" do
+    expect(@user).to be_valid
   end
 
-  it "should not be valid without first name"
-  it "should be valid with first name"
-  it "should not be valid without last name"
-  it "should be valid with last name"
-
-  describe "username" do
-    it "should be unique"
-    it "is not valid if username is empty"
+  it "should not be valid without a first name" do
+    @user.first_name = nil
+    expect(@user).to_not be_valid
   end
+  it "should not be valid without a last name" do
+    @user.last_name = nil
+    expect(@user).to_not be_valid
+  end
+  it "should not be valid without an email" do
+    @user.email = nil
+    expect(@user).to_not be_valid
+  end
+  it "should not be valid without a role" do
+    @user.role = nil
+    expect(@user).to_not be_valid
+  end
+  it "should not be valid without is_active" do
+    @user.is_active = nil
+    expect(@user).to_not be_valid
+  end
+
+  describe "first_name" do
+    it "should be a capital letter followed by lowercase letters" do
+      @user.first_name = 'gRass'
+      expect(@user).to_not be_valid
+    end
+  end
+
+  describe "last_name" do
+    it "should be a capital letter followed by lowercase letters" do
+      @user.last_name = '@)#(*$&E@)#'
+      expect(@user).to_not be_valid
+    end
+  end
+
+  describe "email" do
+    it "should be a valid email format" do
+      @user.email = 'gh.ga@co'
+      expect(@user).to_not be_valid
+    end
+  end
+
+  describe "role" do
+    it "should be either 'master' or 'apprentice'" do
+      @user.role = 'masters'
+      expect(@user).to_not be_valid
+    end
+  end
+
+  describe "is_active" do
+    it "should be true when user is saved" do
+      expect(@user.is_active).to eq true
+    end
+  end
+
 end
