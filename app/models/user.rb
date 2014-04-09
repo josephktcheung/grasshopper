@@ -20,8 +20,8 @@ class User < ActiveRecord::Base
     # t.string   "role"
     # t.boolean  "is_active"
 
+  before_validation :format_attributes
   before_save :encrypt_password, if: :password
-  before_save :format_attributes
   before_create :set_random_password, unless: :password
   after_initialize :set_active
 
@@ -91,9 +91,9 @@ class User < ActiveRecord::Base
   protected
 
   def format_attributes
-    self.email.downcase!
-    self.first_name.capitalize!
-    self.last_name.capitalize!
+    self.email.to_s.downcase!
+    self.first_name.to_s.capitalize!
+    self.last_name.to_s.capitalize!
   end
 
   def set_salt
