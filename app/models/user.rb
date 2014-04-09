@@ -1,4 +1,6 @@
 class User < ActiveRecord::Base
+  has_many :proficiencys
+  has_many :skills, through: :proficiencys
 
   PASSWORD_RESET_TIME_LIMIT = 1.day
 

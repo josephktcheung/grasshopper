@@ -1,6 +1,6 @@
 class Skill < ActiveRecord::Base
-  has_many  :skills_users
-  has_many :users, through: :skills_users
+  has_many  :proficiencys
+  has_many :users, through: :proficiencys
 
   before_validation :downcase_name
 
