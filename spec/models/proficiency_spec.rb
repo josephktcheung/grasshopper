@@ -20,12 +20,9 @@ describe Proficiency do
     expect(@proficiency).to_not be_valid
   end
 
-  describe User do
-  it "should not have the same skill with the same status" do
-
-
-  context "user can only have a given skill once" do
-    it "should not be valid if a user_id is associated with a skill_id more than once" do
+  # describe User do
+  #   context "user can only have a given skill once" do
+  #   it "should not have the same skill with the same status" do
 
     end
   end
