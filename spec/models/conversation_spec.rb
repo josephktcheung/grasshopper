@@ -40,7 +40,4 @@ describe Conversation do
     end
   end
 
-  describe "updated_at" do
-    it "should be updated when a new message is created in this conversation"
-  end
 end
