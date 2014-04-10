@@ -1,6 +1,8 @@
 class User < ActiveRecord::Base
+
   has_many :proficiencies
   has_many :skills, through: :proficiencies
+  has_many :apprenticeships
 
   PASSWORD_RESET_TIME_LIMIT = 1.day
 
@@ -18,17 +20,16 @@ class User < ActiveRecord::Base
     # t.string   "role"
     # t.boolean  "is_active"
 
-  after_initialize :set_active
-  before_create :set_random_password, unless: :password
+  before_validation :format_attributes
   before_save :encrypt_password, if: :password
-  before_save :downcase_attributes
-  before_save :upcase_name
+  before_create :set_random_password, unless: :password
+  after_initialize :set_active
 
   validates :email, format: { with: /.*@.*\..*/ }, uniqueness: { case_sensitive: false }
   validates :password, confirmation: true
   validates :is_active, inclusion: { :in => [true, false] }
-  validates :first_name, format: { with: /\A[A-Z][a-z].*\z/ }
-  validates :last_name, format: { with: /\A[A-Z][a-z].*\z/ }
+  validates :first_name, format: { with: /\A[A-Z]{1}[a-z]*\z/ }
+  validates :last_name, format: { with: /\A[A-Z]{1}[a-z]*\z/ }
   validates :role, format: { with: /(\Amaster\z)|(\Aapprentice\z)/ }
 
   def set_active
@@ -89,19 +90,10 @@ class User < ActiveRecord::Base
 
   protected
 
-  def upcase_name
-
-    if self.first_name != nil
-      self.first_name.capitalize!
-    end
-
-    if self.last_name != nil
-      self.last_name.capitalize!
-    end
-  end
-
-  def downcase_attributes
-    self.email.downcase!
+  def format_attributes
+    self.email.to_s.downcase!
+    self.first_name.to_s.capitalize!
+    self.last_name.to_s.capitalize!
   end
 
   def set_salt

@@ -130,8 +130,6 @@ describe User do
     end
   end
 
-  # Our own user tests
-
   it "should be valid with a first name, last name, email, role, and status" do
     expect(@user).to be_valid
   end
@@ -159,7 +157,7 @@ describe User do
 
   describe "first_name" do
     it "should be a capital letter followed by lowercase letters" do
-      @user.first_name = 'gRass'
+      @user.first_name = 'White space'
       expect(@user).to_not be_valid
     end
   end
