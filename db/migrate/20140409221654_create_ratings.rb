@@ -6,7 +6,7 @@ class CreateRatings < ActiveRecord::Migration
       t.references :apprenticeship, index: true
       t.integer :rating
 
-      t.timestamps
+      t.timestamps :null => false
     end
   end
 end

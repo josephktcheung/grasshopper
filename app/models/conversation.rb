@@ -5,7 +5,7 @@ class Conversation < ActiveRecord::Base
   validates :created_for, presence: true
   validates :created_by, presence: true
   validate :created_for_and_created_by_cannot_be_same
-  validate :cannot_have_exisitng_conversation
+  validate :cannot_have_existing_conversation, on: :create
 
   def created_for_and_created_by_cannot_be_same
     if created_for == created_by
@@ -13,7 +13,7 @@ class Conversation < ActiveRecord::Base
     end
   end
 
-  def cannot_have_exisitng_conversation
+  def cannot_have_existing_conversation
     initiator = created_by
     recipient = created_for
     if Conversation.find_by(created_by: initiator, created_for: recipient) || Conversation.find_by(created_by: recipient, created_for: initiator)

@@ -17,11 +17,11 @@ ActiveRecord::Schema.define(version: 20140409222548) do
   enable_extension "plpgsql"
 
   create_table "apprenticeships", force: true do |t|
-    t.datetime "end_date"
+    t.datetime "end_date",      null: false
     t.integer  "master_id"
     t.integer  "apprentice_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
   end
 
   add_index "apprenticeships", ["apprentice_id"], name: "index_apprenticeships_on_apprentice_id", using: :btree
@@ -35,14 +35,17 @@ ActiveRecord::Schema.define(version: 20140409222548) do
   end
 
   create_table "messages", force: true do |t|
-    t.integer  "from_user"
-    t.integer  "to_user"
+    t.integer  "to_user_id"
+    t.integer  "from_user_id"
+    t.integer  "conversation_id"
+    t.text     "content"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "conversation_id"
   end
 
   add_index "messages", ["conversation_id"], name: "index_messages_on_conversation_id", using: :btree
+  add_index "messages", ["from_user_id"], name: "index_messages_on_from_user_id", using: :btree
+  add_index "messages", ["to_user_id"], name: "index_messages_on_to_user_id", using: :btree
 
   create_table "proficiencies", force: true do |t|
     t.integer "user_id"
@@ -55,8 +58,8 @@ ActiveRecord::Schema.define(version: 20140409222548) do
     t.integer  "ratee_id"
     t.integer  "apprenticeship_id"
     t.integer  "rating"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
   end
 
   add_index "ratings", ["apprenticeship_id"], name: "index_ratings_on_apprenticeship_id", using: :btree

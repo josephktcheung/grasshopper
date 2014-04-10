@@ -19,8 +19,8 @@ describe Conversation do
 
   it "should update updated_at when new message is created" do
     previous_updated_at_time = @conversation.updated_at
-    @conversation.messages.create(from_user: @grasshopper.id, to_user: @master.id)
-    expect(Conversation.find(@conversation.id).updated_at).to_not eq previous_updated_at_time
+    @conversation.messages.create(from_user: @grasshopper, to_user: @master, content: 'Content')
+    expect(Message.find(@conversation.messages.last).updated_at).to_not eq previous_updated_at_time
   end
 
   describe "when created_by initiater" do
