@@ -16,7 +16,7 @@ describe UsersController, :type => :api do
       expect(JSON.load(response.body)["users"][0]["email"]).to eq 'gh@ga.co'
       expect(JSON.load(response.body)["users"][0]["first_name"]).to eq 'Grass'
       expect(JSON.load(response.body)["users"][0]["last_name"]).to eq 'Hopper'
-      expect(JSON.load(response.body)["users"][0]["last_name"]).to eq 'Hopper'
+      expect(JSON.load(response.body)["users"][0]["role"]).to eq 'master'
     end
 
 
