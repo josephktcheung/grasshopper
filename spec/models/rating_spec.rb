@@ -34,8 +34,12 @@ describe Rating do
   end
 
   describe "score" do
-    it "should not be valid unless the rating is between 1 and 5" do
+    it "should not be valid if the rating is less than 1" do
       @rating.rating = 0
+      expect(@rating).to_not be_valid
+    end
+    it "should not be valid if the rating is greater than 5" do
+      @rating.rating = 6
       expect(@rating).to_not be_valid
     end
   end
