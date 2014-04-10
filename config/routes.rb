@@ -18,9 +18,13 @@ Grasshopper::Application.routes.draw do
   get 'terms'   => 'site#terms'
 
   scope :api do
+
     get 'index' => 'api#index', defaults: { format: :json }
+
     resources :users, except: [ :edit, :new ], defaults: { format: :json } do
+      get ':id' => "users#show", on: :collection
     end
+
   end
 
 end
