@@ -16,4 +16,11 @@ Grasshopper::Application.routes.draw do
 
   get 'privacy' => 'site#privacy'
   get 'terms'   => 'site#terms'
+
+  scope :api do
+    get 'index' => 'api#index', defaults: { format: :json }
+    resources :users, except: [ :edit, :new ], defaults: { format: :json } do
+    end
+  end
+
 end
