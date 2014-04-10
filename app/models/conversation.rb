@@ -9,7 +9,7 @@ class Conversation < ActiveRecord::Base
 
   def created_for_and_created_by_cannot_be_same
     if created_for == created_by
-      errors.add(:created_for, 'cannot be the same as created_by')
+      errors.add(:created_for, 'sender and recipient cannot be the same')
     end
   end
 
