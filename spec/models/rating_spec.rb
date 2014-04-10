@@ -13,11 +13,9 @@ describe Rating do
     expect(@rating).to be_valid
   end
 
-  describe "apprenticeship" do
-    it "should not be valid without an apprenticeship" do
-      @rating.apprenticeship = nil
-      expect(@rating).to_not be_valid
-    end
+  it "should not be valid without an apprenticeship" do
+    @rating.apprenticeship = nil
+    expect(@rating).to_not be_valid
   end
 
   describe "rater and ratee" do
