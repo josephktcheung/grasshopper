@@ -8,9 +8,7 @@ class Skill < ActiveRecord::Base
 
 
   def downcase_name
-    unless self.skill_name.nil?
-      self.skill_name.downcase!
-    end
+    self.skill_name.to_s.downcase!
   end
 
 end
