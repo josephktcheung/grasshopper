@@ -7,12 +7,12 @@ describe Conversation do
     @conversation = Conversation.create(created_by: @grasshopper.id, created_for: @master.id)
   end
 
-  it "should not valid without created_for" do
+  it "should not be valid without created_for" do
     @conversation.created_for = nil
     expect(@conversation).to_not be_valid
   end
 
-  it "should not valid without created_by" do
+  it "should not be valid without created_by" do
     @conversation.created_by = nil
     expect(@conversation).to_not be_valid
   end
