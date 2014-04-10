@@ -17,8 +17,11 @@ ActiveRecord::Schema.define(version: 20140409073125) do
   enable_extension "plpgsql"
 
   create_table "apprenticeships", force: true do |t|
-    t.integer  "created_by"
-    t.integer  "created_for"
+    t.integer  "master"
+    t.integer  "grasshopper"
+    t.datetime "start_date"
+    t.datetime "end_date"
+    t.boolean  "status"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
