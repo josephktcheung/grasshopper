@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Skills_Users do
+describe Proficiency do
 
   it "should not be valid without a user_id"
   it "should not be valid without a skill_id"

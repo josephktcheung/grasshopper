@@ -27,22 +27,12 @@ ActiveRecord::Schema.define(version: 20140409222548) do
   add_index "apprenticeships", ["apprentice_id"], name: "index_apprenticeships_on_apprentice_id", using: :btree
   add_index "apprenticeships", ["master_id"], name: "index_apprenticeships_on_master_id", using: :btree
 
-  create_table "conversations", force: true do |t|
-    t.integer  "created_by"
-    t.integer  "created_for"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "messages", force: true do |t|
     t.integer  "from_user"
     t.integer  "to_user"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "conversation_id"
   end
-
-  add_index "messages", ["conversation_id"], name: "index_messages_on_conversation_id", using: :btree
 
   create_table "proficiencies", force: true do |t|
     t.integer "user_id"
