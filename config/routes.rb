@@ -16,4 +16,8 @@ Grasshopper::Application.routes.draw do
 
   get 'privacy' => 'site#privacy'
   get 'terms'   => 'site#terms'
+
+  #delete user
+  delete 'user' => 'user#destroy'
+
 end
