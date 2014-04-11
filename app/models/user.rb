@@ -26,6 +26,7 @@ class User < ActiveRecord::Base
   before_validation :format_attributes
   before_save :encrypt_password, if: :password
   before_create :set_random_password, unless: :password
+  before_create :create_username
   after_initialize :set_active
 
   validates :email, format: { with: /.*@.*\..*/ }, uniqueness: { case_sensitive: false }
@@ -111,5 +112,9 @@ class User < ActiveRecord::Base
     if self.fish.blank?
       self.fish = BCrypt::Engine.hash_secret(SecureRandom.base64(32), set_salt)
     end
+  end
+
+  def create_username
+    self.username = self.first_name + self.last_name
   end
 end
