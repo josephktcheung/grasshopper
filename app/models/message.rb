@@ -1,8 +1,8 @@
 class Message < ActiveRecord::Base
 
   belongs_to :conversation, touch: true
-  belongs_to :to_user, class_name: "User"
-  belongs_to :from_user, class_name: "User"
+  belongs_to :recipient, class_name: "User"
+  belongs_to :sender, class_name: "User"
 
   validates :to_user, presence: true
   validates :from_user, presence: true

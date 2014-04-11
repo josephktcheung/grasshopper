@@ -1,6 +1,8 @@
 class Conversation < ActiveRecord::Base
 
   has_many :messages
+  belongs_to :created_for, class_name: "User"
+  belongs_to :created_by, class_name: "User"
 
   validates :created_for, presence: true
   validates :created_by, presence: true
