@@ -116,5 +116,6 @@ class User < ActiveRecord::Base
 
   def create_username
     self.username = self.first_name + self.last_name
+    self.username.downcase!
   end
 end
