@@ -19,9 +19,9 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def log_user_out_and_redirect
+  def log_user_out_and_redirect(url, notice)
     session[:user_id] = nil
-    redirect_to login_form_url, notice: "You've successfully logged out."
+    redirect_to url, notice: notice
   end
 
   private

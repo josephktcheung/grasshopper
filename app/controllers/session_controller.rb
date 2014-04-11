@@ -20,7 +20,7 @@ class SessionController < ApplicationController
   end
 
   def destroy
-    log_user_out_and_redirect
+    log_user_out_and_redirect(login_form_url, "You've successfully logged out.")
   end
 
   private

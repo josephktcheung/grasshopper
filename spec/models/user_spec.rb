@@ -191,11 +191,15 @@ describe User do
 
   describe "generate username" do
    it "should generate a username when user is created" do
-    expect(@user.username). to eq 'grasshopper'
+    expect(@user.username).to eq 'grasshopper'
    end
   end
 
-
-
-
+  describe "Delete user" do
+    it "should delete the current user" do
+      expect(User.find_by_username("grasshopper")).to_not be_nil
+      @user.destroy
+      expect(User.find_by_username("grasshopper")).to be_nil
+    end
+  end
 end
