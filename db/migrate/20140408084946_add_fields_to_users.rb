@@ -4,5 +4,6 @@ class AddFieldsToUsers < ActiveRecord::Migration
     add_column :users, :last_name, :string
     add_column :users, :role, :string
     add_column :users, :is_active, :boolean
+    add_column :users, :username, :string
   end
 end

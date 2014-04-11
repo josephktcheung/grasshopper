@@ -189,4 +189,13 @@ describe User do
     end
   end
 
+  describe "generate username" do
+   it "should generate a username when user is created" do
+    expect(@user.username). to eq 'grasshopper'
+   end
+  end
+
+
+
+
 end
