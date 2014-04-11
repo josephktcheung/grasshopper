@@ -88,6 +88,7 @@ ActiveRecord::Schema.define(version: 20140409222548) do
     t.string   "last_name"
     t.string   "role"
     t.boolean  "is_active"
+    t.string   "username"
   end
 
 end
