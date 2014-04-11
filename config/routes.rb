@@ -25,6 +25,22 @@ Grasshopper::Application.routes.draw do
       get ':id' => "users#show", on: :collection
     end
 
+    resources :skills, except: [ :edit, :new ], defaults: { format: :json } do
+      get ':id' => "skills#show", on: :collection
+    end
+
+    resources :proficiencies, except: [ :edit, :new ], defaults: { format: :json } do
+      get ':id' => "proficiencies#show", on: :collection
+    end
+
+    resources :conversations, except: [ :edit, :new ], defaults: { format: :json } do
+      get ':id' => "conversations#show", on: :collection
+    end
+
+    resources :messages, except: [ :edit, :new ], defaults: { format: :json } do
+      get ':id' => "messages#show", on: :collection
+    end
+
   end
 
 end
