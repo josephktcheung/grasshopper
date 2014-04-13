@@ -41,6 +41,14 @@ Grasshopper::Application.routes.draw do
       get ':id' => "messages#show", on: :collection
     end
 
+    resources :apprenticeships, except: [ :edit, :new ], defaults: { format: :json } do
+      get ':id' => "apprenticeships#show", on: :collection
+    end
+
+    resources :ratings, except: [ :edit, :new ], defaults: { format: :json } do
+      get ':id' => "ratings#show", on: :collection
+    end
+
   end
 
 end
