@@ -8,6 +8,10 @@ class Apprenticeship < ActiveRecord::Base
   validate :same_roles?
   validate :end_before_start?
 
+  def self.involve_user(user)
+    where(["master_id = ? or apprentice_id = ?", user.id, user.id])
+  end
+
   def duplicate_relationship?
     if Apprenticeship.find_by( master: self.master, apprentice: self.apprentice )
       errors.add(:id, "duplicate relationship")
