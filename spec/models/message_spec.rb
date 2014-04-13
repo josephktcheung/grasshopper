@@ -5,25 +5,25 @@ describe Message do
   before :each do
     @user1 = User.create(first_name: 'Grass', last_name: 'Hopper', email: 'gh@ga.co', password: '123', password_confirmation: '123', role: 'master')
     @user2 = User.create(first_name: 'App', last_name: 'Rentice', email: 'ap@ga.co', password: '123', password_confirmation: '123', role: 'apprentice')
-    @conversation = Conversation.create(created_by: @user1.id, created_for: @user2.id)
-    @message1 = Message.create(to_user: @user1, from_user: @user2, conversation: @conversation, content: 'Content')
-    @message2 = Message.create(to_user: @user2, from_user: @user1, conversation: @conversation, content: 'Content')
+    @conversation = Conversation.create(created_by: @user1, created_for: @user2)
+    @message1 = Message.create(recipient: @user1, sender: @user2, conversation: @conversation, content: 'Content')
+    @message2 = Message.create(recipient: @user2, sender: @user1, conversation: @conversation, content: 'Content')
   end
 
-  it "should be valid with to_user, from_user, conversation, and content" do
+  it "should be valid with recipient, sender, conversation, and content" do
     expect(@message1).to be_valid
   end
 
-  describe "to_user" do
-    it "should not be valid without to_user" do
-      @message1.to_user = nil
+  describe "recipient" do
+    it "should not be valid without recipient" do
+      @message1.recipient = nil
       expect(@message1).to_not be_valid
     end
   end
 
-  describe "from_user" do
-    it "should not be valid without from_user" do
-      @message1.to_user = nil
+  describe "sender" do
+    it "should not be valid without sender" do
+      @message1.recipient = nil
       expect(@message1).to_not be_valid
     end
   end
@@ -45,9 +45,9 @@ describe Message do
     end
   end
 
-  describe "from_user" do
-    it "should not be valid if from_user is the same as to_user" do
-      @message1.to_user = @message1.from_user
+  describe "sender" do
+    it "should not be valid if sender is the same as recipient" do
+      @message1.recipient = @message1.sender
       expect(@message1).to_not be_valid
     end
   end

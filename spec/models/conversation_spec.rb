@@ -4,7 +4,7 @@ describe Conversation do
   before(:each) do
     @grasshopper = User.create(first_name: 'Grass', last_name: 'Hopper', email: 'gh@ga.co', password: '123', password_confirmation: '123', role: 'apprentice')
     @master = User.create(first_name: 'Master', last_name: 'Hopper', email: 'gm@ga.co', password: '123', password_confirmation: '123', role: 'master')
-    @conversation = Conversation.create(created_by: @grasshopper.id, created_for: @master.id)
+    @conversation = Conversation.create(created_by: @grasshopper, created_for: @master)
   end
 
   it "should not be valid without created_for" do
@@ -19,21 +19,21 @@ describe Conversation do
 
   it "should update updated_at when new message is created" do
     previous_updated_at_time = @conversation.updated_at
-    @conversation.messages.create(from_user: @grasshopper, to_user: @master, content: 'Content')
+    @conversation.messages.create(sender: @grasshopper, recipient: @master, content: 'Content')
     expect(Message.find(@conversation.messages.last).updated_at).to_not eq previous_updated_at_time
   end
 
   describe "when created_by initiater" do
     describe "recipient" do
       it "should not be the same as initiater" do
-        conversation = Conversation.new(created_by: @grasshopper.id, created_for: @grasshopper.id)
+        conversation = Conversation.new(created_by: @grasshopper, created_for: @grasshopper)
         conversation.save
         expect(conversation).to_not be_valid
       end
 
       it "should not have existing conversation with the recipient" do
-        new_conversation_same_initiater = Conversation.create(created_by: @grasshopper.id, created_for: @master.id)
-        new_conversation_different_initiater = Conversation.create(created_by: @master.id, created_for: @grasshopper.id)
+        new_conversation_same_initiater = Conversation.create(created_by: @grasshopper, created_for: @master)
+        new_conversation_different_initiater = Conversation.create(created_by: @master, created_for: @grasshopper)
         expect(new_conversation_same_initiater).to_not be_valid
         expect(new_conversation_different_initiater).to_not be_valid
       end
