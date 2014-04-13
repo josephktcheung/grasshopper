@@ -4,7 +4,7 @@ describe UsersController, :type => :api do
 
   render_views
 
-  before :all do
+  before :each do
     User.create(first_name: 'Grass', last_name: 'Hopper', email: 'gh@ga.co', password: '123', password_confirmation: '123', role: 'master')
   end
 
@@ -19,13 +19,12 @@ describe UsersController, :type => :api do
       expect(JSON.load(response.body)["users"][0]["role"]).to eq 'master'
     end
 
-
   end
 
   describe "GET show" do
 
     it "return specific user" do
-      get :show, id: 1, format: :json
+      get :show, id: User.first.id, :format => :json
       expect(response.status).to eq 200
     end
 
