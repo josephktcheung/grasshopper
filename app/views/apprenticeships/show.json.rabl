@@ -18,4 +18,4 @@ child :apprentice => :apprentice do |apprentice|
   node :href do
     user_url(apprentice)
   end
-end
+end2
