@@ -16,4 +16,8 @@ class Message < ActiveRecord::Base
     end
   end
 
+  def self.involve_user(user)
+    where(["recipient_id = ? or sender_id = ?", user.id, user.id])
+  end
+
 end
