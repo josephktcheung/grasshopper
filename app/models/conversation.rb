@@ -1,11 +1,17 @@
 class Conversation < ActiveRecord::Base
 
   has_many :messages
+  belongs_to :created_for, class_name: "User"
+  belongs_to :created_by, class_name: "User"
 
   validates :created_for, presence: true
   validates :created_by, presence: true
   validate :created_for_and_created_by_cannot_be_same
   validate :cannot_have_existing_conversation, on: :create
+
+  def self.involve_user(user)
+    where(["created_for_id = ? or created_by_id = ?", user.id, user.id])
+  end
 
   def created_for_and_created_by_cannot_be_same
     if created_for == created_by

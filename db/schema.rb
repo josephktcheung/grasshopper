@@ -28,15 +28,18 @@ ActiveRecord::Schema.define(version: 20140409222548) do
   add_index "apprenticeships", ["master_id"], name: "index_apprenticeships_on_master_id", using: :btree
 
   create_table "conversations", force: true do |t|
-    t.integer  "created_by"
-    t.integer  "created_for"
+    t.integer  "created_by_id"
+    t.integer  "created_for_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
+  add_index "conversations", ["created_by_id"], name: "index_conversations_on_created_by_id", using: :btree
+  add_index "conversations", ["created_for_id"], name: "index_conversations_on_created_for_id", using: :btree
+
   create_table "messages", force: true do |t|
-    t.integer  "to_user_id"
-    t.integer  "from_user_id"
+    t.integer  "recipient_id"
+    t.integer  "sender_id"
     t.integer  "conversation_id"
     t.text     "content"
     t.datetime "created_at"
@@ -44,8 +47,8 @@ ActiveRecord::Schema.define(version: 20140409222548) do
   end
 
   add_index "messages", ["conversation_id"], name: "index_messages_on_conversation_id", using: :btree
-  add_index "messages", ["from_user_id"], name: "index_messages_on_from_user_id", using: :btree
-  add_index "messages", ["to_user_id"], name: "index_messages_on_to_user_id", using: :btree
+  add_index "messages", ["recipient_id"], name: "index_messages_on_recipient_id", using: :btree
+  add_index "messages", ["sender_id"], name: "index_messages_on_sender_id", using: :btree
 
   create_table "proficiencies", force: true do |t|
     t.integer "user_id"

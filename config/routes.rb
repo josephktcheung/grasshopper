@@ -16,4 +16,39 @@ Grasshopper::Application.routes.draw do
 
   get 'privacy' => 'site#privacy'
   get 'terms'   => 'site#terms'
+
+  scope :api do
+
+    root to: 'api#index', defaults: { format: :json }, as: :api_root
+
+    resources :users, except: [ :edit, :new ], defaults: { format: :json } do
+      get ':id' => "users#show", on: :collection
+    end
+
+    resources :skills, except: [ :edit, :new ], defaults: { format: :json } do
+      get ':id' => "skills#show", on: :collection
+    end
+
+    resources :proficiencies, except: [ :edit, :new ], defaults: { format: :json } do
+      get ':id' => "proficiencies#show", on: :collection
+    end
+
+    resources :conversations, except: [ :edit, :new ], defaults: { format: :json } do
+      get ':id' => "conversations#show", on: :collection
+    end
+
+    resources :messages, except: [ :edit, :new ], defaults: { format: :json } do
+      get ':id' => "messages#show", on: :collection
+    end
+
+    resources :apprenticeships, except: [ :edit, :new ], defaults: { format: :json } do
+      get ':id' => "apprenticeships#show", on: :collection
+    end
+
+    resources :ratings, except: [ :edit, :new ], defaults: { format: :json } do
+      get ':id' => "ratings#show", on: :collection
+    end
+
+  end
+
 end
