@@ -25,6 +25,12 @@ Skill.create(skill_name: 'Javascript')
 Proficiency.create!(user: User.find(1), skill: Skill.find(1), proficiency_status: 'has')
 Proficiency.create!(user: User.find(1), skill: Skill.find(2), proficiency_status: 'has')
 Proficiency.create!(user: User.find(2), skill: Skill.find(1), proficiency_status: 'desired')
+
 Conversation.create!(created_by: User.find(1), created_for: User.find(2))
 Conversation.create!(created_by: User.find(1), created_for: User.find(3))
 Conversation.create!(created_by: User.find(3), created_for: User.find(2))
+
+Message.create!(conversation: Conversation.find(1), recipient: User.find(1), sender: User.find(2), content: 'Hello, I hope to work with you!')
+Message.create!(conversation: Conversation.find(1), recipient: User.find(2), sender: User.find(1), content: 'Sure, let me know when you want to meet up!')
+
+
