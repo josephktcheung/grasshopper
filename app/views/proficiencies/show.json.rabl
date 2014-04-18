@@ -1,17 +1,20 @@
-object @proficiency
+collection @proficiency, root: "proficiencies", :object_root => false
 
 attributes :id, :proficiency_status
 
-child :user do |user|
-  extends "users/show"
-  node :href do
-    user_url(user)
-  end
-end
-
-child :skill do |skill|
-  extends "skills/show"
-  node :href do
-    skill_url(skill)
-  end
+node :links do |proficiency|
+  {
+    skill:
+      {
+        href: skill_url(proficiency.skill),
+        id: proficiency.skill.id,
+        type: "skill"
+      },
+    user:
+      {
+        href: user_url(proficiency.user),
+        id: proficiency.user.id,
+        type: "user"
+      }
+  }
 end
