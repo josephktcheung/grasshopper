@@ -3,3 +3,4 @@
 //= require noty/packaged/jquery.noty.packaged.min
 //= require noty/themes/default
 //= require main
+//= require angular.min
