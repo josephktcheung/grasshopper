@@ -23,9 +23,9 @@ end
 
 node :linked do
   users = @messages.map { |message| [message.sender, message.recipient] }
-  users.flatten!.uniq!.sort!
+  users.flatten!.uniq!
   conversations = @messages.map { |message| message.conversation }
-  conversations.uniq!.sort!
+  conversations.uniq!
   {
     users: users.map do |user|
       {
