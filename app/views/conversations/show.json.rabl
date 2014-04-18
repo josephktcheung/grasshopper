@@ -1,9 +1,30 @@
 collection @conversation, root: "conversations", :object_root => false
 
-attributes :id, :created_by, :created_for
+attributes :id
 
 node :links do |conversation|
   {
-    messages: Message.involve_user(conversation.created_by).map {|message| message.id }
+    created_by:
+      {
+        href: user_url(conversation.created_by),
+        id: conversation.created_by.id,
+        type: "user"
+      },
+
+    created_for:
+      {
+        href: user_url(conversation.created_for),
+        id: conversation.created_for.id,
+        type: "user"
+      },
+
+    messages:
+      conversation.messages.map do |message|
+        {
+          href: message_url(message),
+          id: message.id,
+          type: "messages"
+        }
+      end
   }
 end
