@@ -50,4 +50,12 @@ module ApplicationHelper
       });
     }.squish
   end
+
+  def show_active
+    if current_user.is_active
+      "<span class='label label-success'>Active</span>"
+    else
+      "<span class='label label-danger'>In-Active</span>"
+    end
+  end
 end
