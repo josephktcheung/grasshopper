@@ -1,5 +1,13 @@
 .row
-  h2 => "Hi, #{@current_user.username}"
+  .col-md-4.col-md-offset-8
+    .input-group
+      input.form-control
+      span.input-group-btn
+        button.btn.btn-default>Search!
+.row
+  .col-md-12
+    h2 => "Hi, #{@current_user.username}"
+
 
 .row
   .col-md-2.text-center
@@ -34,6 +42,8 @@
             tr
               td need to add
               td need to add
+
+
 
 
 
