@@ -1,6 +1,8 @@
-h2 = "Welcome, #{@current_user.id}"
 
-ol
-  - @users.each do |user|
-    li
-      = user.email
+div data-ng-controller="UsersController" data-ng-init="initialize()"
+  .row
+    .col-md-6
+      h2 Users
+      ul
+        li data-ng-repeat="user in users"
+          | {{ user.email }}
