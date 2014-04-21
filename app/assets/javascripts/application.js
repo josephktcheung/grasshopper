@@ -2,5 +2,8 @@
 //= require jquery_ujs
 //= require noty/packaged/jquery.noty.packaged.min
 //= require noty/themes/default
-//= require main
 //= require angular.min
+//= require lodash
+//= require restangular
+//= require angular-application
+//= require main

@@ -10,7 +10,6 @@ gem 'slim'
 gem 'rabl'
 gem 'oj'
 
-
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
   gem 'sdoc', require: false
