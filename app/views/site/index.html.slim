@@ -6,27 +6,31 @@ div data-ng-controller="UsersController" data-ng-init="initialize()"
         li data-ng-repeat="user in users"
           | {{ user.email }}
 
+.ui.fluid.action.input
+  input placeholder="Search by user or skill..." type="text" ng-model="searchText" value=""
+    .ui.button Search
 
-  .ui.fluid.action.input
-    input placeholder="Search by user or skill..." type="text" ng-model="search.email" value=""
-      .ui.button Search
+.ui.grid
+  .four.wide.column
+    .ui.segment
+      h2.filters Filter by:
+      .ui.link.list
+        a.item All
+        a.item Masters
+        a.item Apprentices
 
-  .ui.grid
-    .four.wide.column
-      .ui.segment
-        h2.filters Filter by:
-        .ui.link.list
-          a.item All
-          a.item Masters
-          a.item Apprentices
+.ui.fluid.items data-ng-controller="UsersController" data-ng-init="initialize()"
+  .item data-ng-repeat="user in users | filter:searchText"
+    .image
+      img src="/images/demo/highres.jpg"
+    .content
+      .name
+        | {{ user.first_name }} {{ user.last_name }}
+      .role
+        | {{ user.role }}
+      .item data-ng-repeat="proficiency in user.links.proficiencies"
+        p.skills
+          | {{ proficiency.skill }}
 
-  .ui.fluid.items data-ng-controller="UsersController" data-ng-init="initialize()"
-    .item data-ng-repeat="user in users | filter:search"
-      .image
-        img src="/images/demo/highres.jpg"
-      .content
-        .name | {{ user.first_name }} {{ user.last_name }}
-        .role | {{ user.role }}
-        p.description Skills
-        .extra
-          | Rating
+      .extra
+        | Rating
