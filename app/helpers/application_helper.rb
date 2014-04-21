@@ -58,4 +58,8 @@ module ApplicationHelper
       "<span class='label label-danger'>In-Active</span>"
     end
   end
+
+  def star_rating rating
+    "<span class='glyphicon glyphicon-star'></span>" * rating
+  end
 end
