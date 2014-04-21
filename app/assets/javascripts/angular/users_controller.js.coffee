@@ -8,3 +8,4 @@ Grasshopper.controller "UsersController", ['$scope', 'Restangular', ($scope, Res
       $scope.users = users
 
 ]
+

@@ -1,0 +1,22 @@
+.ui.fluid.action.input
+  input ng-model="searchText" placeholder="Search by user or skill  ..." type="text" value=""
+    .ui.button Search
+
+.ui.grid
+  .four.wide.column
+    .ui.segment
+      h2.filters Filter by:
+      .ui.link.list
+        a.item All
+        a.item Masters
+        a.item Apprentices
+
+.ui.fluid.items
+  .item data-ng-repeat= "user in users"
+    .image
+      img src="/images/demo/highres.jpg"
+    .content
+      .name {{ user.first_name }} {{ user.last_name }}
+      p.description Skills
+      .extra
+        | Rating
