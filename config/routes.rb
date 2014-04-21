@@ -20,6 +20,9 @@ Grasshopper::Application.routes.draw do
   #delete user
   delete 'user' => 'user#destroy'
 
+  #User Profile
+  get 'profile' => 'users#show'
+
   scope :api do
 
     root to: 'api#index', defaults: { format: :json }, as: :api_root
