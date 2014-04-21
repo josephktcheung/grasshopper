@@ -1,53 +1,6 @@
-/ h2 = "Welcome, #{@current_user.id}"
+h2 = "Welcome, #{@current_user.id}"
 
-/ ol
-/   - @users.each do |user|
-/     li
-/       = user.email
-
-.ui.fluid.action.input
-  input placeholder="Search by user or skill  ..." type="text"
-    .ui.button Search
-
-.ui.grid
-  .four.wide.column
-    .ui.segment
-      h2.filters Filter by:
-      .ui.link.list
-        a.item All
-        a.item Masters
-        a.item Apprentices
-
-.ui.fluid.items
-  .item
-    .image
-      img src="/images/demo/highres.jpg"
-    .content
-      .name Annie Cheung
-      p.description Skills
-      .extra
-        | Rating
-  .item
-    .image
-      img src="/images/demo/highres.jpg"
-    .content
-      .name Annie Cheung
-      p.description Skills
-      .extra
-        | Rating
-  .item
-    .image
-      img src="/images/demo/highres.jpg"
-    .content
-      .name Annie Cheung
-      p.description Skills
-      .extra
-        | Rating
-  .item
-    .image
-      img src="/images/demo/highres.jpg"
-    .content
-      .name Annie Cheung
-      p.description Skills
-      .extra
-        | Rating
+ol
+  - @users.each do |user|
+    li
+      = user.email
