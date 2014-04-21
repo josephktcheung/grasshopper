@@ -1,19 +1,11 @@
-object @apprenticeship
+collection @apprenticeship, root: "apprenticeships", :object_root => false
 
-attributes :id, :end_date
+attributes :id, :end_date, :created_at, :updated_at
 
-attributes :created_at => :start_date
-
-child :master => :master do |master|
-  extends "users/show"
-  node :href do
-    user_url(master)
-  end
-end
-
-child :apprentice => :apprentice do |apprentice|
-  extends "users/show"
-  node :href do
-    user_url(apprentice)
-  end
+node :links do |apprenticeship|
+  {
+    master: apprenticeship.master.id,
+    apprentice: apprenticeship.apprentice.id,
+    ratings: apprenticeship.rating_ids
+  }
 end
