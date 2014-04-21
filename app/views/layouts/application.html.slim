@@ -19,7 +19,7 @@ html
             = link_to( "Log out", log_out_url, method: :delete, class: "btn btn-danger logout-link" ) if current_user
           h1.navbar-brand
             a href="/" Grasshopper
-      main.container.main role="main"
+      main.container.main role="main" data-ng-app="Grasshopper"
         == yield
     footer>
       .container
