@@ -60,6 +60,7 @@ module ApplicationHelper
   end
 
   def star_rating rating
-    "<span class='glyphicon glyphicon-star'></span>" * rating
+    stars = "<span class='glyphicon glyphicon-star'></span>" * rating
+    stars += "<span class='glyphicon glyphicon-star-empty'></span>" * (5 - rating)
   end
 end
