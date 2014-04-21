@@ -17,6 +17,9 @@ Grasshopper::Application.routes.draw do
   get 'privacy' => 'site#privacy'
   get 'terms'   => 'site#terms'
 
+  #delete user
+  delete 'user' => 'user#destroy'
+
   scope :api do
 
     root to: 'api#index', defaults: { format: :json }, as: :api_root
