@@ -5,11 +5,11 @@
 .row
   ul.nav.nav-pills.nav-justified
     li.active
-      a#all href="#/search"  All
+      a href=""  All
     li
-      a#masters href="#/search"  Masters
+      a#master href=""  Masters
     li
-      a#grasshoppers href="#/search"  Grasshoppers
+      a#apprentice href=""  Grasshoppers
 
 .container
   hgroup.mb20
@@ -18,7 +18,7 @@
       / strong.text-danger  3ADD
       / | results were found for the search for
       / strong.text-danger  UsersADD
-  section.col-xs-12.col-sm-6.col-md-12 data-ng-repeat="user in filterByNameOrSkill(users, searchText)"
+  section.col-xs-12.col-sm-6.col-md-12 data-ng-repeat="user in filterByNameOrSkill(users, searchText, roleFilter)"
     article.search-result.row
       .col-xs-12.col-sm-12.col-md-3
         a.thumbnail href="#" title=("User Image")
