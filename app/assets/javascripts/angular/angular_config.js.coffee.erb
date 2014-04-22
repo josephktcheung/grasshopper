@@ -1,0 +1,18 @@
+Grasshopper.config( ['RestangularProvider', (RestangularProvider) ->
+
+  RestangularProvider.setBaseUrl('/api')
+
+  RestangularProvider.addResponseInterceptor( (response, operation, route, url) ->
+    if operation == 'getList' || 'get'
+      newResponse = response[route]
+    else
+      newResponse = response
+    newResponse
+  )]
+)
+
+Grasshopper.config(['$routeProvider', ($routeProvider) ->
+  $routeProvider.when('/edit-profile', { templateUrl: "<%= asset_path('edit-profile.html') %>", controller: 'UserCtrl' } )
+
+  $routeProvider.otherwise( { templateUrl: "<%= asset_path('mainIndex.html') %>", controller: 'IndexCtrl' } )
+])
