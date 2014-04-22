@@ -1,5 +1,7 @@
 class UsersController < ApplicationController
 
+  before_action :get_user, only: [ :update, :destroy ]
+
   def index
     @users = User.all
   end
