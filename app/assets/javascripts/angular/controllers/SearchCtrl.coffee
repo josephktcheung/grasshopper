@@ -16,9 +16,6 @@ Grasshopper.controller "SearchCtrl", ['$scope', '$location', 'Restangular', 'get
 
   $scope.searchText = ''
 
-  filterBySkill = (user) ->
-
-
   $scope.filterByNameOrSkill = (users,searchText) ->
     filteredUsers = []
     searchTextRegExp = RegExp(searchText, 'i')
