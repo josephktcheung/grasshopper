@@ -7,12 +7,14 @@ Grasshopper::Application.routes.draw do
   delete 'logout' => 'session#destroy', as: :log_out
 
   # Registration
+  get  'register'       => 'session#register',    as: :register_view
   get  'register/:code' => 'registration#new',    as: :registration_form
   post 'register/:code' => 'registration#create', as: :register
 
   # Password reset
-  get   'reset/:code' => 'password#edit', as: :password_reset_form
-  patch 'reset/:code' => 'password#update', as: :reset_password
+  get   'reset_password' => 'session#reset_password', as: :password_reset_start
+  get   'reset/:code'    => 'password#edit',          as: :password_reset_form
+  patch 'reset/:code'    => 'password#update',        as: :reset_password
 
   get 'privacy' => 'site#privacy'
   get 'terms'   => 'site#terms'

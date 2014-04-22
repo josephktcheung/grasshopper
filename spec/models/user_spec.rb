@@ -156,16 +156,32 @@ describe User do
   end
 
   describe "first_name" do
-    it "should be a capital letter followed by lowercase letters" do
-      @user.first_name = 'White space'
+    it "should be ASCII letters with one whitespace separating multiple names" do
+      @user.first_name = 'L33t'
       expect(@user).to_not be_valid
+      @user.first_name = ''
+      expect(@user).to_not be_valid
+      @user.first_name = 'White McSpace'
+      expect(@user).to be_valid
+    end
+    it "should fix whitespace" do
+      @user.first_name = 'Bad  Whitespace'
+      expect(@user).to be_valid
     end
   end
 
   describe "last_name" do
-    it "should be a capital letter followed by lowercase letters" do
-      @user.last_name = '@)#(*$&E@)#'
+    it "should be ASCII letters with one whitespace separating multiple names" do
+      @user.last_name = 'L33t'
       expect(@user).to_not be_valid
+      @user.last_name = ''
+      expect(@user).to_not be_valid
+      @user.last_name = 'White McSpace'
+      expect(@user).to be_valid
+    end
+    it "should fix whitespace" do
+      @user.last_name = 'Bad  Whitespace'
+      expect(@user).to be_valid
     end
   end
 
