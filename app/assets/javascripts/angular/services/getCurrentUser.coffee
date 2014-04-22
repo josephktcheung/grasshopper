@@ -18,9 +18,7 @@ Grasshopper.factory('getCurrentUser', ['Restangular', (Restangular) ->
       getCurrentUser.currentUser.data.activeLabel = "label-danger"
 
   getCurrentUser.loadData = () ->
-    div = document.getElementById "data"
-    currentUserId = div.getAttribute "data-current-user-id"
-    Restangular.one('users', currentUserId).get().then (user) ->
+    Restangular.all('user').getList().then (user) ->
       getCurrentUser.currentUser.data = user[0]
       checkActive()
 

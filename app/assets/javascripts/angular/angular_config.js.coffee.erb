@@ -4,7 +4,10 @@ Grasshopper.config( ['RestangularProvider', (RestangularProvider) ->
 
   RestangularProvider.addResponseInterceptor( (response, operation, route, url) ->
     if operation == 'getList' || 'get'
-      newResponse = response[route]
+      if route == 'user'
+        newResponse = response['users']
+      else
+        newResponse = response[route]
     else
       newResponse = response
     newResponse

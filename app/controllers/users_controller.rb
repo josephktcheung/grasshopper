@@ -16,8 +16,8 @@ class UsersController < ApplicationController
   def profile
     if current_user.nil?
       head :unauthorized
-    else
-      head :ok
     end
+    @current_user_array = []
+    @current_user_array << @current_user
   end
 end
