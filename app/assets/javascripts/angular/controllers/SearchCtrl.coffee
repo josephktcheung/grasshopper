@@ -28,12 +28,5 @@ Grasshopper.controller "SearchCtrl", ['$scope', '$location', 'Restangular', 'get
       filteredUsers.push user if isMatch == true
     filteredUsers
 
-  $scope.getMasters = (users) ->
-    masters = []
-    angular.forEach users, (user) ->
-      masters.push user if user.status.match("master")
-      return
-    masters
-
 ]
 
