@@ -20,7 +20,7 @@
           = f.password_field :password_confirmation, class: "form-control showable-password", placeholder: "Type it again"
         .form-group
           button#show-password-button.btn.btn-warning data-state="show" Show Passwords
-        .btn-group.name-field.btn-group-lg
+        .btn-group.name-field.btn-group-lg#register-ma-btn-group
           = f.label :role, class: "sr-only"
           button.btn.btn-success name="user[role]" value="master" type="submit" Master
           button.btn.btn-success name="user[role]" value="apprentice" type="submit" Apprentice

@@ -135,6 +135,11 @@ footer > .container {
   padding-right: 15px;
 }
 
+header {
+  .navbar-right {
+    margin-left: 10px;
+  }
+}
 
 // profile page
 
@@ -151,7 +156,25 @@ footer > .container {
   margin-top: 10px;
 }
 
-.star_rating{
+
+.star_rating {
   margin-top: 10px;
   font-size: 33px;
+}
+
+// login pages
+
+.login-fieldset {
+  .btn {
+    float: left;
+    min-width: 7em;
+    margin: 0px 10px 0px 0px;
+  }
+}
+
+#register-ma-btn-group {
+  .btn {
+    margin: 0px 10px 0px 0px;
+    border-radius: 6px;
+  }
 }
