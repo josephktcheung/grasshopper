@@ -36,7 +36,8 @@
         h3
           a href="#" title="" data-ng-click="viewProfile()"
             | {{ user.first_name }} {{ user.last_name }}
-        p this is for the About me section of the user
+        p
+          | About me: {{ user.about_me }}
         .row.skills-container
           span.col-xs-12.col-sm-12.col-md-3 Skills:
           .ul data-ng-repeat="proficiency in user.links.proficiencies | filter: {status: 'has'}"
