@@ -5,11 +5,11 @@
 .row
   ul.nav.nav-pills.nav-justified
     li.active
-      a href="#"  All
+      a#all href="#/search"  All
     li
-      a href="#"  Masters
+      a#masters href="#/search"  Masters
     li
-      a href="#"  Grasshoppers
+      a#grasshoppers href="#/search"  Grasshoppers
 
 .container
   hgroup.mb20
@@ -37,18 +37,18 @@
           a href="#" title="" data-ng-click="viewProfile()"
             | {{ user.first_name }} {{ user.last_name }}
         p
-          | About me: {{ user.about_me }}
+          | {{ user.about_me }}
         .row.skills-container
           span.col-xs-12.col-sm-12.col-md-3 Skills:
           .ul data-ng-repeat="proficiency in user.links.proficiencies | filter: {status: 'has'}"
             li.list-comma
-              | {{ proficiency.skill }}
+              | {{ proficiency.skill }}{{$last ? '' : ', '}}
         .row.skills-container
           span.col-xs-12.col-sm-12.col-md-3 Desired Skills:
           .ul.skill data-ng-repeat="proficiency in user.links.proficiencies | filter: {status: 'desired'}"
             li.list-comma
-              | {{ proficiency.skill }}
+              | {{ proficiency.skill }}{{$last ? '' : ', '}}
         span.plus
-          a Send a message
           i.glyphicon.glyphicon-envelope
+          a  Send a message
       span.clearfix.borda
