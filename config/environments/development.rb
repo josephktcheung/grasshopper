@@ -34,7 +34,7 @@ Grasshopper::Application.configure do
   :bucket => "wdi-grasshopper",
   :access_key_id => ENV["AWSAccessKeyId"],
   :secret_access_key => ENV["AWSSecretKey"],
-  :s3_host_name => 'http://s3-ap-southeast-1.amazonaws.com'
+  :s3_host_name => 's3-ap-southeast-1.amazonaws.com'
   }
   }
 end
