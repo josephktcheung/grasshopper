@@ -156,7 +156,7 @@ describe User do
   end
 
   describe "first_name" do
-    it "should be one capital letter followed by uppercase and lowercase letters with one whitespace separating multiple names" do
+    it "should be ASCII letters with one whitespace separating multiple names" do
       @user.first_name = 'L33t'
       expect(@user).to_not be_valid
       @user.first_name = ''
@@ -164,18 +164,14 @@ describe User do
       @user.first_name = 'White McSpace'
       expect(@user).to be_valid
     end
-    it "should capitalize all incorrectly capitalized names and fix whitespace" do
-      @user.first_name = 'bAdcapital'
-      expect(@user).to be_valid
-      @user.first_name = 'No capital'
-      expect(@user).to be_valid
-      @user.last_name = 'Bad  Whitespace'
+    it "should fix whitespace" do
+      @user.first_name = 'Bad  Whitespace'
       expect(@user).to be_valid
     end
   end
 
   describe "last_name" do
-    it "should be one capital letter followed by uppercase and lowercase letters with one whitespace separating multiple names" do
+    it "should be ASCII letters with one whitespace separating multiple names" do
       @user.last_name = 'L33t'
       expect(@user).to_not be_valid
       @user.last_name = ''
@@ -183,11 +179,7 @@ describe User do
       @user.last_name = 'White McSpace'
       expect(@user).to be_valid
     end
-    it "should capitalize all incorrectly capitalized names and fix whitespace" do
-      @user.last_name = 'bAdcapital'
-      expect(@user).to be_valid
-      @user.last_name = 'No capital'
-      expect(@user).to be_valid
+    it "should fix whitespace" do
       @user.last_name = 'Bad  Whitespace'
       expect(@user).to be_valid
     end

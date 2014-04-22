@@ -32,8 +32,8 @@ class User < ActiveRecord::Base
   validates :email, format: { with: /.*@.*\..*/ }, uniqueness: { case_sensitive: false }
   validates :password, confirmation: true
   validates :is_active, inclusion: { :in => [true, false] }
-  validates :first_name, format: { with: /\A([A-Z]{1}[a-zA-Z]*)(\s{1}[A-Z]{1}[a-zA-Z]*)*\z/ }
-  validates :last_name, format: { with: /\A([A-Z]{1}[a-zA-Z]*)(\s{1}[A-Z]{1}[a-zA-Z]*)*\z/ }
+  validates :first_name, format: { with: /\A([a-zA-Z]+)(\s{1}[a-zA-z]+)*\z/ }
+  validates :last_name, format: { with: /\A([a-zA-Z]+)(\s{1}[a-zA-z]+)*\z/ }
   validates :role, format: { with: /(\Amaster\z)|(\Aapprentice\z)/ }
 
   def set_active
@@ -96,8 +96,8 @@ class User < ActiveRecord::Base
 
   def format_attributes
     self.email.to_s.downcase!
-    self.first_name.to_s.split.map { |i| i.capitalize }.join(' ')
-    self.last_name.to_s.split.map { |i| i.capitalize }.join(' ')
+    self.first_name = self.first_name.to_s.split.join(' ')
+    self.last_name = self.last_name.to_s.split.join(' ')
   end
 
   def set_salt
