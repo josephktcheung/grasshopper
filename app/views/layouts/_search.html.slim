@@ -37,14 +37,14 @@
           a href="#" title=""
             | {{ user.first_name }} {{ user.last_name }}
         p this is for the About me section of the user
-        .row
-          span Skills:
+        .row.skills-container
+          span.col-xs-12.col-sm-12.col-md-3 Skills:
           .ul data-ng-repeat="proficiency in user.links.proficiencies | filter: {status: 'has'}"
-            li
+            li.list-comma
               | {{ proficiency.skill }}
-        .row
-          span Desired Skills:
-          .ul data-ng-repeat="proficiency in user.links.proficiencies | filter: {status: 'desired'}"
-            li
+        .row.skills-container
+          span.col-xs-12.col-sm-12.col-md-3 Desired Skills:
+          .ul.skill data-ng-repeat="proficiency in user.links.proficiencies | filter: {status: 'desired'}"
+            li.list-comma
               | {{ proficiency.skill }}
       span.clearfix.borda

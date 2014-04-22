@@ -230,3 +230,12 @@ hgroup h2.lead {
   margin: 0 15px;
   border-bottom: 1px dotted #ccc;
 }
+
+.skills-container li:last-child .list-comma{
+    display: none;
+}
+
+li.list-comma {
+  list-style-type: none;
+  float: left;
+}
