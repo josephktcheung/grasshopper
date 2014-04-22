@@ -36,13 +36,5 @@ Grasshopper.controller "SearchCtrl", ['$scope', '$location', 'Restangular', 'get
     $scope.roleFilter = this.id
     return
 
-  getMasters = (users) ->
-    masters = _.where(users, { 'role': 'master' });
-    return masters
-
-  getGrasshoppers = (users) ->
-    grasshoppers = _.where(users, { 'role': 'grasshopper' });
-    return grasshoppers
-
 ]
 
