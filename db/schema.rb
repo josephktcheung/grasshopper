@@ -11,10 +11,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140409222548) do
+ActiveRecord::Schema.define(version: 20140422024849) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+  create_table "registrants", force: true do |t|
+    t.string "email"
+    t.string "registration_code"
+    t.datetime "registration_expires_at"
+  end
 
   create_table "apprenticeships", force: true do |t|
     t.datetime "end_date",      null: false
@@ -28,14 +33,11 @@ ActiveRecord::Schema.define(version: 20140409222548) do
   add_index "apprenticeships", ["master_id"], name: "index_apprenticeships_on_master_id", using: :btree
 
   create_table "conversations", force: true do |t|
-    t.integer  "created_by_id"
-    t.integer  "created_for_id"
+    t.integer  "created_by"
+    t.integer  "created_for"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
-
-  add_index "conversations", ["created_by_id"], name: "index_conversations_on_created_by_id", using: :btree
-  add_index "conversations", ["created_for_id"], name: "index_conversations_on_created_for_id", using: :btree
 
   create_table "messages", force: true do |t|
     t.integer  "recipient_id"
@@ -92,6 +94,7 @@ ActiveRecord::Schema.define(version: 20140409222548) do
     t.string   "role"
     t.boolean  "is_active"
     t.string   "username"
+    t.string   "about_me"
   end
 
 end
