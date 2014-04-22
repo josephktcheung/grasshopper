@@ -20,7 +20,8 @@ html
           h1.navbar-brand
             a href="/" Grasshopper
       main.container.main role="main" data-ng-app="Grasshopper"
-        == yield
+        div#data data-current-user-id="#{@current_user.id if @current_user }"
+          == yield
     footer>
       .container
         .row

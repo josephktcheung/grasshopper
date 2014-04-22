@@ -139,7 +139,7 @@ footer > .container {
 // profile page
 
 .profile_text{
-  font-size: 50px;
+  font-size: 40px;
   margin-bottom: 20px;
 }
 
@@ -151,6 +151,10 @@ footer > .container {
   margin-top: 10px;
 }
 
+.star_rating{
+  margin-top: 10px;
+  font-size: 33px;
+}
 
 // SEARCH PARTIAL FORMATTING
 @import "http://fonts.googleapis.com/css?family=Roboto:300,400,500,700";
@@ -239,3 +243,4 @@ li.list-comma {
   list-style-type: none;
   float: left;
 }
+
