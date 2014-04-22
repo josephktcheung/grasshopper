@@ -25,6 +25,8 @@ Grasshopper::Application.routes.draw do
 
   scope :api do
 
+    get 'user' => 'users#profile'
+
     root to: 'api#index', defaults: { format: :json }, as: :api_root
 
     resources :users, except: [ :edit, :new ], defaults: { format: :json } do
