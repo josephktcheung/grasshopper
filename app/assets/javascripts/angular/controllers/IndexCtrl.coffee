@@ -1,13 +1,13 @@
-Grasshopper.controller "IndexCtrl", ['$scope', '$location', 'Restangular', 'getCurrentUser', ($scope, $location, Restangular, getCurrentUser) ->
+Grasshopper.controller "IndexCtrl", ['$scope', '$location', 'Restangular', 'currentUser', ($scope, $location, Restangular, currentUser) ->
 
   initialize = () ->
     baseUsers = Restangular.all('users')
     baseUsers.getList().then (users) ->
       $scope.users = users
 
-  $scope.currentUser = getCurrentUser.currentUser
+  $scope.currentUser = currentUser
 
-  getCurrentUser.loadData()
+  currentUser.loadData()
 
   initialize()
 

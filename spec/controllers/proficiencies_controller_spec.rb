@@ -22,12 +22,4 @@ describe ProficienciesController, :type => :api do
 
   end
 
-  describe "GET show" do
-
-    it "return specific message" do
-      get :show, id: Proficiency.first.id, :format => :json
-      expect(response.status).to eq 200
-    end
-
-  end
 end
