@@ -9,6 +9,9 @@ class UsersController < ApplicationController
     else
       User.all
     end
+    @apprenticeships = @users.map { |user| Apprenticeship.involve_user(user) }.flatten.sort.uniq
+    @conversations = @users.map { |user| Conversation.involve_user(user) }.flatten.sort.uniq
+    @proficiencies = @users.map { |user| user.proficiencies }.flatten.sort.uniq
   end
 
   def create
