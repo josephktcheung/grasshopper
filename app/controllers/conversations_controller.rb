@@ -10,6 +10,9 @@ class ConversationsController < ApplicationController
     else
       Conversation.all
     end
+
+    @users = (@conversations.map { |conversation| [conversation.created_by, conversation.created_for] }).flatten.sort.uniq
+    @messages = (@conversations.map { |conversation| conversation.messages }).flatten.sort.uniq
   end
 
   def create
