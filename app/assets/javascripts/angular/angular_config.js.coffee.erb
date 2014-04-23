@@ -1,4 +1,4 @@
-Grasshopper.config( ['RestangularProvider', (RestangularProvider) ->
+Grasshopper.config( ['RestangularProvider', '$httpProvider', (RestangularProvider, $httpProvider) ->
 
   RestangularProvider.setBaseUrl('/api')
 
@@ -11,8 +11,12 @@ Grasshopper.config( ['RestangularProvider', (RestangularProvider) ->
     else
       newResponse = response
     newResponse
-  )]
-)
+  )
+
+  authToken = $("meta[name=\"csrf-token\"]").attr("content")
+  $httpProvider.defaults.headers.common["X-CSRF-TOKEN"] = authToken
+
+])
 
 Grasshopper.config(['$routeProvider', ($routeProvider) ->
   $routeProvider.when('/edit-profile', { templateUrl: "<%= asset_path('edit-profile.html') %>", controller: 'UserCtrl' } )
