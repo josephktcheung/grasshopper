@@ -21,14 +21,15 @@ Grasshopper::Application.routes.draw do
   get 'profile-template' => 'site#index_template'
 
   #delete user
-  delete 'user' => 'user#destroy'
+  # delete 'user' => 'user#destroy'
 
   #User Profile
-  get 'profile' => 'users#show'
 
   scope :api do
 
     root to: 'api#index', defaults: { format: :json }, as: :api_root
+
+    get 'user' => 'users#profile', defaults: { format: :json }, as: :profile
 
     resources :users, except: [ :edit, :new ], defaults: { format: :json } do
       get ':id' => "users#show", on: :collection

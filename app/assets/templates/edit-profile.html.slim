@@ -18,5 +18,5 @@
           input.form-control#last_name type="text" placeholder="Last name" data-ng-model="currentUser.data.last_name"
         .checkbox
           label
-            input#toggle_activation type="checkbox" data-ng-checked="currentUser.data.is_active" Active?
-        input.btn.btn-success type="submit" value="Update"
+            input#toggle_activation type="checkbox" data-ng-model="currentUser.data.is_active" data-ng-checked="currentUser.data.is_active" Active?
+        input.btn.btn-success type="submit" value="Update" data-ng-click="updateProfile()"
