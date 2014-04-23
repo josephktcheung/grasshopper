@@ -7,10 +7,6 @@ class UsersController < ApplicationController
     @users = User.all
   end
 
-  def show
-    @user = User.find(params[:id])
-  end
-
   def update
     if @user && @user.update_attributes(user_params)
       head :no_content
