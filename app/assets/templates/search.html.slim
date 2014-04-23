@@ -4,12 +4,12 @@
 
 .row
   ul.nav.nav-pills.nav-justified
-    li.active
-      a href=""  All
-    li
-      a#master href=""  Masters
-    li
-      a#apprentice href=""  Grasshoppers
+    li.active ng-click="roleFilter = null"
+      a href="" All
+    li ng-click="roleFilter = {role: 'master'}"
+      a#master href="" Masters
+    li ng-click="roleFilter = {role: 'apprentice'}"
+      a#apprentice href=""  Apprentices
 
 .container
   hgroup.mb20
@@ -18,11 +18,11 @@
       / strong.text-danger  3ADD
       / | results were found for the search for
       / strong.text-danger  UsersADD
-  section.col-xs-12.col-sm-6.col-md-12 data-ng-repeat="user in filterByNameOrSkill(users, searchText, roleFilter)"
+  section.col-xs-12.col-sm-6.col-md-12 data-ng-repeat="user in filterByNameOrSkill(users, searchText) | filter:roleFilter"
     article.search-result.row
       .col-xs-12.col-sm-12.col-md-3
-        a.thumbnail href="#" title=("User Image")
-          img.img-responsive data-ng-click="viewProfile()" alt=("User") src="http://lorempixel.com/250/140/people" /
+        a.thumbnail href="" title=("User Image") data-ng-click="viewProfile()"
+          img.img-responsive alt=("User") src="http://lorempixel.com/250/140/people" /
       .col-xs-12.col-sm-12.col-md-2
         ul.meta-search
           li
@@ -34,7 +34,7 @@
 
       .col-xs-12.col-sm-12.col-md-7.excerpet
         h3
-          a href="#" title="" data-ng-click="viewProfile()"
+          a href="" title="" data-ng-click="viewProfile()"
             | {{ user.first_name }} {{ user.last_name }}
         p
           | {{ user.about_me }}

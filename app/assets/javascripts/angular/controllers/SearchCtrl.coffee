@@ -16,7 +16,7 @@ Grasshopper.controller "SearchCtrl", ['$scope', '$location', 'Restangular', 'get
 
   $scope.searchText = ''
 
-  $scope.filterByNameOrSkill = (users,searchText,roleFilter) ->
+  $scope.filterByNameOrSkill = (users,searchText) ->
     filteredUsers = []
     searchTextRegExp = RegExp(searchText, 'i')
 
@@ -33,7 +33,6 @@ Grasshopper.controller "SearchCtrl", ['$scope', '$location', 'Restangular', 'get
 
   $("ul.nav.nav-pills.nav-justified li a").click () ->
     $(this).parent().addClass("active").siblings().removeClass "active"
-    $scope.roleFilter = this.id
     return
 
 ]
