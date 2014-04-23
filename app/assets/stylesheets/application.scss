@@ -267,9 +267,7 @@ li.list-comma {
   float: left;
 }
 
-  // conversation message
-
-
+// conversation message
 
 #conversation-panel {
   max-height: 600px;
@@ -278,18 +276,21 @@ li.list-comma {
 
   .panel-body{
     padding: 5px;
-    padding-left: 10px
+    padding-left: 10px;
+
   }
 
   .conversation {
-    border-bottom: 1px solid rgba(0,0,0,.075);
-    padding-top: 10px;
+    border-bottom: 2px solid rgba(0,0,0,.075);
     padding-bottom: 10px;
+
   }
 
   h3{
     font-size: 18px;
     margin-top: 10px;
+    text-align: center;
+
   }
 
   img{
@@ -304,20 +305,29 @@ li.list-comma {
 
   .panel-body {
     padding: 5px;
-    padding-left: 10px
+    padding-left: 10px;
+
   }
 
   .message {
-    border-bottom: 1px solid rgba(0,0,0,.075);
+    border-bottom: 2px solid rgba(0,0,0,.075);
     padding-top: 10px;
     padding-bottom: 10px;
+
   }
 
   h3{
     font-size: 18px;
+
   }
 
   img{
     margin-right: 10px;
+
   }
 }
+
+.form-control{
+  margin-bottom: 10px;
+}
+
