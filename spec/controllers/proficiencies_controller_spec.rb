@@ -25,8 +25,9 @@ describe ProficienciesController, :type => :api do
 
     context 'from /users/1/proficiencies' do
       it "returns user1's proficiencies" do
-        get :index, user_id: @user1.id
-        expect(response.staus).to eq 200
+        get :index, user_id: @user1.id, :format => :json
+        expect(response.status).to eq 200
+        expect(JSON.load(response.body)["proficiencies"][0]['id']).to eq @proficiency1.id
       end
     end
 
