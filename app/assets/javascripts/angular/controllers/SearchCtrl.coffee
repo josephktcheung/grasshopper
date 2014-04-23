@@ -30,6 +30,7 @@ Grasshopper.controller "SearchCtrl", ['$scope', '$location', 'Restangular', 'get
         if proficiency.skill.match(searchTextRegExp)
           isMatch = true
       filteredUsers.push user if isMatch == true
+    console.log searchText
     filteredUsers
 
 
