@@ -6,12 +6,12 @@
       .button.button.btn.btn-default> Bow
   .col-md-10
     .profile_text
-      | {{params.userID}}
+      | {{ targetUser.data.first_name }} {{ targetUser.data.last_name }}
       div
         span.label.label-primary
-          | {{ currentUser.data.role.toUpperCase() }}
-        span.label class="label {{ currentUser.data.activeLabel }}"
-          | {{ currentUser.data.activeorinactive }}
+          | {{ targetUser.data.role.toUpperCase() }}
+        span.label class="label {{ targetUser.data.activeLabel }}"
+          | {{ targetUser.data.activeorinactive }}
 
     div.panel.panel-info.about_me
       .div.panel-heading>About Me

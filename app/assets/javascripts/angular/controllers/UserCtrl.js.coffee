@@ -1,12 +1,12 @@
-Grasshopper.controller "UserCtrl", (['$scope', '$location', '$routeParams','Restangular', 'currentUser', ($scope, $location, $routeParams, Restangular, currentUser) ->
-  $scope.currentUser = currentUser
+Grasshopper.controller "UserCtrl", (['$scope', '$location', 'Restangular', 'targetUser', ($scope, $location, Restangular, targetUser) ->
+  $scope.targetUser = targetUser
 
-  currentUser.loadData()
+  targetUser.loadCurrentUser()
 
   $scope.updateProfile = () ->
 
-    currentUser.data.route = 'users'
-    currentUser.data.put().then ( ->
+    targetUser.data.route = 'users'
+    targetUser.data.put().then ( ->
       $location.path('/')
     )
 
