@@ -1,4 +1,4 @@
-Grasshopper.controller "SearchCtrl", ['$scope', '$location', 'Restangular', 'currentUser', ($scope, $location, Restangular, currentUser) ->
+Grasshopper.controller "SearchCtrl", ['$scope', '$location', '$routeParams', 'Restangular', 'currentUser', ($scope, $location, $routeParams, Restangular, currentUser) ->
 
   initialize = () ->
     baseUsers = Restangular.all('users')

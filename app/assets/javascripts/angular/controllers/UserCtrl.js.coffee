@@ -1,4 +1,4 @@
-Grasshopper.controller "UserCtrl", (['$scope', '$location', 'Restangular', 'currentUser', ($scope, $location, Restangular, currentUser) ->
+Grasshopper.controller "UserCtrl", (['$scope', '$location', '$routeParams','Restangular', 'currentUser', ($scope, $location, $routeParams, Restangular, currentUser) ->
   $scope.currentUser = currentUser
 
   currentUser.loadData()
@@ -9,4 +9,8 @@ Grasshopper.controller "UserCtrl", (['$scope', '$location', 'Restangular', 'curr
     currentUser.data.put().then ( ->
       $location.path('/')
     )
+
+  $scope.params = $routeParams
+
+
 ])
