@@ -31,7 +31,7 @@ Grasshopper.controller "SearchCtrl", ['$scope', '$location', 'Restangular', 'tar
         isMatch = true
       else angular.forEach user.links.proficiencies, (proficiency) ->
         if proficiency.skill.match(searchTextRegExp)
-         isMatch = true
+          isMatch = true
       filteredUsers.push user if isMatch == true
     filteredUsers
 
