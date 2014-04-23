@@ -4,7 +4,11 @@ class UsersController < ApplicationController
   before_action :get_user, only: [ :update, :destroy ]
 
   def index
-    @users = User.all
+    @users = if params[:id]
+      User.where('id in (?)', params[:id].split(','))
+    else
+      User.all
+    end
   end
 
   def update
