@@ -21,15 +21,6 @@ describe UsersController, :type => :api do
 
   end
 
-  describe "GET show" do
-
-    it "return specific user" do
-      get :show, id: User.first.id, :format => :json
-      expect(response.status).to eq 200
-    end
-
-  end
-
   describe "GET profile" do
     context "when not logged in" do
       it "should return unauthorised response" do
