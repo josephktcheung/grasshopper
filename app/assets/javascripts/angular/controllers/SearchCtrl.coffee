@@ -11,6 +11,9 @@ Grasshopper.controller "SearchCtrl", ['$scope', '$location', 'Restangular', 'get
 
   initialize()
 
+  $scope.search = () ->
+    $location.url '/search'
+
   $scope.viewProfile = () ->
     $location.url '/view-profile'
 
@@ -21,12 +24,11 @@ Grasshopper.controller "SearchCtrl", ['$scope', '$location', 'Restangular', 'get
     searchTextRegExp = RegExp(searchText, 'i')
 
     angular.forEach users, (user) ->
-      if !roleFilter or user.role.match(roleFilter)
-        if user.first_name.match(searchTextRegExp) or user.last_name.match(searchTextRegExp)
+      if user.first_name.match(searchTextRegExp) or user.last_name.match(searchTextRegExp)
+        isMatch = true
+      else angular.forEach user.links.proficiencies, (proficiency) ->
+        if proficiency.skill.match(searchTextRegExp)
           isMatch = true
-        else angular.forEach user.links.proficiencies, (proficiency) ->
-          if proficiency.skill.match(searchTextRegExp)
-            isMatch = true
       filteredUsers.push user if isMatch == true
     filteredUsers
 
