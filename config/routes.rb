@@ -21,7 +21,7 @@ Grasshopper::Application.routes.draw do
   get 'profile-template' => 'site#index_template'
 
   #delete user
-  delete 'user' => 'user#destroy'
+  # delete 'user' => 'user#destroy'
 
   #User Profile
 
