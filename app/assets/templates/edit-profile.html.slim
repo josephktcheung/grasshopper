@@ -12,11 +12,11 @@
         legend Update your profile
         .form-group
           label.sr-only for="first_name"
-          input.form-control#first_name type="text" placeholder="First name" data-ng-model="currentUser.data.first_name"
+          input.form-control#first_name type="text" placeholder="First name" data-ng-model="targetUser.data.first_name"
         .form-group
           label.sr-only for="last_name"
-          input.form-control#last_name type="text" placeholder="Last name" data-ng-model="currentUser.data.last_name"
+          input.form-control#last_name type="text" placeholder="Last name" data-ng-model="targetUser.data.last_name"
         .checkbox
           label
-            input#toggle_activation type="checkbox" data-ng-model="currentUser.data.is_active" data-ng-checked="currentUser.data.is_active" Active?
+            input#toggle_activation type="checkbox" data-ng-model="targetUser.data.is_active" data-ng-checked="targetUser.data.is_active" Active?
         input.btn.btn-success type="submit" value="Update" data-ng-click="updateProfile()"
