@@ -10,6 +10,9 @@ class MessagesController < ApplicationController
     else
       Message.all
     end
+
+    @users = (@messages.map { |message| [message.sender, message.recipient] }).flatten.sort.uniq
+    @conversations = (@messages.map { |message| message.conversation }).sort.uniq
   end
 
   def create
