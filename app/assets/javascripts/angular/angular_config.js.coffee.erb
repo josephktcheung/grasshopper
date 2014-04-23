@@ -25,5 +25,8 @@ Grasshopper.config(['$routeProvider', ($routeProvider) ->
 
   $routeProvider.when('/view-profile', { templateUrl: "<%= asset_path('view-profile.html') %>", controller: 'IndexCtrl' } )
 
+  $routeProvider.when('/conversation', { templateUrl: "<%= asset_path('conversation.html') %>",
+  controller: 'ConversationCtrl' } )
+
   $routeProvider.otherwise( { templateUrl: "<%= asset_path('mainIndex.html') %>", controller: 'IndexCtrl' } )
 ])

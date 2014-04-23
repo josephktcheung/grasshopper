@@ -20,14 +20,11 @@ end
 node :linked do
   {
     user:
-      Apprenticeship.all.map do |apprenticeship|
+      users.map do |user|
         {
-          href: apprenticeship_url(apprenticeship),
-          id: apprenticeship.id,
-          master: apprenticeship.master.id,
-          apprentice: apprenticeship.apprentice.id,
-          created_at: apprenticeship.created_at,
-          end_date: apprenticeship.end_date
+          href: user_url(user),
+          id: user.id,
+          username: user.username,
         }
       end,
     skill:
