@@ -270,14 +270,12 @@ li.list-comma {
 // conversation message
 
 #conversation-panel {
-  max-height: 600px;
-  min-height: 600px;
-  overflow: auto;
 
   .panel-body{
+    height: 600px;
     padding: 5px;
     padding-left: 10px;
-
+    overflow: auto;
   }
 
   .conversation {
@@ -300,13 +298,12 @@ li.list-comma {
 }
 
 #message-panel {
-  height: 400px;
-  overflow: auto;
 
   .panel-body {
     padding: 5px;
     padding-left: 10px;
-
+    height: 400px;
+    overflow: auto;
   }
 
   .message {
