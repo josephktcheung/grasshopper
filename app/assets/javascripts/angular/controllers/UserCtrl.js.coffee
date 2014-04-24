@@ -9,4 +9,8 @@ Grasshopper.controller "UserCtrl", (['$scope', '$location', 'Restangular', 'targ
     targetUser.data.put().then ( ->
       $location.path('/')
     )
+
+  $scope.params = $routeParams
+
+
 ])
