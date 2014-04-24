@@ -1,3 +1,4 @@
+
 Grasshopper.controller "SearchCtrl", ['$scope', '$location', 'Restangular', 'targetUser', ($scope, $location, Restangular, targetUser) ->
 
   initialize = () ->
@@ -33,6 +34,7 @@ Grasshopper.controller "SearchCtrl", ['$scope', '$location', 'Restangular', 'tar
         if proficiency.skill.match(searchTextRegExp)
           isMatch = true
       filteredUsers.push user if isMatch == true
+    console.log searchText
     filteredUsers
 
   $("ul.nav.nav-pills.nav-justified li a").click () ->

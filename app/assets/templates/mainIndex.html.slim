@@ -1,5 +1,55 @@
 .row
   .col-md-2.text-center
+    img.img-responsive.img-circle src= "#{@current_user.avatar.url(:square)}"
+    .star_rating
+      | Get averge rating here
+    .btn-group-vertical
+      .button.button.btn.btn-default> Edit Profile
+      .button.button.btn.btn-default> Send Message
+      .button.button.btn.btn-default> Bow
+  .col-md-10
+    .profile_text
+      | {{ targetUser.data.first_name }} {{ targetUser.data.last_name }}
+      div
+        .span.label.label-primary
+          | {{ targetUser.data.role.toUpperCase() }}
+        span.label class="label {{ targetUser.data.activeLabel }}"
+        | {{ targetUser.data.activeorinactive.toUpperCase() }}
+
+    .panel.panel-info.about_me
+      .panel-heading>About Me
+      .panel-body
+        p
+          | {{ targetUser.data.about_me }}
+
+    .panel.panel-default.skills
+      .panel-heading
+        | Skills
+      table.table.skills_table
+        thead
+          tr
+            th
+              | Current Skill
+            th
+              | Desired Skills
+        tbody
+            tr
+              td need to add
+              td need to add
+
+    .working.well
+      | Currently Working with .....insert name here
+
+    .panel.panel-info.profile_picture
+      .panel-heading>Profile Picture
+      .panel-body
+        = form_for @user, :url => {:action => "update", :id => @user.id, :controller => "users"}, :html => { :multipart => true } do |form|
+          = form.file_field :avatar
+          = form.button type: :submit
+
+
+.row
+  .col-md-2.text-center
     img.img-responsive.img-circle src= "http://placekitten.com/500/500"
     .btn-group-vertical
       .button.button.btn.btn-default data-ng-click="editProfile()"
