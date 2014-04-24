@@ -10,6 +10,9 @@ class ApprenticeshipsController < ApplicationController
     else
       Apprenticeship.all
     end
+
+    @users = (@apprenticeships.map { |apprenticeship| [apprenticeship.master, apprenticeship.apprentice] }).flatten.sort.uniq
+    @ratings = (@apprenticeships.map { |apprenticeship| apprenticeship.ratings }).flatten.sort.uniq
   end
 
   def create

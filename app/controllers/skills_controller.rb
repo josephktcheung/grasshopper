@@ -9,6 +9,8 @@ class SkillsController < ApplicationController
     else
       Skill.all
     end
+
+    @proficiencies = (@skills.map { |skill| skill.proficiencies }).flatten.sort.uniq
   end
 
   def create

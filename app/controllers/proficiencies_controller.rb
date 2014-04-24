@@ -11,6 +11,9 @@ class ProficienciesController < ApplicationController
     else
       @parent ? @parent.proficiencies : Proficiency.all
     end
+
+    @users = (@proficiencies.map { |proficiency| proficiency.user }).sort.uniq
+    @skills = (@proficiencies.map { |proficiency| proficiency.skill }).sort.uniq
   end
 
   def create

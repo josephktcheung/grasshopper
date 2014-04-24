@@ -9,6 +9,9 @@ class UsersController < ApplicationController
     else
       User.all
     end
+    @apprenticeships = @users.map { |user| Apprenticeship.involve_user(user) }.flatten.sort.uniq
+    @conversations = @users.map { |user| Conversation.involve_user(user) }.flatten.sort.uniq
+    @proficiencies = @users.map { |user| user.proficiencies }.flatten.sort.uniq
   end
 
   def create
@@ -40,7 +43,7 @@ class UsersController < ApplicationController
   protected
 
   def user_params
-    params.require(:user).permit(:avatar, :id, :first_name, :last_name, :is_active, :email, :role)
+    params.require(:user).permit(:avatar, :id, :first_name, :last_name, :is_active, :about_me)
   end
 
   def get_user
