@@ -1,25 +1,15 @@
-
 Grasshopper.controller "SearchCtrl", ['$scope', '$location', 'Restangular', 'targetUser', ($scope, $location, Restangular, targetUser) ->
 
   initialize = () ->
     baseUsers = Restangular.all('users')
     baseUsers.getList().then (users) ->
       $scope.users = users
-
-  $scope.targetUser = targetUser
-
-  targetUser.loadCurrentUser()
+    $scope.currentUser = targetUser.loadCurrentUser()
 
   initialize()
 
   $scope.search = () ->
     $location.url '/search'
-
-  $scope.viewProfile = (userId) ->
-    # $location.url '/view-profile'
-    # test targetUser functionality
-    targetUser.loadUser(userId)
-    console.log targetUser.data
 
   $scope.searchText = ''
 

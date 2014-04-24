@@ -22,6 +22,7 @@ Grasshopper.factory('targetUser', ['Restangular', (Restangular) ->
     Restangular.all('user').getList().then (user) ->
       targetUser.data = user[0]
       checkActive()
+    targetUser.data
 
 
   targetUser.loadUser = (userId) ->
@@ -31,6 +32,7 @@ Grasshopper.factory('targetUser', ['Restangular', (Restangular) ->
       )
       console.log 'in factory', targetUser.data
       checkActive()
+    targetUser.data
 
   return targetUser
 
