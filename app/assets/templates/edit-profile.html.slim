@@ -22,4 +22,14 @@
         .checkbox
           label
             input#toggle_activation type="checkbox" data-ng-model="targetUser.data.is_active" data-ng-checked="targetUser.data.is_active" Active?
-        input.btn.btn-success type="submit" value="Update" data-ng-click="updateProfile()"
+        input.btn.btn-success type="submit" value="Update profile" data-ng-click="updateProfile()"
+
+    legend
+      | Update your skills
+    .panel.panel-default.skills
+      .panel-heading
+        | Current Skills
+      ul.list-group
+        li.list-group-item data-ng-repeat="proficiency in targetUser.data.links.proficiencies"
+          | {{ proficiency.skill }}
+          a.remove-skill href="" data-ng-click="removeSkill(proficiency.id)" Remove
