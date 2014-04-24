@@ -30,6 +30,7 @@ Grasshopper.factory('targetUser', ['Restangular', (Restangular) ->
       targetUser.data = _.find(users, (user) ->
         user.id == userId
       )
+      console.log 'in factory', targetUser.data
       checkActive()
     targetUser.data
 
