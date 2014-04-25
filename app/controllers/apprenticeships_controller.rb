@@ -16,7 +16,7 @@ class ApprenticeshipsController < ApplicationController
   end
 
   def create
-    apprenticeship = Apprenticeship.new apprenticeship_params
+    apprenticeship = Apprenticeship.new apprenticeship_params.merge(end_date: DateTime.new(6012,2,3))
 
     if apprenticeship.save
       head :created, location: apprenticeship_url(apprenticeship)
@@ -36,7 +36,7 @@ class ApprenticeshipsController < ApplicationController
   protected
 
   def apprenticeship_params
-    params.require(:apprenticeship).permit()
+    params.require(:apprenticeship).permit(:master_id, :apprentice_id, :end_date)
   end
 
   def get_apprenticeship
