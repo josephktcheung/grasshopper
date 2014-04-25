@@ -35,9 +35,9 @@ class UsersController < ApplicationController
   def profile
     if current_user.nil?
       head :unauthorized
+    else
+      redirect_to user_url(@current_user)
     end
-    @current_user_array = []
-    @current_user_array << @current_user
   end
 
   protected
