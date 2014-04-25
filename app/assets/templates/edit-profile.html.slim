@@ -21,7 +21,14 @@
           textarea.form-control placeholder="About me" data-ng-model="currentUser.about_me"
         .checkbox
           label
-            input#toggle_activation type="checkbox" data-ng-model="currentUser.is_active" data-ng-checked="currentUser.is_active" Active?
+            input#toggle_activation type="checkbox" data-ng-model="targetUser.data.is_active" data-ng-checked="currentUser.is_active" Active?
+        .panel.panel-info.profile_picture
+          .panel-heading>Profile Picture
+          .panel-body
+            span.btn.btn-default.btn-file
+              | Browse
+              input type="file"
+
         input.btn.btn-success type="submit" value="Update profile" data-ng-click="updateProfile()"
 
     legend
