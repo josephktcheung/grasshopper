@@ -7,11 +7,12 @@ Grasshopper.controller "SearchCtrl", ['$scope', '$location', 'User', '$http', ($
     filterUsersCommunicatedWith(data)
 
   filterUsersCommunicatedWith = (data) ->
-    existingConversations = []
+    communicatedUsers = []
+    $scope.conversations = data.linked.conversations
     angular.forEach data.linked.conversations, (conversation) ->
-      existingConversations.push conversation.created_by
-      existingConversations.push conversation.created_for
-    $scope.usersCommunicatedWith = _.pull(_.uniq(existingConversations), $scope.currentUser.id)
+      communicatedUsers.push conversation.created_by
+      communicatedUsers.push conversation.created_for
+    $scope.usersCommunicatedWith = _.pull(_.uniq(communicatedUsers), $scope.currentUser.id)
 
   $scope.search = () ->
     $location.url '/search'
@@ -48,13 +49,13 @@ Grasshopper.controller "SearchCtrl", ['$scope', '$location', 'User', '$http', ($
       data:   conversationParams
     })
 
-  createMessageTo = (user, messageText, conversation) ->
+  createMessageTo = (user, messageText, conversationId) ->
     messageParams = {
       message:
         sender_id:  $scope.currentUser.id
         recipient_id: user.id
         content: messageText
-        conversation_id: conversation
+        conversation_id: conversationId
     }
     $http({
       method: "POST"
@@ -71,6 +72,11 @@ Grasshopper.controller "SearchCtrl", ['$scope', '$location', 'User', '$http', ($
           console.log 'successfully created conversation and message'
     else
       console.log 'already had conversation with this user before'
+      console.log $scope.conversations
+      conversation = _.find($scope.conversations, (conversation) -> conversation.created_by == user.id || conversation.created_for == user.id)
+      createMessageTo(user, messageText, conversation.id).success (response) ->
+          console.log 'successfully created message'
+
 
 ]
 
