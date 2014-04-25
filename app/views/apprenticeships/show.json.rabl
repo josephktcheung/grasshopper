@@ -1,6 +1,6 @@
 collection @apprenticeship, root: "apprenticeships", :object_root => false
 
-attributes :id, :end_date, :created_at, :updated_at
+attributes :id, :end_date, :is_active, :created_at, :updated_at
 
 node :links do |apprenticeship|
   {
