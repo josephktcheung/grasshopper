@@ -6,8 +6,8 @@
     .btn-group-vertical
       .button.button.btn.btn-default data-ng-click="editProfile()"
         | Edit Profile
-      .button.button.btn.btn-default> Send Message
-      .button.button.btn.btn-default> Bow
+      .button.button.btn.btn-default Send Message
+      .button.button.btn.btn-default Bow
   .col-md-10
     .profile_text
       | {{ currentUser.first_name }} {{ currentUser.last_name }}
@@ -18,31 +18,55 @@
           | {{ currentUser.activeorinactive.toUpperCase() }}
 
     .panel.panel-info.about_me
-      .panel-heading>About Me
+      .panel-heading About Me
       .panel-body
         p
           | {{ currentUser.about_me }}
 
-    .panel.panel-default.skills
-      .panel-heading
-        | Skills
+    .panel.panel-info.skills
+      .panel-heading Skills
       table.table.skills_table
         thead
           tr
-            th
-              | Current Skill
-            th
-              | Desired Skills
+            th Current Skill
+            th Desired Skills
         tbody
             tr
               td need to add
               td need to add
 
-    .panel.panel-info.jobs
-      .panel-heading Jobs
+    .panel.panel-info.connections
+      .panel-heading Connections
       .panel-body
-        | Currently Working with .....insert name here
+        .list-group
+          a.list-group-item href="#"
+            |username here
+            button.button.btn.btn-default End
+          a.list-group-item href="#"
+            |username here
+            span.badge End
+          a.list-group-item href="#"
+            |username here
+            span.badge End
+
+
+
+          / li.list-group-item ng-repeat=""
+          /   a.list-group-item href="#" | text
+          /   span.badge
+          /     | End
+
+
+
+        / table.table.connections_table
+        /   thead
+        /     tr
+        /       th users name
+        /   tbody
+        /       tr
+        /         td need to add link to user
+        /         td button to end connection
 
     .panel.panel-info.profile_picture
-      .panel-heading>Profile Picture
+      .panel-heading Profile Picture
       .panel-body
