@@ -23,31 +23,43 @@
         p
           | {{ currentUser.about_me }}
 
-    .panel.panel-info.skills
-      .panel-heading Skills
-      table.table.skills_table
-        thead
-          tr
-            th Current Skill
-            th Desired Skills
-        tbody
-            tr
-              td need to add
-              td need to add
+    .row
+      .col-md-6
+        .panel.panel-info.skills
+          .panel-heading
+            | Current Skills
+          ul.list-group
+            li.list-group-item
+              | skill 1
+            li.list-group-item
+              | skill 2
+      .col-md-6
+        .panel.panel-info.skills
+          .panel-heading
+            | Desired Skills
+          ul.list-group
+            li.list-group-item
+              | skill 1
+            li.list-group-item
+              | skill 2
 
     .panel.panel-info.connections
       .panel-heading Connections
-      .panel-body
-        .list-group
-          a.list-group-item href="#"
-            |username here
-            button.button.btn.btn-default End
-          a.list-group-item href="#"
-            |username here
-            span.badge End
-          a.list-group-item href="#"
-            |username here
-            span.badge End
+      ul.list-group
+        li.list-group-item
+          .row
+            .col-xs-8
+              a href=""
+                |username here
+            .col-xs-4
+              a href="" end connection
+
+        li.list-group-item
+          .row
+            .col-md-8
+              a href=""
+                |username here
+            .col-md-4
 
 
 
