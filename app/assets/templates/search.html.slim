@@ -21,7 +21,7 @@
   section.col-xs-12.col-sm-6.col-md-12 data-ng-repeat="user in filterByNameOrSkill(users, searchText) | filter:roleFilter"
     article.search-result.row
       .col-xs-12.col-sm-12.col-md-3
-        a.thumbnail href="" title=("User Image") data-ng-click="viewProfile(user.id)"
+        a.thumbnail title=("User Image") data-ng-href="#/view-profile/{{user.id}}"
           img.img-responsive alt=("User") src="http://lorempixel.com/250/140/people"
       .col-xs-12.col-sm-12.col-md-2
         ul.meta-search
