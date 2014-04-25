@@ -36,7 +36,7 @@ class MessagesController < ApplicationController
   protected
 
   def message_params
-    params.require(:message).permit()
+    params.require(:message).permit(:sender_id, :recipient_id, :conversation_id, :content)
   end
   def get_message
     head :not_found unless @message = Message.where('id = ?', params[:id]).take

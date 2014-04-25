@@ -36,7 +36,7 @@ class ConversationsController < ApplicationController
   protected
 
   def conversation_params
-    params.require(:conversation).permit()
+    params.require(:conversation).permit(:created_for_id, :created_by_id)
   end
 
   def get_conversation
