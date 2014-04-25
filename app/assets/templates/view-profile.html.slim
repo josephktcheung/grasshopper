@@ -3,7 +3,7 @@
     img.img-responsive.img-circle src= "http://placekitten.com/500/500"
     .btn-group-vertical
       button.button.btn.btn-default> Send Message
-      button.button.btn.btn-default data-target=".bow-modal" data-toggle="modal" Bow
+      button.button.btn.btn-default#bow-button data-ng-show="user.showBow" data-target=".bow-modal" data-toggle="modal" {{ bowLabel }}
 
       .modal.fade.bow-modal#bow-modal aria-hidden="true" aria-labelledby="bowModal" role="dialog" tabindex="-1"
         .modal-dialog
@@ -11,14 +11,14 @@
             .modal-header
               button.close aria-hidden="true" data-dismiss="modal" type="button"  &times;
               h4#myModalLabel.modal-title
-                | Bow to {{ targetUser.first_name }} {{ targetUser.last_name }}!
+                | Bow to {{ user.first_name }} {{ user.last_name }}!
             .modal-body
               .form-group
                 label.sr-only for="last_name"
                 input.form-control#bow-message type="textarea" rows="10" cols="30" placeholder="Enter a message to send with your bow here..." data-ng-model="message.content"
             .modal-footer
               button.btn.btn-default data-dismiss="modal" type="button"  Close
-              button.btn.btn-primary#bow type="button" data-ng-click="bowAndMessage(4,1)" Bow!
+              button.btn.btn-primary#bow type="button" data-ng-click="bowAndMessage(user.id,currentUser.id)" Bow!
 
   .col-md-10
     .profile_text
