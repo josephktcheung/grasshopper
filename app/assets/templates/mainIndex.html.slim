@@ -49,8 +49,8 @@
         li.list-group-item
           .row
             .col-xs-8
-              a href=""
-                |username here
+              a data-ng-href="#/view-profile/{{connectionUserId}}"
+                | {{ connectionUsername }}
             .col-xs-4
               a href="" end connection
 
@@ -60,24 +60,6 @@
               a href=""
                 |username here
             .col-md-4
-
-
-
-          / li.list-group-item ng-repeat=""
-          /   a.list-group-item href="#" | text
-          /   span.badge
-          /     | End
-
-
-
-        / table.table.connections_table
-        /   thead
-        /     tr
-        /       th users name
-        /   tbody
-        /       tr
-        /         td need to add link to user
-        /         td button to end connection
 
     .panel.panel-info.profile_picture
       .panel-heading Profile Picture
