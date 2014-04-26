@@ -3,7 +3,6 @@ Grasshopper.controller "SearchCtrl", ['$scope', '$location', 'User', '$http', ($
     $scope.users = result.users
 
   User.loadCurrentUser().then (data) ->
-    console.log data
     $scope.currentUser = data.users[0]
     filterUsersCommunicatedWith(data)
 
@@ -13,7 +12,7 @@ Grasshopper.controller "SearchCtrl", ['$scope', '$location', 'User', '$http', ($
     angular.forEach data.linked.conversations, (conversation) ->
       communicatedUsers.push conversation.created_by
       communicatedUsers.push conversation.created_for
-      $scope.usersCommunicatedWith = _.pull(_.uniq(communicatedUsers), $scope.currentUser.id)
+    $scope.usersCommunicatedWith = _.pull(_.uniq(communicatedUsers), $scope.currentUser.id)
 
   $scope.search = () ->
     $location.url '/search'
