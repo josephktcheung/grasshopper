@@ -3,14 +3,15 @@ class ApprenticeshipsController < ApplicationController
   respond_to :json
 
   before_action :get_apprenticeship, only: [ :update, :destroy ]
+  before_action :get_user
 
   def index
     @apprenticeships = if params[:id]
-      Apprenticeship.where('id in (?)', params[:id].split(','))
+      user_clause = @user ? "and master_id = #{@user.id}) or (id in (?) and apprentice_id = #{@user.id})" : ""
+      Apprenticeship.where("(id in (?) #{user_clause}", params[:id].split(','), params[:id].split(','))
     else
-      Apprenticeship.all
+      @user ? @user.apprenticeships : Apprenticeship.all
     end
-
     @users = (@apprenticeships.map { |apprenticeship| [apprenticeship.master, apprenticeship.apprentice] }).flatten.sort.uniq
     @ratings = (@apprenticeships.map { |apprenticeship| apprenticeship.ratings }).flatten.sort.uniq
   end
@@ -42,4 +43,12 @@ class ApprenticeshipsController < ApplicationController
   def get_apprenticeship
     head :not_found unless @apprenticeship = Apprenticeship.where('id = ?', params[:id]).take
   end
+
+  def get_user
+    if params[:user_id]
+      head :bad_request unless @user =
+        User.joins("LEFT JOIN apprenticeships ON apprenticeships.master_id = #{params[:user_id]} OR apprenticeships.apprentice_id = #{params[:user_id]}").take
+    end
+  end
+
 end

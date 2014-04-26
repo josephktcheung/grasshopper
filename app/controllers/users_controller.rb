@@ -9,6 +9,7 @@ class UsersController < ApplicationController
     else
       User.all
     end
+
     @apprenticeships = @users.map { |user| Apprenticeship.involve_user(user) }.flatten.sort.uniq
     @conversations = @users.map { |user| Conversation.involve_user(user) }.flatten.sort.uniq
     @proficiencies = @users.map { |user| user.proficiencies }.flatten.sort.uniq
@@ -47,7 +48,7 @@ class UsersController < ApplicationController
   end
 
   def get_user
-    head :not_found unless @user = User.where('id = ?', params[:id]).take
+    head :not_found unless @user = User.includes(:apprenticeships).where('id = ?', params[:id]).take
   end
 
 end
