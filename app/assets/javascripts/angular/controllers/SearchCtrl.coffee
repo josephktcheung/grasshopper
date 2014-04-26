@@ -25,6 +25,5 @@ Grasshopper.controller "SearchCtrl", ['$scope', '$location', 'User', ($scope, $l
   $("ul.nav.nav-pills.nav-justified li a").click () ->
     $(this).parent().addClass("active").siblings().removeClass "active"
     return
-
 ]
 

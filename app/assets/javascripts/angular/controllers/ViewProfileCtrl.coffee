@@ -1,6 +1,5 @@
-Grasshopper.controller "ViewProfileCtrl", (['$scope', '$location', '$http', 'User', '$routeParams', '$q', ($scope, $location, $http, User, $routeParams, $q) ->
+Grasshopper.controller "ViewProfileCtrl", (['$scope', '$location', '$http', 'User', '$routeParams', ($scope, $location, $http, User, $routeParams) ->
 
-  defer = $q.defer()
   userId = $routeParams.userId
   $scope.bowLabel = "Bow"
 
@@ -23,15 +22,11 @@ Grasshopper.controller "ViewProfileCtrl", (['$scope', '$location', '$http', 'Use
       user.showBow = false
 
 
-  defer.promise
-    .then User.loadCurrentUser().then (result) ->
-      $scope.currentUser = result.users[0]
-    .then User.loadOne(userId).then (result) ->
+  User.loadCurrentUser().then (result) ->
+    $scope.currentUser = result.users[0]
+    User.loadOne(userId).then (result) ->
       $scope.user = result.users[0]
       showOrHideBow($scope.user, $scope.currentUser)
-
-  defer.resolve()
-
 
   $scope.bowAndMessage = (masterId, apprenticeId) ->
     newApprenticeship = { master_id: masterId, apprentice_id: apprenticeId }

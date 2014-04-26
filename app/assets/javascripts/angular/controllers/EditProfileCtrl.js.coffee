@@ -1,7 +1,7 @@
 Grasshopper.controller "EditProfileCtrl", (['$scope','$http', '$location', 'User', '$routeParams', ($scope, $http, $location, User, $routeParams) ->
 
   User.loadCurrentUser().then (data) ->
-    $scope.currentUser = data
+    $scope.currentUser = data.users[0]
 
   $scope.updateProfile = () ->
     User.update($scope.currentUser.id, $scope.currentUser)
