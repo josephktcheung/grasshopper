@@ -4,19 +4,6 @@ Grasshopper.controller "ViewProfileCtrl", (['$scope', '$location', '$http', 'Use
   userId = $routeParams.userId
   $scope.bowLabel = "Bow"
 
-
-  checkExistingApprenticeship = (user, currentUser) ->
-
-    # .then (result) ->
-    #   $scope.apprenticeships = result.data.apprenticeships
-    #   console.log 'apprenticeships = ', $scope.apprenticeships
-    #   console.log 'user = ', user
-    #   console.log 'current =', currentUser
-    #   existing = _.find($scope.apprenticeships, (apprenticeship) ->
-    #     apprenticeship.links.master.id == user.id and apprenticeship.links.apprentice.id == currentUser.id
-    #   )
-    #   return existing
-
   showOrHideBow = (user, currentUser) ->
     if currentUser.role == "apprentice" and user.role == "master"
       user.showBow = true
@@ -55,7 +42,6 @@ Grasshopper.controller "ViewProfileCtrl", (['$scope', '$location', '$http', 'Use
         $('#bow-button').removeAttr("data-toggle")
     else
       console.log "apprenticeship must be between an apprentice and master"
-
 
 ])
 
