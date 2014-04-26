@@ -1,10 +1,12 @@
 class Conversation < ActiveRecord::Base
 
-  has_many :messages
-  belongs_to :created_for, class_name: "User", foreign_key: "created_for"
-  belongs_to :created_by, class_name: "User", foreign_key: "created_by"
+  has_many :messages, inverse_of: :conversation
+  belongs_to :created_for, class_name: "User"
+  belongs_to :created_by, class_name: "User"
 
-  scope :involve_user, lambda {|user| where(["created_for = ? or created_by = ?", user.id, user.id])}
+  accepts_nested_attributes_for :messages
+
+  scope :involve_user, lambda {|user| where(["created_for_id = ? or created_by_id = ?", user.id, user.id])}
 
   validates :created_for, presence: true
   validates :created_by, presence: true
@@ -24,5 +26,4 @@ class Conversation < ActiveRecord::Base
       errors.add(:created_for, 'conversation with this user already exists')
     end
   end
-
 end

@@ -1,6 +1,6 @@
 class Message < ActiveRecord::Base
 
-  belongs_to :conversation, touch: true
+  belongs_to :conversation, touch: true, inverse_of: :messages
   belongs_to :recipient, class_name: "User", foreign_key: "recipient_id"
   belongs_to :sender, class_name: "User", foreign_key: "sender_id"
 

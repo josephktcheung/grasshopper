@@ -31,10 +31,10 @@ describe UsersController, :type => :api do
     end
 
     context 'when logged in' do
-      it "should return profile" do
+      it "should redirect to that specific user's url in api" do
         session[:user_id] = User.first.id
         get :profile, :format => :json
-        expect(response.status).to eq 200
+        expect(response.status).to eq 302
       end
     end
   end

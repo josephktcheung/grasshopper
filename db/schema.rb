@@ -29,8 +29,8 @@ ActiveRecord::Schema.define(version: 20140425040654) do
   add_index "apprenticeships", ["master_id"], name: "index_apprenticeships_on_master_id", using: :btree
 
   create_table "conversations", force: true do |t|
-    t.integer  "created_by"
-    t.integer  "created_for"
+    t.integer  "created_by_id"
+    t.integer  "created_for_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -90,7 +90,7 @@ ActiveRecord::Schema.define(version: 20140425040654) do
     t.string   "role"
     t.boolean  "is_active"
     t.string   "username"
-    t.string   "about_me"
+    t.text   "about_me"
     t.string   "avatar_file_name"
     t.string   "avatar_content_type"
     t.integer  "avatar_file_size"
