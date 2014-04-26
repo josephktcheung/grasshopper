@@ -11,6 +11,7 @@ Grasshopper.controller "ViewProfileCtrl", (['$scope', '$location', '$http', 'Use
         existing = _.find(result.data.apprenticeships, (apprenticeship) ->
           apprenticeship.links.master.id == user.id and apprenticeship.links.apprentice.id == currentUser.id
         )
+        console.log existing
         if existing
           $scope.bowLabel = "Connected"
           $('#bow-button').removeAttr("data-toggle")
@@ -24,7 +25,7 @@ Grasshopper.controller "ViewProfileCtrl", (['$scope', '$location', '$http', 'Use
 
   defer.promise
     .then User.loadCurrentUser().then (result) ->
-      $scope.currentUser = result
+      $scope.currentUser = result.users[0]
     .then User.loadOne(userId).then (result) ->
       $scope.user = result.users[0]
       showOrHideBow($scope.user, $scope.currentUser)
@@ -40,8 +41,6 @@ Grasshopper.controller "ViewProfileCtrl", (['$scope', '$location', '$http', 'Use
         $('#bow-modal').modal('hide')
         $scope.bowLabel = "Connected"
         $('#bow-button').removeAttr("data-toggle")
-    else
-      console.log "apprenticeship must be between an apprentice and master"
 
 ])
 
