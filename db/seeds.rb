@@ -16,6 +16,7 @@ Conversation.destroy_all
 u1 = User.create(first_name: 'Grass', last_name: 'Hopper', email: 'gh@ga.co', password: '123', password_confirmation: '123', role: 'master', about_me: 'Information about me will go here.')
 u2 = User.create(first_name: 'App', last_name: 'rentice', email: 'ap@ga.co', password: '123', password_confirmation: '123', role: 'apprentice')
 u3 = User.create(first_name: 'Master', last_name: 'Yoda', email: 'my@ga.co', password: '123', password_confirmation: '123', role: 'master')
+u4 = User.create(first_name: 'Darth', last_name: 'Maul', email: 'dm@ga.co', password: '123', password_confirmation: '123', role: 'apprentice', about_me: "Darth Maul began life as one of the Nightbrothers on Dathomir. Darth Sidious brutally trained his apprentice to be a weapon of the Sith as well as a scheming mastermind. A relentless and acrobatic warrior with an extremely dangerous double-ended lightsaber, Maul longed for revenge against the Jedi, to destroy the Order and restore power to the Sith. Defeated at the Battle of Naboo, Maul disappeared from the galaxy for over a decade before reemerging as a new threat during the Clone Wars.")
 a1 = Apprenticeship.create(master: u1, apprentice: u2, end_date: (1.month.from_now))
 a2 = Apprenticeship.create(master: u3, apprentice: u2, end_date: (2.month.from_now))
 Rating.create(rater: u1, ratee: u2, apprenticeship: a2, rating: 5)
