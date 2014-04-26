@@ -76,7 +76,5 @@ Grasshopper.controller "SearchCtrl", ['$scope', '$location', 'User', '$http', ($
       conversation = _.find($scope.conversations, (conversation) -> conversation.created_by == user.id || conversation.created_for == user.id)
       createMessageTo(user, messageText, conversation.id).success (response) ->
           console.log 'successfully created message'
-
-
 ]
 

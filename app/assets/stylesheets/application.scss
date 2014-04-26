@@ -162,6 +162,25 @@ header {
   font-size: 33px;
 }
 
+.about_me {
+
+  .panel-body{
+    min-height: 100px;
+    padding: 5px;
+    padding-left: 10px;
+    overflow: auto;
+  }
+}
+
+.connections {
+
+  .panel-body{
+  .btn{
+
+    }
+  }
+}
+
 // LOGIN PAGES
 
 .login-fieldset {
