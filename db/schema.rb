@@ -22,7 +22,7 @@ ActiveRecord::Schema.define(version: 20140425040654) do
     t.integer  "apprentice_id"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
-    t.boolean  "is_active"
+    t.string   "status"
   end
 
   add_index "apprenticeships", ["apprentice_id"], name: "index_apprenticeships_on_apprentice_id", using: :btree

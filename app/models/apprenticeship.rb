@@ -6,14 +6,16 @@ class Apprenticeship < ActiveRecord::Base
 
   scope :involve_user, lambda {|user| where(["master_id = ? or apprentice_id = ?", user.id, user.id])}
 
-  after_initialize :set_active
+  after_initialize :set_to_pending
 
   validate :duplicate_relationship?, on: :create
   validate :same_roles?
   validate :end_before_start?
 
-  def set_active
-    self.is_active = true if self.new_record?
+  validates :status, presence: true, inclusion: { :in => %w[active inactive pending] }
+
+  def set_to_pending
+    self.status = "pending" if self.new_record?
   end
 
   def duplicate_relationship?
