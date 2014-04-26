@@ -43,4 +43,9 @@ describe Apprenticeship do
     end
   end
 
+  describe "is_active" do
+    it "should be true when apprenticeship is created" do
+      expect(@apprenticeship.is_active).to eq true
+    end
+  end
 end

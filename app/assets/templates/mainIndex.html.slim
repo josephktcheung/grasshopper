@@ -6,8 +6,8 @@
     .btn-group-vertical
       .button.button.btn.btn-default data-ng-click="editProfile()"
         | Edit Profile
-      .button.button.btn.btn-default> Send Message
-      .button.button.btn.btn-default> Bow
+      .button.button.btn.btn-default Send Message
+      .button.button.btn.btn-default Bow
   .col-md-10
     .profile_text
       | {{ currentUser.first_name }} {{ currentUser.last_name }}
@@ -18,29 +18,49 @@
           | {{ currentUser.activeorinactive.toUpperCase() }}
 
     .panel.panel-info.about_me
-      .panel-heading>About Me
+      .panel-heading About Me
       .panel-body
         p
           | {{ currentUser.about_me }}
 
-    .panel.panel-default.skills
-      .panel-heading
-        | Skills
-      table.table.skills_table
-        thead
-          tr
-            th
-              | Current Skill
-            th
-              | Desired Skills
-        tbody
-            tr
-              td need to add
-              td need to add
+    .row
+      .col-md-6
+        .panel.panel-info.skills
+          .panel-heading
+            | Current Skills
+          ul.list-group
+            li.list-group-item
+              | skill 1
+            li.list-group-item
+              | skill 2
+      .col-md-6
+        .panel.panel-info.skills
+          .panel-heading
+            | Desired Skills
+          ul.list-group
+            li.list-group-item
+              | skill 1
+            li.list-group-item
+              | skill 2
 
-    .working.well
-      | Currently Working with .....insert name here
+    .panel.panel-info.connections
+      .panel-heading Connections
+      ul.list-group
+        li.list-group-item
+          .row
+            .col-xs-8
+              a data-ng-href="#/view-profile/{{connectionUserId}}"
+                | {{ connectionUsername }}
+            .col-xs-4
+              a href="" end connection
+
+        li.list-group-item
+          .row
+            .col-md-8
+              a href=""
+                |username here
+            .col-md-4
 
     .panel.panel-info.profile_picture
-      .panel-heading>Profile Picture
+      .panel-heading Profile Picture
       .panel-body
