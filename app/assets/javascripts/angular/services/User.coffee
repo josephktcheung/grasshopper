@@ -33,6 +33,37 @@ Grasshopper.factory('User', ['$http', ($http) ->
     removeProficiency: (proficiencyUrl) ->
       $http.delete(proficiencyUrl)
 
+    createConversationWithMessage: (created_by, created_for, messageText) ->
+      conversationParams = {
+        conversation:
+          created_by_id:  created_by.id
+          created_for_id: created_for.id
+          messages_attributes: [
+            sender_id: created_by.id
+            recipient_id: created_for.id
+            content: messageText
+          ]
+      }
+      $http({
+        method: "POST"
+        url:    "./api/conversations"
+        data:   conversationParams
+      })
+
+    createMessageTo: (sender, recipient, messageText, conversationId) ->
+      messageParams = {
+        message:
+          sender_id:  sender.id
+          recipient_id: recipient.id
+          content: messageText
+          conversation_id: conversationId
+      }
+      $http({
+        method: "POST"
+        url:    "./api/messages"
+        data:   messageParams
+      })
+
   User
 
 ])
