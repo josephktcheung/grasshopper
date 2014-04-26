@@ -36,7 +36,16 @@ class ConversationsController < ApplicationController
   protected
 
   def conversation_params
-    params.require(:conversation).permit(:created_for_id, :created_by_id)
+    safe_params = [
+      :created_for_id,
+      :created_by_id,
+      messages_attributes: [
+        :sender_id,
+        :recipient_id,
+        :content
+      ]
+    ]
+    params.require(:conversation).permit(safe_params)
   end
 
   def get_conversation
