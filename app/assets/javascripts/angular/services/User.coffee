@@ -1,4 +1,4 @@
-Grasshopper.factory('User', ['$http', ($http) ->
+Grasshopper.factory 'User', ['$http', ($http) ->
 
   User =
     checkActive: (result) ->
@@ -64,4 +64,4 @@ Grasshopper.factory('User', ['$http', ($http) ->
 
   User
 
-])
+]
