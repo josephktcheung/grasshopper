@@ -71,7 +71,7 @@ ls = User.create(first_name: 'Luke', last_name: 'Skywalker', email: 'ls@jedi.sw'
 dm = User.create(first_name: 'Darth', last_name: 'Maul', email: 'dm@sith.sw', password: '123', password_confirmation: '123', role: 'apprentice', avatar: seed_image('darth_maul'), about_me: about_dm)
 ds = User.create(first_name: 'Darth', last_name: 'Sidious', email: 'ds@sith.sw', password: '123', password_confirmation: '123', role: 'master', avatar: seed_image('darth_sidious'), about_me: about_ds)
 
-a1 = Apprenticeship.create(master: gh, apprentice: cm, end_date: (1.month.from_now))
+a1 = Apprenticeship.create(master: cm, apprentice: gh, end_date: (1.month.from_now))
 a2 = Apprenticeship.create(master: ds, apprentice: dm, end_date: (20.year.from_now))
 Rating.create(rater: gh, ratee: ms, apprenticeship: a2, rating: 5)
 Rating.create(rater: ms, ratee: gh, apprenticeship: a1, rating: 3)
