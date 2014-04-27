@@ -5,6 +5,7 @@
 //= require main
 //= require semantic
 //= require angular.min
+//= require angular-file-upload
 //= require lodash
 //= require angular-route
 //= require angular-application
