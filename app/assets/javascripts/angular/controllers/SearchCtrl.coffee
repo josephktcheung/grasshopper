@@ -1,5 +1,11 @@
 Grasshopper.controller "SearchCtrl", ['$scope', '$location', 'User', '$http', ($scope, $location, User, $http) ->
 
+  notySuccessForMessage = () ->
+    noty { text: 'Successfully sent a message!', type: 'success' }
+
+  notyErrorForMessage = () ->
+    noty { text: 'Message cannot be sent! Please try again', type: 'error' }
+
   reloadUser = () ->
     User.loadCurrentUser().then (data) ->
       $scope.currentUser = data.users[0]
@@ -38,18 +44,17 @@ Grasshopper.controller "SearchCtrl", ['$scope', '$location', 'User', '$http', ($
     if _.indexOf($scope.usersCommunicatedWith, user.id) == -1 and user.id != $scope.currentUser.id
       User.createConversationWithMessage($scope.currentUser, user, messageText).success (response) ->
         noty { text: 'Successfully sent a message!', type: 'success'}
-        console.log '$scope.messageText: ', $scope.messageText = ''
         $scope.usersCommunicatedWith.push user.id
         reloadUser()
+        notySuccessForMessage()
       .error (response) ->
-        noty { text: 'Message cannot be sent! Please try again', type: 'error'}
+        notyErrorForMessage()
     else
       conversation = _.find($scope.conversations, (conversation) -> conversation.created_by == user.id || conversation.created_for == user.id)
       User.createMessageTo($scope.currentUser, user, messageText, conversation.id).success (response) ->
-        noty { text: 'Successfully sent a message!', type: 'success'}
-        console.log '$scope.messageText: ', $scope.messageText = ''
+        notySuccessForMessage()
       .error (response) ->
-        noty { text: 'Message cannot be sent! Please try again', type: 'error'}
+        notyErrorForMessage()
     $(".modal").modal('hide')
     return
 
@@ -59,8 +64,6 @@ Grasshopper.controller "SearchCtrl", ['$scope', '$location', 'User', '$http', ($
   reloadUser()
 
   $scope.messageText = ''
-
   $scope.searchText = ''
-
 ]
 
