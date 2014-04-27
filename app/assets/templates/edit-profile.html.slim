@@ -1,11 +1,6 @@
 .row data-ng-init="getCurrentUser()" data-ng-file-drop=""
   .col-md-2.text-center
     img.img-responsive.img-circle data-ng-src="{{ currentUser.avatar_url }}"
-    .btn-group-vertical
-      .button.button.btn.btn-default data-ng-click="editProfile()"
-        | Edit Profile
-      .button.button.btn.btn-default> Send Message
-      .button.button.btn.btn-default> Bow
   .col-md-10
     form.edit_profile_form
       fieldset

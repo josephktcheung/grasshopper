@@ -4,7 +4,7 @@ Grasshopper.controller "SearchCtrl", ['$scope', '$location', 'User', '$http', ($
 
   User.loadCurrentUser().then (data) ->
     $scope.currentUser = data.users[0]
-    User.loadConversation(currentUser)
+
 
   filterUsersCommunicatedWith = (data) ->
     communicatedUsers = []

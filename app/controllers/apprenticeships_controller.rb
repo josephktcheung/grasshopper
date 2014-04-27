@@ -20,6 +20,7 @@ class ApprenticeshipsController < ApplicationController
     @ratings = (@apprenticeships.map { |apprenticeship| apprenticeship.ratings }).flatten.sort.uniq
   end
 
+
   def create
     apprenticeship = Apprenticeship.new apprenticeship_params.merge(end_date: DateTime.new(6012,2,3))
 

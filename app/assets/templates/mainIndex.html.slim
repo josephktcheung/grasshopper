@@ -10,9 +10,9 @@
     .profile_text
       | {{ currentUser.first_name }} {{ currentUser.last_name }}
       div
-        span.label.label-primary
+        span.label.label-primary>
           | {{ currentUser.role.toUpperCase() }}
-        span.label class="label {{ currentUser.activeLabel }}"
+        span.label> class="label {{ currentUser.activeLabel }}"
           | {{ currentUser.activeorinactive.toUpperCase() }}
 
     .panel.panel-info.about_me
@@ -43,18 +43,27 @@
 
     .panel.panel-info.connections
       .panel-heading Connections
-      ul.list-group
+      ul.list-group data-ng-repeat="user in pendingApprenticeships"
         li.list-group-item
           .row
             .col-xs-8
-              a data-ng-href="#/view-profile/{{connectionUserId}}"
-                | {{ connectionUsername }}
+              a data-ng-href="#/view-profile/{{user.id}}"
+                | {{user.first_name}} {{user.last_name}}
             .col-xs-4
-              a href="" end connection
-
+              button.btn.btn-success#accept-bow> data-ng-click="acceptBow()" Accept Bow
+              button.btn.btn-danger#decline-bow> Decline Bow
+      ul.list-group data-ng-repeat="user in activeApprenticeships"
         li.list-group-item
           .row
-            .col-md-8
-              a href=""
-                |username here
-            .col-md-4
+            .col-xs-8
+              a data-ng-href="#/view-profile/{{user.id}}"
+                | {{user.first_name}} {{user.last_name}}
+            .col-xs-4
+              button.btn.btn-danger#decline-bow> End Apprenticeship
+      ul.list-group data-ng-repeat="user in inactiveApprenticeships"
+        li.list-group-item
+          .row
+            .col-xs-8
+              a data-ng-href="#/view-profile/{{user.id}}"
+                | {{user.first_name}} {{user.last_name}}
+

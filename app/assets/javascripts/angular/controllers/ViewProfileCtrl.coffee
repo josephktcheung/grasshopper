@@ -10,20 +10,22 @@ Grasshopper.controller "ViewProfileCtrl", (['$scope', '$location', '$http', 'Use
         existing = _.find(result.data.apprenticeships, (apprenticeship) ->
           apprenticeship.links.master.id == user.id and apprenticeship.links.apprentice.id == currentUser.id
         )
-        console.log existing
-        if existing
+        if existing.status == 'active'
           $scope.bowLabel = "Connected"
+          $('#bow-button').removeAttr("data-toggle")
+        else if existing.status == 'pending'
+          $scope.bowLabel = "Pending"
           $('#bow-button').removeAttr("data-toggle")
         else
           $scope.bowLabel = "Bow"
           $('#bow-button').addAttr("data-toggle")
-
     else
       user.showBow = false
 
 
   User.loadCurrentUser().then (result) ->
     $scope.currentUser = result.users[0]
+    console.log 'current user', $scope.currentUser.role
     User.loadOne(userId).then (result) ->
       $scope.user = result.users[0]
       showOrHideBow($scope.user, $scope.currentUser)
@@ -31,11 +33,13 @@ Grasshopper.controller "ViewProfileCtrl", (['$scope', '$location', '$http', 'Use
   $scope.bowAndMessage = (masterId, apprenticeId) ->
     newApprenticeship = { master_id: masterId, apprentice_id: apprenticeId }
     if $scope.currentUser.role == "apprentice" and $scope.user.role == "master"
-      $http.post('/api/apprenticeships', newApprenticeship).then ->
+      $http.post('/api/apprenticeships', newApprenticeship).success (response) ->
         console.log "Successfully created new apprenticeship"
         $('#bow-modal').modal('hide')
         $scope.bowLabel = "Connected"
         $('#bow-button').removeAttr("data-toggle")
+        noty { text: "You've bowed succesfully! Apprenticeship pending.", type: "success" }
+      .error (response) ->
+        noty { text: "You cannot bow to this user." , type: "error" }
 
 ])
-
