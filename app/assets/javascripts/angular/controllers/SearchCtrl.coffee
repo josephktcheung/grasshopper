@@ -40,14 +40,18 @@ Grasshopper.controller "SearchCtrl", ['$scope', '$location', 'User', '$http', ($
 
   $scope.submitMessage = (user, messageText) ->
     if _.indexOf($scope.usersCommunicatedWith, user.id) == -1 and user.id != $scope.currentUser.id
-      User.createConversationWithMessage($scope.currentUser, user, messageText).then (response) ->
-        $scope.messageText = ''
+      User.createConversationWithMessage($scope.currentUser, user, messageText).success (response) ->
+        noty { text: 'Successfully sent a message!', type: 'success'}
         $scope.usersCommunicatedWith.push user.id
         reloadUser()
+      .error (response) ->
+        noty { text: 'Message cannot be sent! Please try again', type: 'error'}
     else
       conversation = _.find($scope.conversations, (conversation) -> conversation.created_by == user.id || conversation.created_for == user.id)
       User.createMessageTo($scope.currentUser, user, messageText, conversation.id).success (response) ->
-        $scope.messageText = ''
+        noty { text: 'Successfully sent a message!', type: 'success'}
+      .error (response) ->
+        noty { text: 'Message cannot be sent! Please try again', type: 'error'}
     $(".modal").modal('hide')
     return
 
