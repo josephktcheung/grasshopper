@@ -2,6 +2,10 @@ collection @user, root: "users", :object_root => false
 
 attributes :id, :email, :first_name, :last_name, :username, :role, :is_active, :about_me
 
+node :avatar_url do |user|
+  user.avatar.url
+end
+
 node :links do |user|
   {
     apprenticeships:

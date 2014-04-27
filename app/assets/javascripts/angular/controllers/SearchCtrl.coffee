@@ -4,11 +4,11 @@ Grasshopper.controller "SearchCtrl", ['$scope', '$location', 'User', '$http', ($
 
   User.loadCurrentUser().then (data) ->
     $scope.currentUser = data.users[0]
-    filterUsersCommunicatedWith(data)
+    User.loadConversation(currentUser)
 
   filterUsersCommunicatedWith = (data) ->
     communicatedUsers = []
-    $scope.conversations = data.linked.conversations
+    console.log '$scope.conversations: ', $scope.conversations = data.linked.conversations
     angular.forEach data.linked.conversations, (conversation) ->
       communicatedUsers.push conversation.created_by
       communicatedUsers.push conversation.created_for
@@ -41,6 +41,7 @@ Grasshopper.controller "SearchCtrl", ['$scope', '$location', 'User', '$http', ($
     if _.indexOf($scope.usersCommunicatedWith, user.id) == -1 and user.id != $scope.currentUser.id
       console.log 'create new conversation with this user'
       User.createConversationWithMessage($scope.currentUser, user, messageText).then (response) ->
+        console.log 'location: ', response.headers('location')
         console.log 'successfully created conversation and message'
         $scope.usersCommunicatedWith.push user.id
     else
