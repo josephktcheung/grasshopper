@@ -66,7 +66,7 @@ gh = User.create(first_name: 'Grass', last_name: 'Hopper', email: 'gh@ga.co', pa
 ms = User.create(first_name: 'Master', last_name: 'Shifu', email: 'ms@kp.movie', password: '123', password_confirmation: '123', role: 'master', about_me: about_ms, avatar: seed_image('default-master'))
 
 my = User.create(first_name: 'Master', last_name: 'Yoda', email: 'my@jedi.sw', password: '123', password_confirmation: '123', role: 'master', avatar: seed_image('yoda'), about_me: about_my)
-ls = User.create(first_name: 'Luke', last_name: 'Skywalker', email: 'ls@jedi.sw', password: '123', password_confirmation: '123', role: 'master', avatar: seed_image('luke'), about_me: about_ls)
+ls = User.create(first_name: 'Luke', last_name: 'Skywalker', email: 'ls@jedi.sw', password: '123', password_confirmation: '123', role: 'apprentice', avatar: seed_image('luke'), about_me: about_ls)
 
 dm = User.create(first_name: 'Darth', last_name: 'Maul', email: 'dm@sith.sw', password: '123', password_confirmation: '123', role: 'apprentice', avatar: seed_image('darth_maul'), about_me: about_dm)
 ds = User.create(first_name: 'Darth', last_name: 'Sidious', email: 'ds@sith.sw', password: '123', password_confirmation: '123', role: 'master', avatar: seed_image('darth_sidious'), about_me: about_ds)
