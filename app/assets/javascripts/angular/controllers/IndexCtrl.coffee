@@ -16,21 +16,21 @@ Grasshopper.controller "IndexCtrl", ['$scope', '$location', '$http', 'User', ($s
           _.find result.data.linked.users, (user) ->
             if user.id == connection.links.master.id
               if connection.status == 'active'
-                $scope.activeConnections.push "#{user.first_name} #{user.last_name}"
+                $scope.activeConnections.push user
               else if connection.status == 'pending'
-                $scope.pendingConnections.push "#{user.first_name} #{user.last_name}"
+                $scope.pendingConnections.push user
               else if connection.status == 'inactive'
-                $scope.inactiveConnections.push "#{user.first_name} #{user.last_name}"
+                $scope.inactiveConnections.push user
         else
           $scope.connectedUserIds.push connection.links.apprentice.id
           _.find result.data.linked.users, (user) ->
             if user.id == connection.links.apprentice.id
               if connection.status == 'active'
-                $scope.activeConnections.push "#{user.first_name} #{user.last_name}"
+                $scope.activeConnections.push user
               else if connection.status == 'pending'
-                $scope.pendingConnections.push "#{user.first_name} #{user.last_name}"
+                $scope.pendingConnections.push user
               else if connection.status == 'inactive'
-                $scope.inactiveConnections.push "#{user.first_name} #{user.last_name}"
+                $scope.inactiveConnections.push user
 
       console.log 'Connect User IDs: ', $scope.connectedUserIds
       console.log 'activeConnections: ', $scope.activeConnections
@@ -40,7 +40,7 @@ Grasshopper.controller "IndexCtrl", ['$scope', '$location', '$http', 'User', ($s
         # if connection.status == 'pending'
         #   angular.forEach result.data.linked.users, (user) ->
         #     if _.contains $scope.connectedUserIds, user.id
-        #       $scope.activeConnections.push "#{user.first_name} #{user.last_name}"
+        #       $scope.activeConnections.push user
         #     console.log 'Pending Connections: ', $scope.activeConnections
 
           # _.find result.data.linked.users, (user) ->
