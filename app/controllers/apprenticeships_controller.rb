@@ -7,10 +7,14 @@ class ApprenticeshipsController < ApplicationController
 
   def index
     @apprenticeships = if params[:id]
-      user_clause = @user ? "and master_id = #{@user.id}) or (id in (?) and apprentice_id = #{@user.id})" : ""
-      Apprenticeship.where("(id in (?) #{user_clause}", params[:id].split(','), params[:id].split(','))
+      if @user
+        user_clause = @user ? "and master_id = #{@user.id}) or (id in (?) and apprentice_id = #{@user.id})" : ""
+        Apprenticeship.where("(id in (?) #{user_clause}", params[:id].split(','), params[:id].split(','))
+      else
+        Apprenticeship.where("id in (?)", params[:id].split(','))
+      end
     else
-      @user ? @user.apprenticeships : Apprenticeship.all
+      @user ? Apprenticeship.where("(master_id = #{@user.id}) or (apprentice_id = #{@user.id})") : Apprenticeship.all
     end
     @users = (@apprenticeships.map { |apprenticeship| [apprenticeship.master, apprenticeship.apprentice] }).flatten.sort.uniq
     @ratings = (@apprenticeships.map { |apprenticeship| apprenticeship.ratings }).flatten.sort.uniq

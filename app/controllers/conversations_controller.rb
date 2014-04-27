@@ -6,8 +6,12 @@ class ConversationsController < ApplicationController
 
   def index
     @conversations = if params[:id]
-      user_clause = @user ? "and created_by_id = #{@user.id}) or (id in (?) and created_for_id = #{@user.id})" : ""
-      Conversation.where("(id in (?) #{user_clause}", params[:id].split(','), params[:id].split(','))
+        if @user
+          user_clause = "and created_by_id = #{@user.id}) or (id in (?) and created_for_id = #{@user.id})"
+          Conversation.where("(id in (?) #{user_clause}", params[:id].split(','), params[:id].split(','))
+        else
+          Conversation.where("id in (?)", params[:id].split(','))
+        end
     else
       @user ? Conversation.where("(created_by_id = #{@user.id}) or (created_for_id = #{@user.id})") : Conversation.all
     end
