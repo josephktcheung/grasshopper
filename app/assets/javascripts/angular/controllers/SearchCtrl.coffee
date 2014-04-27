@@ -1,23 +1,26 @@
 Grasshopper.controller "SearchCtrl", ['$scope', '$location', 'User', '$http', ($scope, $location, User, $http) ->
-  User.loadAll().then (result) ->
-    $scope.users = result.users
 
-  User.loadCurrentUser().then (data) ->
-    $scope.currentUser = data.users[0]
-    User.loadConversation(currentUser)
+  notySuccessForMessage = () ->
+    noty { text: 'Successfully sent a message!', type: 'success' }
+
+  notyErrorForMessage = () ->
+    noty { text: 'Message cannot be sent! Please try again', type: 'error' }
+
+  reloadUser = () ->
+    User.loadCurrentUser().then (data) ->
+      $scope.currentUser = data.users[0]
+      filterUsersCommunicatedWith(data)
 
   filterUsersCommunicatedWith = (data) ->
     communicatedUsers = []
-    console.log '$scope.conversations: ', $scope.conversations = data.linked.conversations
+    $scope.conversations = data.linked.conversations
     angular.forEach data.linked.conversations, (conversation) ->
       communicatedUsers.push conversation.created_by
       communicatedUsers.push conversation.created_for
-    $scope.usersCommunicatedWith = _.pull(_.uniq(communicatedUsers), $scope.currentUser.id)
+    $scope.usersCommunicatedWith = _.pull(communicatedUsers, $scope.currentUser.id)
 
   $scope.search = () ->
     $location.url '/search'
-
-  $scope.searchText = ''
 
   $scope.filterByNameOrSkill = (users,searchText) ->
     filteredUsers = []
@@ -39,16 +42,28 @@ Grasshopper.controller "SearchCtrl", ['$scope', '$location', 'User', '$http', ($
 
   $scope.submitMessage = (user, messageText) ->
     if _.indexOf($scope.usersCommunicatedWith, user.id) == -1 and user.id != $scope.currentUser.id
-      console.log 'create new conversation with this user'
-      User.createConversationWithMessage($scope.currentUser, user, messageText).then (response) ->
-        console.log 'location: ', response.headers('location')
-        console.log 'successfully created conversation and message'
+      User.createConversationWithMessage($scope.currentUser, user, messageText).success (response) ->
+        noty { text: 'Successfully sent a message!', type: 'success'}
         $scope.usersCommunicatedWith.push user.id
+        reloadUser()
+        notySuccessForMessage()
+      .error (response) ->
+        notyErrorForMessage()
     else
-      console.log 'already had conversation with this user before'
-      console.log $scope.conversations
       conversation = _.find($scope.conversations, (conversation) -> conversation.created_by == user.id || conversation.created_for == user.id)
       User.createMessageTo($scope.currentUser, user, messageText, conversation.id).success (response) ->
-          console.log 'successfully created message'
+        notySuccessForMessage()
+      .error (response) ->
+        notyErrorForMessage()
+    $(".modal").modal('hide')
+    return
+
+  User.loadAll().then (result) ->
+    $scope.users = result.users
+
+  reloadUser()
+
+  $scope.messageText = ''
+  $scope.searchText = ''
 ]
 
