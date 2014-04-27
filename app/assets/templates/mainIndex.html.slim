@@ -1,6 +1,6 @@
 .row
   .col-md-2.text-center
-    img.img-responsive.img-circle src= "http://placekitten.com/500/500"
+    img.img-responsive.img-circle data-ng-src="{{ currentUser.avatar_url }}"
     .star_rating
       | Get average star rating here
     .btn-group-vertical
@@ -60,7 +60,3 @@
               a href=""
                 |username here
             .col-md-4
-
-    .panel.panel-info.profile_picture
-      .panel-heading Profile Picture
-      .panel-body

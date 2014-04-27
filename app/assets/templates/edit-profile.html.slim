@@ -1,6 +1,6 @@
-.row data-ng-init="getCurrentUser()"
+.row data-ng-init="getCurrentUser()" data-ng-file-drop=""
   .col-md-2.text-center
-    img.img-responsive.img-circle src= "http://placekitten.com/500/500"
+    img.img-responsive.img-circle data-ng-src="{{ currentUser.avatar_url }}"
     .btn-group-vertical
       .button.button.btn.btn-default data-ng-click="editProfile()"
         | Edit Profile
@@ -10,19 +10,62 @@
     form.edit_profile_form
       fieldset
         legend Update your profile
-        .form-group
-          label.sr-only for="first_name"
-          input.form-control#first_name type="text" placeholder="First name" data-ng-model="currentUser.first_name"
-        .form-group
-          label.sr-only for="last_name"
-          input.form-control#last_name type="text" placeholder="Last name" data-ng-model="currentUser.last_name"
-        .form-group
-          label.sr-only for="about_me"
-          textarea.form-control placeholder="About me" data-ng-model="currentUser.about_me"
-        .checkbox
-          label
-            input#toggle_activation type="checkbox" data-ng-model="currentUser.is_active" data-ng-checked="currentUser.is_active" Active?
-        input.btn.btn-success type="submit" value="Update profile" data-ng-click="updateProfile()"
+        .row
+          .col-md-6
+            .form-group
+              label.sr-only for="first_name"
+              input.form-control#first_name type="text" placeholder="First name" data-ng-model="currentUser.first_name"
+            .form-group
+              label.sr-only for="last_name"
+              input.form-control#last_name type="text" placeholder="Last name" data-ng-model="currentUser.last_name"
+            .form-group
+              label.sr-only for="about_me"
+              textarea#about_me.form-control placeholder="About me" data-ng-model="currentUser.about_me"
+            .checkbox
+              label
+                input#toggle_activation type="checkbox" data-ng-model="currentUser.is_active" data-ng-checked="currentUser.is_active" Active?
+            input.btn.btn-success type="submit" value="Update profile" data-ng-click="updateProfile()"
+
+          .col-md-6
+            .panel.panel-default.avatar
+              .panel-heading
+                | Update profile photo
+              .panel-body
+                .well.my-drop-zone data-ng-show="uploader.isHTML5" data-ng-file-over="" Drop your photo here
+                input data-ng-file-select="" type="file"
+              table.table
+                thead
+                  tr
+                    th width="50%" Name
+                    th data-ng-show="uploader.isHTML5" Size
+                    th data-ng-show="uploader.isHTML5" Progress
+                tbody
+                  tr data-ng-repeat="item in uploader.queue"
+                    td
+                      strong
+                        | {{ item.file.name }}
+                      div data-ng-show="uploader.isHTML5" data-ng-thumb="{ file: item.file, height: 100, width: 100 }"
+                    td data-ng-show="uploader.isHTML5" nowrap="" {{ item.file.size/1024/1024|number:2 }} MB
+                    td data-ng-show="uploader.isHTML5"
+                      .progress
+                        .progress-bar role="progressbar" data-ng-style="{ 'width': item.progress + '%' }"
+                    td.text-center
+                      span data-ng-show="item.isSuccess"
+                        i.glyphicon.glyphicon-ok Upload
+                      span data-ng-show="item.isCancel"
+                        i.glyphicon.glyphicon-ban-circle Cancel
+                      span data-ng-show="item.isCancel"
+                        i.glyphicon.glyphicon-ban-trash Remove
+              h4 Queue progress:
+              .progress sytle=""
+                .progress-bar role="progressbar" data-ng-style="{ 'width': uploader.progress + '%' }"
+              button.btn.btn-success.btn-s type="button" data-ng-click="uploader.uploadAll()" data-ng-disabled="!uploader.getNotUploadedItems().length"
+                span.glyphicon.glyphicon-upload Upload
+              button.btn.btn-warning.btn-s type="button" data-ng-click="uploader.cancelAll()" data-ng-disabled="!uploader.isUploading"
+                span.glyphicon.glyphicon-ban-circle Cancel
+              button.btn.btn-danger.btn-s type="button" data-ng-click="uploader.clearQueue()" data-ng-disabled="!uploader.queue.length"
+                span.glyphicon.glyphicon-trash Remove
+
 
     legend
       | Update your skills
@@ -33,3 +76,4 @@
         li.list-group-item data-ng-repeat="proficiency in currentUser.links.proficiencies"
           | {{ proficiency.skill }}
           a.remove-skill href="" data-ng-click="removeProficiency(proficiency.href)" Remove
+

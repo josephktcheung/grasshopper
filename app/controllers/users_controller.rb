@@ -43,6 +43,10 @@ class UsersController < ApplicationController
   protected
 
   def user_params
+    if params[:avatar]
+      avatar = params[:avatar]
+      params[:user] = { avatar: avatar }
+    end
     params.require(:user).permit(:avatar, :id, :first_name, :last_name, :is_active, :about_me)
   end
 

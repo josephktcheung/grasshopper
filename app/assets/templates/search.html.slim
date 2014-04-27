@@ -22,7 +22,7 @@
     article.search-result.row
       .col-xs-12.col-sm-12.col-md-3
         a.thumbnail title=("User Image") data-ng-href="#/view-profile/{{user.id}}"
-          img.img-responsive alt=("User") src="http://lorempixel.com/250/140/people"
+          img.img-responsive alt=("User") data-ng-src="{{ user.avatar_url }}"
       .col-xs-12.col-sm-12.col-md-2
         ul.meta-search
           li
