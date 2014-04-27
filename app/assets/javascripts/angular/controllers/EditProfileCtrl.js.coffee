@@ -37,6 +37,8 @@ Grasshopper.controller "EditProfileCtrl", (['$scope','$http', '$location', 'User
     .error (response) ->
       noty {text: 'Profile cannot be updated! Please try again', type: 'error'}
 
+  $scope.viewProfile = () ->
+    $location.url('/')
 
   $scope.removeProficiency = (proficiencyUrl) ->
     User.removeProficiency(proficiencyUrl)
