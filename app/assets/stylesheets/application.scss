@@ -247,9 +247,6 @@ hgroup h2.lead {
   padding-bottom: 10px;
 }
 
-.search-result .thumbnail {
-  border-radius: 0 !important;
-}
 
 .search-result:first-child {
   margin-top: 0 !important;
@@ -257,6 +254,7 @@ hgroup h2.lead {
 
 .search-result {
   margin-top: 20px;
+  margin-bottom: 30px;
 }
 
 .search-result .col-md-2 {
