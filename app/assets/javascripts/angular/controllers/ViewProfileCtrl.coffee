@@ -36,7 +36,7 @@ Grasshopper.controller "ViewProfileCtrl", (['$scope', '$location', '$http', 'Use
       $http.post('/api/apprenticeships', newApprenticeship).success (response) ->
         console.log "Successfully created new apprenticeship"
         $('#bow-modal').modal('hide')
-        $scope.bowLabel = "Connected"
+        $scope.bowLabel = "Pending"
         $('#bow-button').removeAttr("data-toggle")
         noty { text: "You've bowed succesfully! Apprenticeship pending.", type: "success" }
       .error (response) ->

@@ -43,27 +43,18 @@
 
     .panel.panel-info.connections
       .panel-heading Connections
-      ul.list-group data-ng-repeat="user in pendingApprenticeships"
+      ul.list-group data-ng-repeat="apprenticeship in allApprenticeships"
         li.list-group-item
           .row
             .col-xs-8
-              a data-ng-href="#/view-profile/{{user.id}}"
-                | {{user.first_name}} {{user.last_name}}
+              a data-ng-href="#/view-profile/{{apprenticeship.links.apprentice.id}}"
+                | {{apprenticeship.links.apprentice.first_name}} {{apprenticeship.links.apprentice.last_name}}
             .col-xs-4
-              button.btn.btn-success#accept-bow> data-ng-click="acceptBow()" Accept Bow
-              button.btn.btn-danger#decline-bow> Decline Bow
-      ul.list-group data-ng-repeat="user in activeApprenticeships"
-        li.list-group-item
-          .row
-            .col-xs-8
-              a data-ng-href="#/view-profile/{{user.id}}"
-                | {{user.first_name}} {{user.last_name}}
-            .col-xs-4
-              button.btn.btn-danger#decline-bow> End Apprenticeship
-      ul.list-group data-ng-repeat="user in inactiveApprenticeships"
-        li.list-group-item
-          .row
-            .col-xs-8
-              a data-ng-href="#/view-profile/{{user.id}}"
-                | {{user.first_name}} {{user.last_name}}
+              #bow-buttons
+                button.btn.btn-success#accept-bow> data-ng-show="showBowButtons({{apprenticeship}})" data-ng-click="updateApprenticeship(apprenticeship)" Accept Bow
+                button.btn.btn-danger#decline-bow> data-ng-show="showBowButtons({{apprenticeship}})" Decline Bow
+              span#status-notice>
+                | {{apprenticeship.status.toUpperCase()}}
+
+
 

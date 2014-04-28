@@ -50,7 +50,7 @@ class ApprenticeshipsController < ApplicationController
   end
 
   def apprenticeship_params
-    params.require(:apprenticeship).permit(:master_id, :apprentice_id, :end_date)
+    params.require(:apprenticeship).permit(:master_id, :apprentice_id, :end_date, :status)
   end
 
   def get_apprenticeship
