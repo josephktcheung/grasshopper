@@ -22,6 +22,9 @@ Grasshopper.controller "SearchCtrl", ['$scope', '$location', 'User', '$http', ($
   $scope.search = () ->
     $location.url '/search'
 
+  $scope.conversation = () ->
+    $location.url '/conversation'
+
   $scope.filterByNameOrSkill = (users,searchText) ->
     filteredUsers = []
     searchTextRegExp = RegExp(searchText, 'i')

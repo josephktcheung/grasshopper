@@ -137,7 +137,23 @@ footer > .container {
 
 header {
   .navbar-right {
-    margin-left: 10px;
+    margin: 10px;
+    font-size: 25px;
+    position: relative; top: -4px;
+
+  }
+    .glyphicon-envelope {
+      margin: 10px;
+      font-size: 25px;
+    }
+
+    .glyphicon-search {
+      margin: 10px;
+      font-size: 25px;
+    }
+
+  .navbar-brand {
+    font-size: 30px;
   }
 }
 
