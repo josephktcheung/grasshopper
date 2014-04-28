@@ -22,6 +22,12 @@ Grasshopper.controller "SearchCtrl", ['$scope', '$location', 'User', '$http', ($
   $scope.search = () ->
     $location.url '/search'
 
+  $scope.conversation = () ->
+    $location.url '/conversation'
+
+  $scope.viewProfile = () ->
+    $location.url '/view-profile'
+
   $scope.filterByNameOrSkill = (users,searchText) ->
     filteredUsers = []
     searchTextRegExp = RegExp(searchText, 'i')
@@ -43,7 +49,6 @@ Grasshopper.controller "SearchCtrl", ['$scope', '$location', 'User', '$http', ($
   $scope.submitMessage = (user, messageText) ->
     if _.indexOf($scope.usersCommunicatedWith, user.id) == -1 and user.id != $scope.currentUser.id
       User.createConversationWithMessage($scope.currentUser, user, messageText).success (response) ->
-        noty { text: 'Successfully sent a message!', type: 'success'}
         $scope.usersCommunicatedWith.push user.id
         reloadUser()
         notySuccessForMessage()
