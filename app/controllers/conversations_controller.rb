@@ -1,19 +1,13 @@
 class ConversationsController < ApplicationController
   respond_to :json
-
-  before_action :get_conversation, only: [ :update, :destroy ]
   before_action :get_user
+  before_action :get_conversation, only: [ :update, :destroy ]
 
   def index
     @conversations = if params[:id]
-        if @user
-          user_clause = "and created_by_id = #{@user.id}) or (id in (?) and created_for_id = #{@user.id})"
-          Conversation.where("(id in (?) #{user_clause}", params[:id].split(','), params[:id].split(','))
-        else
-          Conversation.where("id in (?)", params[:id].split(','))
-        end
+      Conversation.where("(id in (?) #{@created_for_clause}) or (id in (?) #{@created_by_clause})", params[:id].split(','), params[:id].split(','))
     else
-      @user ? Conversation.where("(created_by_id = #{@user.id}) or (created_for_id = #{@user.id})") : Conversation.all
+      @user ? Conversation.involve_user(@user) : Conversation.all
     end
     @users = (@conversations.map { |conversation| [conversation.created_by, conversation.created_for] }).flatten.sort.uniq
     @messages = (@conversations.map { |conversation| conversation.messages }).flatten.sort.uniq
@@ -39,6 +33,18 @@ class ConversationsController < ApplicationController
 
   protected
 
+  def get_user
+    if params[:user_id]
+      head :bad_request unless @user = User.where("id = ?", params[:user_id]).take
+    end
+    if @user
+      @created_for_user_clause = "and created_for_id = #{@user_id}"
+      @created_by_user_clause = "and created_by_id = #{@user_id}"
+    else
+      ''
+    end
+  end
+
   def conversation_params
     safe_params = [
       :created_for_id,
@@ -54,13 +60,6 @@ class ConversationsController < ApplicationController
 
   def get_conversation
     head :not_found unless @conversation = Conversation.where('id = ?', params[:id]).take
-  end
-
-  def get_user
-    if params[:user_id]
-      head :bad_request unless @user =
-        User.joins("LEFT JOIN conversations ON conversations.created_by_id = #{params[:user_id]} OR conversations.created_for_id = #{params[:user_id]}").take
-    end
   end
 
 end

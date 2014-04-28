@@ -1,20 +1,15 @@
 class ApprenticeshipsController < ApplicationController
 
   respond_to :json
-
+  before_action :get_user
   before_action :get_apprenticeship, only: [ :update, :destroy ]
   before_action :get_user
 
   def index
     @apprenticeships = if params[:id]
-      if @user
-        user_clause = @user ? "and master_id = #{@user.id}) or (id in (?) and apprentice_id = #{@user.id})" : ""
-        Apprenticeship.where("(id in (?) #{user_clause}", params[:id].split(','), params[:id].split(','))
-      else
-        Apprenticeship.where("id in (?)", params[:id].split(','))
-      end
+      Apprenticeship.where("id in (?) #{@user_clause}", params[:id].split(','))
     else
-      @user ? Apprenticeship.where("(master_id = #{@user.id}) or (apprentice_id = #{@user.id})") : Apprenticeship.all
+      @user ? Apprenticeship.involve_user(@user) : Apprenticeship.all
     end
     @users = (@apprenticeships.map { |apprenticeship| [apprenticeship.master, apprenticeship.apprentice] }).flatten.sort.uniq
     @ratings = (@apprenticeships.map { |apprenticeship| apprenticeship.ratings }).flatten.sort.uniq
@@ -41,19 +36,25 @@ class ApprenticeshipsController < ApplicationController
 
   protected
 
+  def get_user
+    if params[:user_id]
+      head :bad_request unless @user = User.where("id = ?", params[:user_id]).take
+    end
+    @user_clause = if @user && @user.role == 'master'
+      "and master_id = #{@user.id}"
+    elsif @user && @user.role == 'apprentice'
+      "and apprentice_id = #{@user.id}"
+    else
+      ''
+    end
+  end
+
   def apprenticeship_params
     params.require(:apprenticeship).permit(:master_id, :apprentice_id, :end_date)
   end
 
   def get_apprenticeship
     head :not_found unless @apprenticeship = Apprenticeship.where('id = ?', params[:id]).take
-  end
-
-  def get_user
-    if params[:user_id]
-      head :bad_request unless @user =
-        User.joins("LEFT JOIN apprenticeships ON apprenticeships.master_id = #{params[:user_id]} OR apprenticeships.apprentice_id = #{params[:user_id]}").take
-    end
   end
 
 end
