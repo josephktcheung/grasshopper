@@ -71,8 +71,21 @@ ls = User.create(first_name: 'Luke', last_name: 'Skywalker', email: 'ls@jedi.sw'
 dm = User.create(first_name: 'Darth', last_name: 'Maul', email: 'dm@sith.sw', password: '123', password_confirmation: '123', role: 'apprentice', avatar: seed_image('darth_maul'), about_me: about_dm)
 ds = User.create(first_name: 'Darth', last_name: 'Sidious', email: 'ds@sith.sw', password: '123', password_confirmation: '123', role: 'master', avatar: seed_image('darth_sidious'), about_me: about_ds)
 
+wc = User.create(first_name: 'Wayne', last_name: 'Campbell', email: 'wc@partyon.co', password: '123', password_confirmation: '123', role: 'master', avatar: seed_image('wayne'), about_me: about_wc)
+ga = User.create(first_name: 'Garth', last_name: 'Algar', email: 'ga@partyon.co', password: '123', password_confirmation: '123', role: 'apprentice', avatar: seed_image('garth'), about_me: about_ga)
+
+tl = User.create(first_name: 'Ted', last_name: 'Logan', email: 'tl@excellent.co', password: '123', password_confirmation: '123', role: 'master', avatar: seed_image('ted'), about_me: about_tl)
+bp = User.create(first_name: 'Bill', last_name: 'Preston', email: 'bp@excellent.co', password: '123', password_confirmation: '123', role: 'apprentice', avatar: seed_image('bill'), about_me: about_bp)
+
+hy = User.create(first_name: 'Hamato', last_name: 'Yoshi', email: 'hy@cowabunga.co', password: '123', password_confirmation: '123', role: '', avatar: seed_image('splinter'), about_me: about_hy)
+lh = User.create(first_name: 'Leonardo', last_name: 'Hamato', email: 'hy@cowabunga.co', password: '123', password_confirmation: '123', role: '', avatar: seed_image('leonardo'), about_me: about_lh)
+
+
 a1 = Apprenticeship.create(master: cm, apprentice: gh, end_date: (1.month.from_now))
 a2 = Apprenticeship.create(master: ds, apprentice: dm, end_date: (20.year.from_now))
+
+a3 = Apprenticeship.create(master: hy, apprentice: lh, end_date: (20.year.from_now))
+
 Rating.create(rater: gh, ratee: ms, apprenticeship: a2, rating: 5)
 Rating.create(rater: ms, ratee: gh, apprenticeship: a1, rating: 3)
 skills = ['Ruby on Rails', 'Javascript', 'CSS', 'Bartending', 'Jedi', 'Sith', 'Pascal', 'Kung Fu']
