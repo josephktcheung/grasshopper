@@ -11,13 +11,9 @@
                 button.close aria-hidden="true" data-dismiss="modal" type="button"  &times;
                 h4#myModalLabel.modal-title Send a message to {{ user.first_name }} {{ user.last_name }}
               .modal-body
-                div data-ng-repeat-start="message in messages"
-                  | {{ message }}
-                div data-ng-repeat-end=""
-                / data-ng-repeat="user in filterByNameOrSkill(users, searchText) | filter:roleFilter"
                 textarea.form-control rows="3" data-ng-model="messageText"
               .modal-footer
-                button.btn.btn-primary type="button" data-ng-click="submitMessage(user, messageText)" Submit
+                button.btn.btn-primary type="button" data-ng-click="submitMessage(user, messageText)" Send
                 button.btn.btn-default data-dismiss="modal" type="button" Close
 
       button.button.btn.btn-default#bow-button data-ng-show="user.showBow" data-target=".bow-modal" data-toggle="modal" {{ bowLabel }}
