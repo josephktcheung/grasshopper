@@ -60,13 +60,10 @@
                 button.close aria-hidden="true" data-dismiss="modal" type="button"  &times;
                 h4#myModalLabel.modal-title Send a message to {{ user.first_name }} {{ user.last_name }}
               .modal-body
-                | Lots of text and messages and stuff
-                br Current user conversations: {{ currentUser.links.conversations }}
-                br Receiving user conversations: {{ user.links.conversations }}
                 div data-ng-repeat-start="message in messages"
                   | {{ message }}
                 div data-ng-repeat-end=""
-                / data-ng-repeat="user in filterByNameOrSkill(users, searchText) | filter:roleFilter"
+                data-ng-repeat="user in filterByNameOrSkill(users, searchText) | filter:roleFilter"
                 textarea.form-control rows="3" data-ng-model="messageText"
               .modal-footer
                 button.btn.btn-primary type="button" data-ng-click="submitMessage(user, messageText)" Submit
