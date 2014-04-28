@@ -153,6 +153,7 @@ header {
     }
 
     .username {
+      margin: 10px;
       position: relative; top: -2px;
     }
 
@@ -287,6 +288,8 @@ hgroup h2.lead {
 }
 .search-result p {
   font: normal normal 1.125em "Roboto",Arial,Verdana,sans-serif;
+  height: 80px;
+  overflow: auto;
 }
 
 .search-result span.border {
@@ -302,6 +305,13 @@ hgroup h2.lead {
 li.list-comma {
   list-style-type: none;
   float: left;
+}
+
+.plus{
+
+  .glyphicon-envelope{
+    margin-right: 10px
+  }
 }
 
 // conversation message
