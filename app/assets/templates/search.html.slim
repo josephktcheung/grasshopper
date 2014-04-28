@@ -58,7 +58,7 @@
             .modal-content
               .modal-header
                 button.close aria-hidden="true" data-dismiss="modal" type="button"  &times;
-                h4#myModalLabel.modal-title Modal title
+                h4#myModalLabel.modal-title Send a message to {{ user.first_name }} {{ user.last_name }}
               .modal-body
                 | Lots of text and messages and stuff
                 br Current user conversations: {{ currentUser.links.conversations }}
