@@ -1,16 +1,15 @@
 class ApprenticeshipsController < ApplicationController
 
   respond_to :json
-
+  before_action :get_user
   before_action :get_apprenticeship, only: [ :update, :destroy ]
 
   def index
     @apprenticeships = if params[:id]
-      Apprenticeship.where('id in (?)', params[:id].split(','))
+      Apprenticeship.where("id in (?) #{@user_clause}", params[:id].split(','))
     else
-      Apprenticeship.all
+      @user ? Apprenticeship.involve_user(@user) : Apprenticeship.all
     end
-
     @users = (@apprenticeships.map { |apprenticeship| [apprenticeship.master, apprenticeship.apprentice] }).flatten.sort.uniq
     @ratings = (@apprenticeships.map { |apprenticeship| apprenticeship.ratings }).flatten.sort.uniq
   end
@@ -34,6 +33,19 @@ class ApprenticeshipsController < ApplicationController
   end
 
   protected
+
+  def get_user
+    if params[:user_id]
+      head :bad_request unless @user = User.where("id = ?", params[:user_id]).take
+    end
+    @user_clause = if @user && @user.role == 'master'
+      "and master_id = #{@user.id}"
+    elsif @user && @user.role == 'apprentice'
+      "and apprentice_id = #{@user.id}"
+    else
+      ''
+    end
+  end
 
   def apprenticeship_params
     params.require(:apprenticeship).permit(:master_id, :apprentice_id, :end_date)
