@@ -5,34 +5,11 @@
         .panel-heading
           h2.panel-title Conversations
         .panel-body
-          .conversation
-            h3 Sender's Username
-            img.img-circle src="http://placekitten.com/50/50"
-            | subject
-          .conversation
-            h3 Sender's Username
-            img.img-circle src="http://placekitten.com/50/50"
-            | subject
-          .conversation
-            h3 Sender's Username
-            img.img-circle src="http://placekitten.com/50/50"
-            | subject
-          .conversation
-            h3 Sender's Username
-            img.img-circle src="http://placekitten.com/50/50"
-            | subject
-          .conversation
-            h3 Sender's Username
-            img.img-circle src="http://placekitten.com/50/50"
-            | subject
-          .conversation
-            h3 Sender's Username
-            img.img-circle src="http://placekitten.com/50/50"
-            | subject
-          .conversation
-            h3 Sender's Username
-            img.img-circle src="http://placekitten.com/50/50"
-            | subject
+          .conversation data-ng-repeat="conversation in conversations"
+            h3
+              | {{ conversation.targetUserFirstName }} {{ conversation.targetUserLastName }}
+            img.img-circle data-ng-src="{{conversation.targetUserAvatar}}" data-ng-click="loadMessages(conversation)"
+            | {{ conversation.lastMsg }}
     .col-md-9
       .row
         .col-md-12
@@ -40,27 +17,13 @@
             .panel-heading
               h2.panel-title Messages
             .panel-body
-              .message
-                img.img-circle src="http://placekitten.com/50/50"
-                |message content
-              .message
-                img.img-circle src="http://placekitten.com/50/50"
-                |message content
-              .message
-                img.img-circle src="http://placekitten.com/50/50"
-                |message content
-              .message
-                img.img-circle src="http://placekitten.com/50/50"
-                |message content
-              .message
-                img.img-circle src="http://placekitten.com/50/50"
-                |message content
-              .message
-                img.img-circle src="http://placekitten.com/50/50"
-                |message content
+              .message data-ng-repeat="message in messages"
+                img.img-circle data-ng-src="{{message.links.sender.avatar_url}}"
+                | {{ message.content }}
       .row
         .col-md-12
-          textarea.form-control rows="8"
+          textarea.form-control rows="8" data-ng-model="messageText"
       .row
         .col-md-12.col-md-offset-10
-          input.btn.btn-success type="submit" value="Send Message"
+          input.btn.btn-success type="submit" data-ng-click="submitMessage(selectedConvo, messageText)" value="Send Message"
+

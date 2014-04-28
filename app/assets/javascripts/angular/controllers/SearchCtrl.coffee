@@ -1,23 +1,10 @@
-Grasshopper.controller "SearchCtrl", ['$scope', '$location', 'User', '$http', ($scope, $location, User, $http) ->
-
-  notySuccessForMessage = () ->
-    noty { text: 'Successfully sent a message!', type: 'success' }
-
-  notyErrorForMessage = () ->
-    noty { text: 'Message cannot be sent! Please try again', type: 'error' }
+Grasshopper.controller "SearchCtrl", ['$scope', '$location', 'User', '$http', 'Conversation', ($scope, $location, User, $http, Conversation) ->
 
   reloadUser = () ->
     User.loadCurrentUser().then (data) ->
       $scope.currentUser = data.users[0]
-      filterUsersCommunicatedWith(data)
-
-  filterUsersCommunicatedWith = (data) ->
-    communicatedUsers = []
-    $scope.conversations = data.linked.conversations
-    angular.forEach data.linked.conversations, (conversation) ->
-      communicatedUsers.push conversation.created_by
-      communicatedUsers.push conversation.created_for
-    $scope.usersCommunicatedWith = _.pull(communicatedUsers, $scope.currentUser.id)
+      console.log $scope.conversations = data.linked.conversations
+      $scope.usersCommunicatedWith = Conversation.filterUsersCommunicatedWith(data, $scope.currentUser)
 
   $scope.search = () ->
     $location.url '/search'
@@ -48,18 +35,18 @@ Grasshopper.controller "SearchCtrl", ['$scope', '$location', 'User', '$http', ($
 
   $scope.submitMessage = (user, messageText) ->
     if _.indexOf($scope.usersCommunicatedWith, user.id) == -1 and user.id != $scope.currentUser.id
-      User.createConversationWithMessage($scope.currentUser, user, messageText).success (response) ->
+      User.createConversationWithMessage($scope.currentUser.id, user.id, messageText).success (response) ->
         $scope.usersCommunicatedWith.push user.id
         reloadUser()
-        notySuccessForMessage()
+        Conversation.notySuccessForMessage()
       .error (response) ->
-        notyErrorForMessage()
+        Conversation.notyErrorForMessage()
     else
       conversation = _.find($scope.conversations, (conversation) -> conversation.created_by == user.id || conversation.created_for == user.id)
-      User.createMessageTo($scope.currentUser, user, messageText, conversation.id).success (response) ->
-        notySuccessForMessage()
+      User.createMessageTo($scope.currentUser.id, user.id, messageText, conversation.id).success (response) ->
+        Conversation.notySuccessForMessage()
       .error (response) ->
-        notyErrorForMessage()
+        Conversation.notyErrorForMessage()
     $(".modal").modal('hide')
     return
 

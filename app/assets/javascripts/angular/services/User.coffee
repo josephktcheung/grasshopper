@@ -27,6 +27,10 @@ Grasshopper.factory 'User', ['$http', ($http) ->
       $http.get('./api/users/'+userId+'/proficiencies').then (result) ->
         result.data
 
+    loadUserConversations: (userId) ->
+      $http.get('./api/users/'+userId+'/conversations').then (result) ->
+        result.data
+
     update: (userId, data) ->
       $http({
         method: "PUT"
@@ -53,10 +57,10 @@ Grasshopper.factory 'User', ['$http', ($http) ->
         data:   conversationParams
       })
 
-    createMessageTo: (sender, recipient, messageText, conversationId) ->
+    createMessageTo: (senderId, recipientId, messageText, conversationId) ->
       messageParams = {
-        sender_id:  sender.id
-        recipient_id: recipient.id
+        sender_id:  senderId
+        recipient_id: recipientId
         content: messageText
         conversation_id: conversationId
       }

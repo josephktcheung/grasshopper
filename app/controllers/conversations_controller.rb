@@ -5,9 +5,9 @@ class ConversationsController < ApplicationController
 
   def index
     @conversations = if params[:id]
-      Conversation.where("(id in (?) #{@created_for_clause}) or (id in (?) #{@created_by_clause})", params[:id].split(','), params[:id].split(','))
+      Conversation.where("(id in (?) #{@created_for_clause}) or (id in (?) #{@created_by_clause})", params[:id].split(','), params[:id].split(',')).order('updated_at DESC')
     else
-      @user ? Conversation.involve_user(@user) : Conversation.all
+      @user ? Conversation.involve_user(@user).order('updated_at DESC') : Conversation.all.order('updated_at DESC')
     end
     @users = (@conversations.map { |conversation| [conversation.created_by, conversation.created_for] }).flatten.sort.uniq
     @messages = (@conversations.map { |conversation| conversation.messages }).flatten.sort.uniq
