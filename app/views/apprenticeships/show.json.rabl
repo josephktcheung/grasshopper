@@ -8,6 +8,8 @@ node :links do |apprenticeship|
       {
         href: user_url(apprenticeship.master),
         id: apprenticeship.master.id,
+        first_name: apprenticeship.master.first_name,
+        last_name: apprenticeship.master.last_name,
         type: "users"
       },
 
@@ -15,6 +17,8 @@ node :links do |apprenticeship|
       {
         href: user_url(apprenticeship.apprentice),
         id: apprenticeship.apprentice.id,
+        first_name: apprenticeship.apprentice.first_name,
+        last_name: apprenticeship.apprentice.last_name,
         type: "users"
       },
 
