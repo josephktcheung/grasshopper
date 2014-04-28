@@ -11,6 +11,8 @@ class Apprenticeship < ActiveRecord::Base
   validate :duplicate_relationship?, on: :create
   validate :same_roles?
   validate :end_before_start?
+  validate :master_is_master?
+  validate :apprentice_is_apprentice?
 
   validates :status, presence: true, inclusion: { :in => %w[active inactive pending] }
 
@@ -35,6 +37,18 @@ class Apprenticeship < ActiveRecord::Base
       if self.end_date < self.created_at
         errors.add(:end_date, "end date cannot be before start date")
       end
+    end
+  end
+
+  def master_is_master?
+    if self.master.role != "master"
+      errors.add(:id, "apprenticeship master role must be master")
+    end
+  end
+
+  def apprentice_is_apprentice?
+    if self.apprentice.role != "apprentice"
+      errors.add(:id)
     end
   end
 

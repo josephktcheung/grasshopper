@@ -4,7 +4,9 @@ Grasshopper.controller "IndexCtrl", ['$scope', '$location', '$http', 'User', ($s
     $scope.currentUser = result.users[0]
 
     $http.get('/api/users/'+$scope.currentUser.id+'/apprenticeships').then (result) ->
-
+      angular.forEach result.data.apprenticeships, (apprenticeship) ->
+        $scope.allApprenticeships = apprenticeship
+      console.log $scope.allApprenticeships
 
   $scope.editProfile = () ->
     $location.url '/edit-profile'
