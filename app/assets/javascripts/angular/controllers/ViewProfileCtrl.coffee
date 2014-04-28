@@ -6,19 +6,16 @@ Grasshopper.controller "ViewProfileCtrl", (['$scope', '$location', '$http', 'Use
   showOrHideBow = (user, currentUser) ->
     if currentUser.role == "apprentice" and user.role == "master"
       user.showBow = true
-      $http.get('/api/apprenticeships').then (result) ->
-        existing = _.find(result.data.apprenticeships, (apprenticeship) ->
-          apprenticeship.links.master.id == user.id and apprenticeship.links.apprentice.id == currentUser.id
-        )
-        if existing.status == 'active'
-          $scope.bowLabel = "Connected"
-          $('#bow-button').removeAttr("data-toggle")
-        else if existing.status == 'pending'
-          $scope.bowLabel = "Pending"
-          $('#bow-button').removeAttr("data-toggle")
+      $http.get('/api/users/'+currentUser.id+'/apprenticeships').then (result) ->
+        console.log result.data.apprenticeships
+        existing = _.find result.data.apprenticeships, (apprenticeship) ->
+          apprenticeship.links.master.id == user.id and apprenticeship.status == 'active'
+        existingPending = _.find result.data.apprenticeships, (apprenticeship) ->
+          apprenticeship.links.master.id == user.id and apprenticeship.status == 'pending'
+        if existing or existingPending
+          user.disableBow = true
         else
-          $scope.bowLabel = "Bow"
-          $('#bow-button').addAttr("data-toggle")
+          user.disableBow = false
     else
       user.showBow = false
 

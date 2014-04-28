@@ -21,7 +21,7 @@ class Apprenticeship < ActiveRecord::Base
   end
 
   def duplicate_relationship?
-    if Apprenticeship.find_by( master: self.master, apprentice: self.apprentice )
+    if Apprenticeship.find_by( master: self.master, apprentice: self.apprentice, status: 'active') or Apprenticeship.find_by( master: self.master, apprentice: self.apprentice, status: 'pending')
       errors.add(:id, "duplicate relationship")
     end
   end

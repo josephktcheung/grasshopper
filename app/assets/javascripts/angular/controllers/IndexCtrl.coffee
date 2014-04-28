@@ -1,4 +1,4 @@
-Grasshopper.controller "IndexCtrl", ['$scope', '$location', '$http', 'User', ($scope, $location, $http, User) ->
+Grasshopper.controller "IndexCtrl", ['$scope', '$location', '$http', 'User', 'Apprenticeship', ($scope, $location, $http, User, Apprenticeship) ->
 
   User.loadCurrentUser().then (result) ->
     $scope.allApprenticeships = []
@@ -12,18 +12,12 @@ Grasshopper.controller "IndexCtrl", ['$scope', '$location', '$http', 'User', ($s
     console.log '$scope.allApprenticeships', $scope.allApprenticeships
 
 
-  $scope.updateApprenticeship = (apprenticeship) ->
-
+  $scope.acceptApprenticeship = (apprenticeship, newStatus) ->
     console.log 'apprenticeship in updateApprenticeship: ', apprenticeship
     apprenticeshipParams = {
-      status: "active"
+      status: newStatus
     }
-
-    $http({
-      method: "PUT"
-      url: "./api/apprenticeships/"+apprenticeship.id
-      data: apprenticeshipParams
-    }).success (response) ->
+    Apprenticeship.update(apprenticeship.id, apprenticeshipParams).success (response) ->
       $http.get('/api/users/'+$scope.currentUser.id+'/apprenticeships/'+apprenticeship.id).then (result) ->
         console.log 'apprenticeship result after success: ', result.data
         updated = result.data.apprenticeships[0]

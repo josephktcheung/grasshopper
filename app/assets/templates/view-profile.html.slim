@@ -3,7 +3,7 @@
     img.img-responsive.img-circle data-ng-src="{{ user.avatar_url }}"
     .btn-group-vertical
       button.button.btn.btn-default> Send Message
-      button.button.btn.btn-default#bow-button data-ng-show="user.showBow" data-target=".bow-modal" data-toggle="modal" {{ bowLabel }}
+      button.button.btn.btn-default#bow-button data-ng-show="user.showBow" data-ng-disabled="user.disableBow" data-target=".bow-modal" data-toggle="modal" Bow
 
       .modal.fade.bow-modal#bow-modal aria-hidden="true" aria-labelledby="bowModal" role="dialog" tabindex="-1"
         .modal-dialog

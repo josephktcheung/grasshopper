@@ -46,15 +46,17 @@
       ul.list-group data-ng-repeat="apprenticeship in allApprenticeships"
         li.list-group-item
           .row
-            .col-xs-8
+            .col-xs-6
               a data-ng-href="#/view-profile/{{apprenticeship.links.apprentice.id}}"
                 | {{apprenticeship.links.apprentice.first_name}} {{apprenticeship.links.apprentice.last_name}}
             .col-xs-4
               #bow-buttons
-                button.btn.btn-success#accept-bow> data-ng-show="showBowButtons({{apprenticeship}})" data-ng-click="updateApprenticeship(apprenticeship)" Accept Bow
+                button.btn.btn-success#accept-bow> data-ng-show="showBowButtons({{apprenticeship}})" data-ng-click="acceptApprenticeship(apprenticeship, active)" Accept Bow
                 button.btn.btn-danger#decline-bow> data-ng-show="showBowButtons({{apprenticeship}})" Decline Bow
+            .col-xs-2
               span#status-notice>
                 | {{apprenticeship.status.toUpperCase()}}
+
 
 
 
