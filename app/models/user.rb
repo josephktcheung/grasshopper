@@ -38,7 +38,7 @@ class User < ActiveRecord::Base
 
   has_attached_file :avatar, styles: {
     thumb: '100x100>',
-    square: '200x200#',
+    square: '170x170#',
     medium: '300x300>'
   }
 
