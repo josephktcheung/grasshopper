@@ -8,6 +8,8 @@ node :links do |conversation|
       {
         href: user_url(conversation.created_by),
         id: conversation.created_by.id,
+        first_name: conversation.created_by.first_name,
+        last_name: conversation.created_by.last_name,
         type: "user"
       },
 
@@ -15,6 +17,8 @@ node :links do |conversation|
       {
         href: user_url(conversation.created_for),
         id: conversation.created_for.id,
+        first_name: conversation.created_for.first_name,
+        last_name: conversation.created_for.last_name,
         type: "user"
       },
 
