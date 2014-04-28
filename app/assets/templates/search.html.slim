@@ -21,8 +21,8 @@
   section.col-xs-12.col-sm-6.col-md-12 data-ng-repeat="user in filterByNameOrSkill(users, searchText) | filter:roleFilter"
     article.search-result.row
       .col-xs-12.col-sm-12.col-md-3
-        a.thumbnail title=("User Image") data-ng-href="#/view-profile/{{user.id}}"
-          img.img-responsive alt=("User") data-ng-src="{{ user.avatar_url }}"
+        a title=("User Image") data-ng-href="#/view-profile/{{user.id}}"
+          img.img-responsive.img-circle alt=("User") data-ng-src="{{ user.avatar_url }}"
       .col-xs-12.col-sm-12.col-md-2
         ul.meta-search
           li
@@ -58,7 +58,7 @@
             .modal-content
               .modal-header
                 button.close aria-hidden="true" data-dismiss="modal" type="button"  &times;
-                h4#myModalLabel.modal-title Modal title
+                h4#myModalLabel.modal-title Send a message to {{ user.first_name }} {{ user.last_name }}
               .modal-body
                 | Lots of text and messages and stuff
                 br Current user conversations: {{ currentUser.links.conversations }}

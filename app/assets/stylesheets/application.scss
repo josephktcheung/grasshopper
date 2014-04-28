@@ -137,7 +137,28 @@ footer > .container {
 
 header {
   .navbar-right {
-    margin-left: 10px;
+    margin: 10px;
+    font-size: 25px;
+    position: relative; top: -4px;
+
+  }
+    .glyphicon-envelope {
+      margin: 10px;
+      font-size: 25px;
+    }
+
+    .glyphicon-search {
+      margin: 10px;
+      font-size: 25px;
+    }
+
+    .username {
+      margin: 10px;
+      position: relative; top: -2px;
+    }
+
+  .navbar-brand {
+    font-size: 30px;
   }
 }
 
@@ -172,14 +193,14 @@ header {
   }
 }
 
-.connections {
-
-  .panel-body{
-  .btn{
-
-    }
-  }
+.label{
+  margin-right: 10px;
 }
+
+// .img-circle {
+//   width: 170px;
+//   height: 170px;
+// }
 
 // LOGIN PAGES
 
@@ -227,9 +248,6 @@ hgroup h2.lead {
   padding-bottom: 10px;
 }
 
-.search-result .thumbnail {
-  border-radius: 0 !important;
-}
 
 .search-result:first-child {
   margin-top: 0 !important;
@@ -237,6 +255,7 @@ hgroup h2.lead {
 
 .search-result {
   margin-top: 20px;
+  margin-bottom: 30px;
 }
 
 .search-result .col-md-2 {
@@ -269,6 +288,8 @@ hgroup h2.lead {
 }
 .search-result p {
   font: normal normal 1.125em "Roboto",Arial,Verdana,sans-serif;
+  height: 80px;
+  overflow: auto;
 }
 
 .search-result span.border {
@@ -284,6 +305,14 @@ hgroup h2.lead {
 li.list-comma {
   list-style-type: none;
   float: left;
+  margin-left: 0.5em;
+}
+
+.plus{
+
+  .glyphicon-envelope{
+    margin-right: 10px
+  }
 }
 
 // conversation message
