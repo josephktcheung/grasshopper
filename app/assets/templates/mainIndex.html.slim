@@ -21,25 +21,18 @@
         p
           | {{ currentUser.about_me }}
 
-    .row
-      .col-md-6
-        .panel.panel-info.skills
-          .panel-heading
-            | Current Skills
-          ul.list-group
-            li.list-group-item
-              | skill 1
-            li.list-group-item
-              | skill 2
-      .col-md-6
-        .panel.panel-info.skills
-          .panel-heading
-            | Desired Skills
-          ul.list-group
-            li.list-group-item
-              | skill 1
-            li.list-group-item
-              | skill 2
+    .form-group
+      label.sr-only for="current-skills"
+      .input-group.select2-bootstrap-prepend
+        span.input-group-btn
+          button.btn.btn-default type="button" data-select2-open="current-skills" Current skills
+        input#current-skills.form-control.select2 type="hidden"
+    .form-group
+      label.sr-only for="desired-skills"
+      .input-group.select2-bootstrap-prepend
+        span.input-group-btn
+          button.btn.btn-default type="button" data-select2-open="desired-skills" Desired skills
+        input#desired-skills.form-control.select2 type="hidden"
 
     .panel.panel-info.connections
       .panel-heading Connections

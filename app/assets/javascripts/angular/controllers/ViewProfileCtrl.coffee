@@ -13,10 +13,10 @@ Grasshopper.controller "ViewProfileCtrl", (['$scope', '$location', '$http', 'Use
         console.log existing
         if existing
           $scope.bowLabel = "Connected"
-          $('#bow-button').removeAttr("data-toggle")
+          # $('#bow-button').removeAttr("data-toggle")
         else
           $scope.bowLabel = "Bow"
-          $('#bow-button').addAttr("data-toggle")
+          # $('#bow-button').addAttr("data-toggle")
 
     else
       user.showBow = false

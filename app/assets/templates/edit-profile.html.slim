@@ -65,20 +65,18 @@
           button.btn.btn-danger.btn-s type="button" data-ng-click="uploader.clearQueue()" data-ng-disabled="!uploader.queue.length"
             span.glyphicon.glyphicon-trash Remove
     .row
-      form.edit_profile_form
+      form.add_skill_form
         fieldset
           legend Update your skills
           .form-group
-            label.sr-only for="first_name"
-            input.form-control#first_name type="text" placeholder="First name" data-ng-model="currentUser.first_name"
-
-    .panel.panel-default.skills
-      .panel-heading
-        | Current Skills
-      .panel-body
-        | stub
-      ul.list-group
-        li.list-group-item data-ng-repeat="proficiency in currentUser.links.proficiencies"
-          | {{ proficiency.skill }}
-          a.remove-skill href="" data-ng-click="removeProficiency(proficiency.href)" Remove
-
+            label.sr-only for="current-skills"
+            .input-group.select2-bootstrap-prepend
+              span.input-group-btn
+                button.btn.btn-default type="button" data-select2-open="current-skills" Current skills
+              input#current-skills.form-control.select2 type="hidden"
+          .form-group
+            label.sr-only for="desired-skills"
+            .input-group.select2-bootstrap-prepend
+              span.input-group-btn
+                button.btn.btn-default type="button" data-select2-open="desired-skills" Desired skills
+              input#desired-skills.form-control.select2 type="hidden"

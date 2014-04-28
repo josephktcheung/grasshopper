@@ -17,7 +17,7 @@ class ProficienciesController < ApplicationController
   end
 
   def create
-    proficiency = Proficiency.new proficiency_params
+    proficiency = @parent.proficiencies.new proficiency_params
 
     if proficiency.save
       head :created, location: proficiency_url(proficiency)
@@ -37,7 +37,7 @@ class ProficienciesController < ApplicationController
   protected
 
   def proficiency_params
-    params.require(:proficiency).permit()
+    params.require(:proficiency).permit(:skill_id, :proficiency_status)
   end
 
   def get_parent
