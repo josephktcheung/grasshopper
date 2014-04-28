@@ -25,6 +25,8 @@ html
               = link_to "Log Out", log_out_url, method: :delete, class: "navbar-link navbar-right"
               a.glyphicon.glyphicon-search> href="" data-ng-click="search()"
               a.glyphicon.glyphicon-envelope> href="" data-ng-click="conversation()"
+              a.username href="" data-ng-click="viewProfile()" {{currentUser.username}}
+
 
       main.container.main role="main"
         == yield
