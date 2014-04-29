@@ -24,11 +24,12 @@ Grasshopper.controller "ConversationCtrl", ['$scope', '$location', 'User', 'Conv
       $scope.usersCommunicatedWith = Conversation.filterUsersCommunicatedWith(data, $scope.currentUser)
 
   reloadMessages = (conversation) ->
-    $scope.messages = []
     $scope.selectedConvo = conversation
+    console.log 'conversation: ', conversation
     $http.get('./api/conversations/'+conversation.id+'/messages').then (response) ->
+      console.log 'response: ', response
       $scope.messages = response.data.messages
-      console.log $scope.messages
+      console.log 'msg: ', $scope.messages
       $('#message-box').scrollTop($('#message-box')[0].scrollHeight)
 
 

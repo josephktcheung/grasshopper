@@ -1,5 +1,5 @@
-class AddIsActiveToApprenticeships < ActiveRecord::Migration
+class AddStatusToApprenticeships < ActiveRecord::Migration
   def change
-    add_column :apprenticeships, :is_active, :boolean
+    add_column :apprenticeships, :status, :string
   end
 end

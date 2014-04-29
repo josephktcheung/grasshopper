@@ -35,7 +35,7 @@ Grasshopper.controller "SearchCtrl", ['$scope', '$location', 'User', '$http', 'C
 
   $scope.submitMessage = (user, messageText) ->
     if _.indexOf($scope.usersCommunicatedWith, user.id) == -1 and user.id != $scope.currentUser.id
-      User.createConversationWithMessage($scope.currentUser.id, user.id, messageText).success (response) ->
+      User.createConversationWithMessage($scope.currentUser, user, messageText).success (response) ->
         $scope.usersCommunicatedWith.push user.id
         reloadUser()
         Conversation.notySuccessForMessage()
@@ -43,7 +43,7 @@ Grasshopper.controller "SearchCtrl", ['$scope', '$location', 'User', '$http', 'C
         Conversation.notyErrorForMessage()
     else
       conversation = _.find($scope.conversations, (conversation) -> conversation.created_by == user.id || conversation.created_for == user.id)
-      User.createMessageTo($scope.currentUser.id, user.id, messageText, conversation.id).success (response) ->
+      User.createMessageTo($scope.currentUser, user, messageText, conversation.id).success (response) ->
         Conversation.notySuccessForMessage()
       .error (response) ->
         Conversation.notyErrorForMessage()

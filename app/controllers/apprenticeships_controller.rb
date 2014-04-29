@@ -3,6 +3,7 @@ class ApprenticeshipsController < ApplicationController
   respond_to :json
   before_action :get_user
   before_action :get_apprenticeship, only: [ :update, :destroy ]
+  before_action :get_user
 
   def index
     @apprenticeships = if params[:id]
@@ -13,6 +14,7 @@ class ApprenticeshipsController < ApplicationController
     @users = (@apprenticeships.map { |apprenticeship| [apprenticeship.master, apprenticeship.apprentice] }).flatten.sort.uniq
     @ratings = (@apprenticeships.map { |apprenticeship| apprenticeship.ratings }).flatten.sort.uniq
   end
+
 
   def create
     apprenticeship = Apprenticeship.new apprenticeship_params.merge(end_date: DateTime.new(6012,2,3))
@@ -48,10 +50,11 @@ class ApprenticeshipsController < ApplicationController
   end
 
   def apprenticeship_params
-    params.require(:apprenticeship).permit(:master_id, :apprentice_id, :end_date)
+    params.require(:apprenticeship).permit(:master_id, :apprentice_id, :end_date, :status)
   end
 
   def get_apprenticeship
     head :not_found unless @apprenticeship = Apprenticeship.where('id = ?', params[:id]).take
   end
+
 end

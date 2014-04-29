@@ -15,6 +15,7 @@ class ConversationsController < ApplicationController
 
   def create
     conversation = Conversation.new conversation_params
+    binding.pry
 
     if conversation.save
       head :created, location: conversation_url(conversation)
@@ -61,4 +62,5 @@ class ConversationsController < ApplicationController
   def get_conversation
     head :not_found unless @conversation = Conversation.where('id = ?', params[:id]).take
   end
+
 end
