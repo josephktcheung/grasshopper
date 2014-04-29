@@ -22,7 +22,7 @@ ActiveRecord::Schema.define(version: 20140425040654) do
     t.integer  "apprentice_id"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
-    t.boolean  "is_active"
+    t.string   "status"
   end
 
   add_index "apprenticeships", ["apprentice_id"], name: "index_apprenticeships_on_apprentice_id", using: :btree
@@ -90,7 +90,7 @@ ActiveRecord::Schema.define(version: 20140425040654) do
     t.string   "role"
     t.boolean  "is_active"
     t.string   "username"
-    t.text   "about_me"
+    t.text     "about_me"
     t.string   "avatar_file_name"
     t.string   "avatar_content_type"
     t.integer  "avatar_file_size"
