@@ -15,8 +15,6 @@ class ConversationsController < ApplicationController
 
   def create
     conversation = Conversation.new conversation_params
-    binding.pry
-
     if conversation.save
       head :created, location: conversation_url(conversation)
     else
