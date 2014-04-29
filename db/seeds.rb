@@ -174,15 +174,10 @@ Proficiency.create!(user: lh, skill: skills[7], proficiency_status: 'desired')
 
 c1 = Conversation.create!(created_by: gh, created_for: ms)
 
-<<<<<<< HEAD
 Message.create!(conversation: c1, recipient: ms, sender: gh, content: 'Hello, I hope to work with you!')
 Message.create!(conversation: c1, recipient: gh, sender: ms, content: 'Sure, let me know when you want to meet up!')
-=======
-c2 = Conversation.create!(created_by: bp, created_for: tl)
 
-Message.create!(conversation: c1, recipient: gh, sender: ms, content: 'Hello, I hope to work with you!')
-Message.create!(conversation: c1, recipient: ms, sender: gh, content: 'Sure, let me know when you want to meet up!')
->>>>>>> e1e406817c50f4c19e7d97373804df1949059b9f
+c2 = Conversation.create!(created_by: bp, created_for: tl)
 
 Message.create!(conversation: c2, recipient: tl, sender: bp, content: 'Dude?')
 Message.create!(conversation: c2, recipient: bp, sender: tl, content: 'Dude!')

@@ -38,14 +38,12 @@ Grasshopper.controller "IndexCtrl", ['$scope', '$location', '$http', 'User', 'Ap
 
   select2CurrentSkills = () ->
     $('#current-skills').val($scope.currentSkillsId).select2({
-      placeholder: "Add your current skills here"
       tags: $scope.allSkills
       dropdownAutoWidth: true
     })
 
   select2DesiredSkills = () ->
     $('#desired-skills').val($scope.desiredSkillsId).select2({
-      placeholder: "Add desired skills here"
       tags: $scope.allSkills
       dropdownAutoWidth: true
     })

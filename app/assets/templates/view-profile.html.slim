@@ -41,25 +41,24 @@
         span.label class="label {{ user.activeLabel }}"
           | {{ user.activeorinactive }}
 
-    div.panel.panel-info.about_me
-      .div.panel-heading>About Me
-      .div.panel-body
-        p insert About me here
+    .panel.panel-info.about_me
+      .panel-heading About Me
+      .panel-body
+        p
+          | {{ currentUser.about_me }}
 
-    div.panel.panel-default.skills
-      div.panel-heading
-        | Skills
-      table.table.skills_table
-        thead
-          tr
-            th
-              | Current Skill
-            th
-              | Desired Skills
-        tbody
-            tr
-              td need to add
-              td need to
+    .form-group
+      label.sr-only for="current-skills"
+      .input-group.select2-bootstrap-prepend
+        span.input-group-btn
+          button.btn.btn-default type="button" data-select2-open="current-skills" Current skills
+        input#current-skills.form-control.select2 type="hidden"
+    .form-group data-ng-show="user.role == 'apprentice'"
+      label.sr-only for="desired-skills"
+      .input-group.select2-bootstrap-prepend
+        span.input-group-btn
+          button.btn.btn-default type="button" data-select2-open="desired-skills" Desired skills
+        input#desired-skills.form-control.select2 type="hidden"
 
     .panel.panel-info.connections
         .panel-heading Connections

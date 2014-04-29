@@ -1,4 +1,4 @@
-Grasshopper.controller "ViewProfileCtrl", (['$scope', '$location', '$http', 'User', '$routeParams', ($scope, $location, $http, User, $routeParams) ->
+Grasshopper.controller "ViewProfileCtrl", (['$scope', '$location', '$http', 'User', '$routeParams', 'Skill', ($scope, $location, $http, User, $routeParams, Skill) ->
 
   userId = $routeParams.userId
   $scope.bowLabel = "Bow"
@@ -59,10 +59,53 @@ Grasshopper.controller "ViewProfileCtrl", (['$scope', '$location', '$http', 'Use
       $scope.currentUser = data.users[0]
       filterUsersCommunicatedWith(data)
 
+
+  initialize = () ->
+    $scope.currentSkillsId = []
+    $scope.desiredSkillsId = []
+
+  loadUserSkills = () ->
+    User.loadUserProficiencies($scope.user.id).then (data) ->
+      angular.forEach data.proficiencies, (proficiency) ->
+        proficiency.text = proficiency.links.skill.name
+        if proficiency.proficiency_status == 'has'
+          $scope.currentSkillsId.push proficiency.links.skill.id
+        else
+          $scope.desiredSkillsId.push proficiency.links.skill.id
+
+  loadSkills = (userId) ->
+    initialize()
+    Skill.loadAll().then (data) ->
+      $scope.allSkills = data.skills
+      angular.forEach $scope.allSkills, (skill) ->
+        skill.text = skill.skill_name
+      loadUserSkills()
+
+  select2CurrentSkills = () ->
+    $('#current-skills').val($scope.currentSkillsId).select2({
+      tags: $scope.allSkills
+      dropdownAutoWidth: true
+    })
+
+  select2DesiredSkills = () ->
+    $('#desired-skills').val($scope.desiredSkillsId).select2({
+      tags: $scope.allSkills
+      dropdownAutoWidth: true
+    })
+
   reloadUser().then ->
     User.loadOne(userId).then (result) ->
       $scope.user = result.users[0]
       showOrHideBow($scope.user, $scope.currentUser)
+      loadSkills($scope.user.id).then ->
+      if $scope.user.role == 'master'
+        select2CurrentSkills()
+        $('#current-skills').select2('enable', false)
+      else
+        select2CurrentSkills()
+        select2DesiredSkills()
+        $('#current-skills').select2('enable', false)
+        $('#desired-skills').select2('enable', false)
 
       $http.get('/api/users/'+$scope.user.id+'/apprenticeships').then (result) ->
         angular.forEach result.data.apprenticeships, (apprenticeship) ->
