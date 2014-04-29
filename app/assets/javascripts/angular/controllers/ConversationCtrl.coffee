@@ -46,13 +46,14 @@ Grasshopper.controller "ConversationCtrl", ['$scope', '$location', 'User', 'Conv
     $location.url '/view-profile'
 
   $scope.submitMessage = (conversation, messageText) ->
-    User.createMessageTo($scope.currentUser.id, $scope.selectedConvo.targetUserId, messageText, $scope.selectedConvo.id).success (response) ->
-      $scope.messageText = ''
-      loadConvo()
-      reloadMessages(conversation)
-    .error (response) ->
-      Conversation.notyErrorForMessage()
-    return
+    User.loadOne($scope.selectedConvo.targetUserId).then (data) ->
+      User.createMessageTo($scope.currentUser, data.users[0] , messageText, $scope.selectedConvo.id).success (response) ->
+        $scope.messageText = ''
+        loadConvo()
+        reloadMessages(conversation)
+      .error (response) ->
+        Conversation.notyErrorForMessage()
+      return
 
   reloadUser()
 
