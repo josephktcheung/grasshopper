@@ -80,8 +80,10 @@ Grasshopper.controller "IndexCtrl", ['$scope', '$location', '$http', 'User', 'Ap
   $scope.declineApprenticeship = (apprenticeship) ->
     Apprenticeship.destroy(apprenticeship.id).success (response) ->
       $http.get('/api/users/'+$scope.currentUser.id+'/apprenticeships').then (result) ->
-      angular.forEach result.data.apprenticeships, (apprenticeship) ->
-        $scope.allApprenticeships.push apprenticeship
+        $scope.allApprenticeships = []
+        if result.data
+          angular.forEach result.data.apprenticeships, (apprenticeship) ->
+            $scope.allApprenticeships.push apprenticeship
     .error (response) ->
       noty {text: 'Apprenticeship cannot be ended! Please try again', type: 'error'}
 
