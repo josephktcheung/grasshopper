@@ -1,8 +1,8 @@
 class Conversation < ActiveRecord::Base
 
   has_many :messages, inverse_of: :conversation
-  belongs_to :created_for, class_name: "User"
-  belongs_to :created_by, class_name: "User"
+  belongs_to :created_for, class_name: "User", foreign_key: "created_for_id"
+  belongs_to :created_by, class_name: "User", foreign_key: "created_by_id"
 
   accepts_nested_attributes_for :messages
 

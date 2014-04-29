@@ -2,7 +2,7 @@
   .col-md-2.text-center
     img.img-responsive.img-circle data-ng-src="{{ currentUser.avatar_url }}"
     .star_rating
-      | Get average star rating here
+      | *****
     .btn-group-vertical
       .button.button.btn.btn-default data-ng-click="editProfile()"
         | Edit Profile
@@ -10,9 +10,9 @@
     .profile_text
       | {{ currentUser.first_name }} {{ currentUser.last_name }}
       div
-        span.label.label-primary
+        span.label.label-primary>
           | {{ currentUser.role.toUpperCase() }}
-        span.label class="label {{ currentUser.activeLabel }}"
+        span.label> class="label {{ currentUser.activeLabel }}"
           | {{ currentUser.activeorinactive.toUpperCase() }}
 
     .panel.panel-info.about_me
@@ -43,18 +43,27 @@
 
     .panel.panel-info.connections
       .panel-heading Connections
-      ul.list-group
+      ul.list-group data-ng-repeat="apprenticeship in allApprenticeships | orderBy: apprenticeship.status"
         li.list-group-item
-          .row
-            .col-xs-8
-              a data-ng-href="#/view-profile/{{connectionUserId}}"
-                | {{ connectionUsername }}
+          .row data-ng-switch="currentUser.role"
+            .col-xs-6 data-ng-switch-when="master"
+              a class="{{apprenticeship.status}}" data-ng-href="#/view-profile/{{apprenticeship.links.apprentice.id}}"
+                | {{apprenticeship.links.apprentice.first_name}} {{apprenticeship.links.apprentice.last_name}}
+            .col-xs-6 data-ng-switch-when="apprentice"
+              a data-ng-href="#/view-profile/{{apprenticeship.links.master.id}}"
+                | {{apprenticeship.links.master.first_name}} {{apprenticeship.links.master.last_name}}
+            .col-xs-2
+              span#status-notice>
+                | {{apprenticeship.status.toUpperCase()}}
             .col-xs-4
-              a href="" end connection
+              #bow-buttons
+                button.btn.btn-success#accept-bow> data-ng-show="showBowButtons({{apprenticeship}})" data-ng-click="acceptApprenticeship(apprenticeship, 'active')" Accept Bow
+                button.btn.btn-danger#decline-bow> data-ng-show="showBowButtons({{apprenticeship}})" data-ng-click="declineApprenticeship(apprenticeship, active)"Decline Bow
+              #end-apprenticeship-button
+                button.btn.btn-danger#end-apprenticeship data-ng-show="showEndApprenticeship({{apprenticeship}})" data-ng-click="endApprenticeship(apprenticeship, 'inactive')"End Apprenticeship
 
-        li.list-group-item
-          .row
-            .col-md-8
-              a href=""
-                |username here
-            .col-md-4
+
+
+
+
+

@@ -61,4 +61,5 @@ class ConversationsController < ApplicationController
   def get_conversation
     head :not_found unless @conversation = Conversation.where('id = ?', params[:id]).take
   end
+
 end
