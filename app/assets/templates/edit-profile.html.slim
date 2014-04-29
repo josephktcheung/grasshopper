@@ -37,7 +37,6 @@
               tr
                 th width="50%" Name
                 th data-ng-show="uploader.isHTML5" Size
-                th data-ng-show="uploader.isHTML5" Progress
             tbody
               tr data-ng-repeat="item in uploader.queue"
                 td
@@ -45,16 +44,6 @@
                     | {{ item.file.name }}
                   div data-ng-show="uploader.isHTML5" data-ng-thumb="{ file: item.file, height: 100, width: 100 }"
                 td data-ng-show="uploader.isHTML5" nowrap="" {{ item.file.size/1024/1024|number:2 }} MB
-                td data-ng-show="uploader.isHTML5"
-                  .progress
-                    .progress-bar role="progressbar" data-ng-style="{ 'width': item.progress + '%' }"
-                td.text-center
-                  span data-ng-show="item.isSuccess"
-                    i.glyphicon.glyphicon-ok Upload
-                  span data-ng-show="item.isCancel"
-                    i.glyphicon.glyphicon-ban-circle Cancel
-                  span data-ng-show="item.isCancel"
-                    i.glyphicon.glyphicon-ban-trash Remove
           h4 Queue progress:
           .progress sytle=""
             .progress-bar role="progressbar" data-ng-style="{ 'width': uploader.progress + '%' }"

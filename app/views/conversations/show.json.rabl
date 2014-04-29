@@ -29,6 +29,8 @@ node :links do |conversation|
         {
           href: message_url(message),
           id: message.id,
+          sender: message.sender.id,
+          recipient: message.recipient.id,
           content: message.content,
           type: "messages"
         }

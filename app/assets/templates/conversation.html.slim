@@ -9,15 +9,15 @@
             h3
               | {{ conversation.targetUserFirstName }} {{ conversation.targetUserLastName }}
             img.img-circle data-ng-src="{{conversation.targetUserAvatar}}" data-ng-click="loadMessages(conversation)"
-            | {{ conversation.lastMsg }}
+            | {{ conversation.lastMsg.content }}
     .col-md-9
       .row
         .col-md-12
           .panel.panel-primary id="message-panel"
             .panel-heading
               h2.panel-title Messages
-            .panel-body
-              .message data-ng-repeat="message in messages"
+            .panel-body#message-box
+              .message data-ng-repeat="message in messages" id="{{ message.id }}"
                 img.img-circle data-ng-src="{{message.links.sender.avatar_url}}"
                 | {{ message.content }}
       .row

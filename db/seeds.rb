@@ -99,10 +99,8 @@ Proficiency.create!(user: dm, skill: skills[5], proficiency_status: 'desired')
 Proficiency.create!(user: ds, skill: skills[5], proficiency_status: 'desired')
 
 c1 = Conversation.create!(created_by: gh, created_for: ms)
-Conversation.create!(created_by: gh, created_for: my)
-Conversation.create!(created_by: my, created_for: ms)
 
-Message.create!(conversation: c1, recipient: gh, sender: ms, content: 'Hello, I hope to work with you!')
-Message.create!(conversation: c1, recipient: ms, sender: gh, content: 'Sure, let me know when you want to meet up!')
+Message.create!(conversation: c1, recipient: ms, sender: gh, content: 'Hello, I hope to work with you!')
+Message.create!(conversation: c1, recipient: gh, sender: ms, content: 'Sure, let me know when you want to meet up!')
 
 

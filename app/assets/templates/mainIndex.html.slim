@@ -27,7 +27,8 @@
         span.input-group-btn
           button.btn.btn-default type="button" data-select2-open="current-skills" Current skills
         input#current-skills.form-control.select2 type="hidden"
-    .form-group
+
+    .form-group data-ng-show="currentUser.role == 'apprentice'"
       label.sr-only for="desired-skills"
       .input-group.select2-bootstrap-prepend
         span.input-group-btn

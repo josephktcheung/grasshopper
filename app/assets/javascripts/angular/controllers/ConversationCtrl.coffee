@@ -1,34 +1,39 @@
-Grasshopper.controller "ConversationCtrl", ['$scope', '$location', 'User', 'Conversation', '$http', ($scope, $location, User, Conversation, $http) ->
+Grasshopper.controller "ConversationCtrl", ['$scope', '$location', 'User', 'Conversation', '$http', '$anchorScroll', ($scope, $location, User, Conversation, $http, $anchorScroll) ->
   reloadUser = () ->
     User.loadCurrentUser().then (data) ->
       $scope.currentUser = data.users[0]
       loadConvo()
 
+  targetUser = (forOrBy, conversation) ->
+    conversation.targetUserId = conversation.links[forOrBy].id
+    conversation.targetUserAvatar = conversation.links[forOrBy].avatar_url
+    conversation.targetUserFirstName = conversation.links[forOrBy].first_name
+    conversation.targetUserLastName = conversation.links[forOrBy].last_name
+
   loadConvo = () ->
     User.loadUserConversations($scope.currentUser.id).then (data) ->
       $scope.conversations = data.conversations
-      console.log 'load convo: ', data
       angular.forEach $scope.conversations, (conversation) ->
         if conversation.links.created_by.id != $scope.currentUser.id
-          conversation.targetUserId = conversation.links.created_by.id
-          conversation.targetUserAvatar = conversation.links.created_by.avatar_url
-          conversation.targetUserFirstName = conversation.links.created_by.first_name
-          conversation.targetUserLastName = conversation.links.created_by.last_name
+          targetUser('created_by', conversation)
         else
-          conversation.targetUserId = conversation.links.created_for.id
-          conversation.targetUserAvatar = conversation.links.created_for.avatar_url
-          conversation.targetUserFirstName = conversation.links.created_for.first_name
-          conversation.targetUserLastName = conversation.links.created_for.last_name
+          targetUser('created_for', conversation)
         if conversation.links.messages.length > 0
-          conversation.lastMsg = _.last(conversation.links.messages).content
+          conversation.lastMsg = _.find conversation.links.messages, (message) ->
+            conversation.targetUserId == message.sender
       $scope.usersCommunicatedWith = Conversation.filterUsersCommunicatedWith(data, $scope.currentUser)
 
-  $scope.loadMessages = (conversation) ->
+  reloadMessages = (conversation) ->
     $scope.messages = []
     $scope.selectedConvo = conversation
     $http.get('./api/conversations/'+conversation.id+'/messages').then (response) ->
-      console.log 'msg:', $scope.messages = response.data.messages
+      $scope.messages = response.data.messages
+      console.log $scope.messages
+      $('#message-box').scrollTop($('#message-box')[0].scrollHeight)
 
+
+  $scope.loadMessages = (conversation) ->
+    reloadMessages(conversation)
 
   $scope.search = () ->
     $location.url '/search'
@@ -41,9 +46,9 @@ Grasshopper.controller "ConversationCtrl", ['$scope', '$location', 'User', 'Conv
 
   $scope.submitMessage = (conversation, messageText) ->
     User.createMessageTo($scope.currentUser.id, $scope.selectedConvo.targetUserId, messageText, $scope.selectedConvo.id).success (response) ->
-      Conversation.notySuccessForMessage()
       $scope.messageText = ''
       loadConvo()
+      reloadMessages(conversation)
     .error (response) ->
       Conversation.notyErrorForMessage()
     return
