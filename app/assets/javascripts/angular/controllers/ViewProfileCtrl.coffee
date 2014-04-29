@@ -98,14 +98,14 @@ Grasshopper.controller "ViewProfileCtrl", (['$scope', '$location', '$http', 'Use
       $scope.user = result.users[0]
       showOrHideBow($scope.user, $scope.currentUser)
       loadSkills($scope.user.id).then ->
-      if $scope.user.role == 'master'
-        select2CurrentSkills()
-        $('#current-skills').select2('enable', false)
-      else
-        select2CurrentSkills()
-        select2DesiredSkills()
-        $('#current-skills').select2('enable', false)
-        $('#desired-skills').select2('enable', false)
+        if $scope.user.role == 'master'
+          select2CurrentSkills()
+          $('#current-skills').select2('enable', false)
+        else
+          select2CurrentSkills()
+          select2DesiredSkills()
+          $('#current-skills').select2('enable', false)
+          $('#desired-skills').select2('enable', false)
 
       $http.get('/api/users/'+$scope.user.id+'/apprenticeships').then (result) ->
         angular.forEach result.data.apprenticeships, (apprenticeship) ->
