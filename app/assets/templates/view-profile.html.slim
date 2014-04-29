@@ -47,9 +47,6 @@
         p
           | {{ currentUser.about_me }}
 
-    .panel.panel-info.connections
-        .panel-heading Connections
-        .list-group data-ng-repeat="apprenticeship in allApprenticeships | orderBy: apprenticeship.status "
     .form-group
       label.sr-only for="current-skills"
       .input-group.select2-bootstrap-prepend
