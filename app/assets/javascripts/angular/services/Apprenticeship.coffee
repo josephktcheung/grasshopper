@@ -10,4 +10,14 @@ Grasshopper.factory('Apprenticeship', ['$http', ($http) ->
       })
 
 
+    destroy: (apprenticeshipId) ->
+      $http({
+        method: "DELETE"
+        url: "./api/apprenticeships/"+apprenticeshipId
+        })
+
+    calculateDuration: (apprenticeship) ->
+      if apprenticeship.status == "inactive"
+        return end_date - new Date()
+
 ])

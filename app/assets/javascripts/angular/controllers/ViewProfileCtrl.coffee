@@ -2,6 +2,9 @@ Grasshopper.controller "ViewProfileCtrl", (['$scope', '$location', '$http', 'Use
 
   userId = $routeParams.userId
   $scope.bowLabel = "Bow"
+  $scope.allApprenticeships = []
+
+  currentdate = new Date()
 
   notySuccessForMessage = () ->
     noty { text: 'Successfully sent a message!', type: 'success' }
@@ -18,9 +21,9 @@ Grasshopper.controller "ViewProfileCtrl", (['$scope', '$location', '$http', 'Use
         existingPending = _.find result.data.apprenticeships, (apprenticeship) ->
           apprenticeship.links.master.id == user.id and apprenticeship.status == 'pending'
         if existing or existingPending
-          user.disableBow = true
+          $scope.user.disableBow = true
         else
-          user.disableBow = false
+          $scope.user.disableBow = false
     else
       user.showBow = false
 
@@ -59,16 +62,24 @@ Grasshopper.controller "ViewProfileCtrl", (['$scope', '$location', '$http', 'Use
       $scope.user = result.users[0]
       showOrHideBow($scope.user, $scope.currentUser)
 
-  $scope.bowAndMessage = (masterId, apprenticeId) ->
+      $http.get('/api/users/'+$scope.user.id+'/apprenticeships').then (result) ->
+        angular.forEach result.data.apprenticeships, (apprenticeship) ->
+          if apprenticeship.status != 'pending'
+            $scope.allApprenticeships.push apprenticeship
+        console.log 'allApprenticeships', $scope.allApprenticeships
+
+  $scope.getDuration = (apprenticeship) ->
+    apprenticeship.end_date - currentdate
+
+  $scope.bowAndMessage = (masterId, apprenticeId, messageText) ->
     newApprenticeship = { master_id: masterId, apprentice_id: apprenticeId }
     if $scope.currentUser.role == "apprentice" and $scope.user.role == "master"
       $http.post('/api/apprenticeships', newApprenticeship).success (response) ->
-        console.log "Successfully created new apprenticeship"
         $('#bow-modal').modal('hide')
-        $scope.bowLabel = "Pending"
-        $('#bow-button').removeAttr("data-toggle")
+        $scope.user.disableBow = true
         noty { text: "You've bowed succesfully! Apprenticeship pending.", type: "success" }
       .error (response) ->
         noty { text: "You cannot bow to this user." , type: "error" }
+      $scope.submitMessage($scope.user, messageText)
 
 ])
