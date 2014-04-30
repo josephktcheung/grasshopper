@@ -52,7 +52,7 @@ class UsersController < ApplicationController
   end
 
   def get_user
-    head :not_found unless @user = User.includes(:apprenticeships).where('id = ?', params[:id]).take
+    head :not_found unless @user = User.where('id = ?', params[:id]).take
   end
 
 end
