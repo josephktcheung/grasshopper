@@ -343,7 +343,7 @@ li.list-comma {
   }
 
   img{
-    margin-right: 10px;
+   margin-left: 2em;
 
   }
 }
@@ -361,6 +361,8 @@ li.list-comma {
     border-bottom: 2px solid rgba(0,0,0,.075);
     padding-top: 10px;
     padding-bottom: 10px;
+    font-size: 25px;
+    word-wrap: normal;
 
   }
 
@@ -371,10 +373,15 @@ li.list-comma {
 
   img{
     margin-right: 10px;
+    height: 50px;
+    width: 50px;
 
   }
+
 }
 
 .form-control{
   margin-bottom: 10px;
 }
+
+

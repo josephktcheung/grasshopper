@@ -6,14 +6,15 @@
     .btn-group-vertical
       .button.button.btn.btn-default data-ng-click="editProfile()"
         | Edit Profile
+      .button.button.btn.btn-default class="{{ currentUser.activeLabel }}"
+        | {{ currentUser.activeorinactive.toUpperCase() }}
+
   .col-md-10
     .profile_text
       | {{ currentUser.first_name }} {{ currentUser.last_name }}
       div
         span.label.label-primary>
           | {{ currentUser.role.toUpperCase() }}
-        span.label> class="label {{ currentUser.activeLabel }}"
-          | {{ currentUser.activeorinactive.toUpperCase() }}
 
     .panel.panel-info.about_me
       .panel-heading About Me

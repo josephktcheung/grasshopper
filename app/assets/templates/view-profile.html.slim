@@ -18,6 +18,8 @@
                 button.btn.btn-default data-dismiss="modal" type="button" Close
 
       button.button.btn.btn-default#bow-button data-ng-show="user.showBow" data-ng-disabled="user.disableBow" data-target=".bow-modal" data-toggle="modal" Bow
+      .button.btn.btn-default class="{{ user.activeLabel }}"
+        | {{ user.activeorinactive }}
 
       .modal.fade.bow-modal#bow-modal aria-hidden="true" aria-labelledby="bowModal" role="dialog" tabindex="-1"
         .modal-dialog
@@ -38,8 +40,6 @@
       div
         span.label.label-primary
           | {{ user.role.toUpperCase() }}
-        span.label class="label {{ user.activeLabel }}"
-          | {{ user.activeorinactive }}
 
     .panel.panel-info.about_me
       .panel-heading About Me
