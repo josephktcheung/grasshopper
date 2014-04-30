@@ -1,34 +1,36 @@
-Grasshopper.controller "EditProfileCtrl", (['$scope','$http', '$location', 'User', '$routeParams', '$fileUploader', ($scope, $http, $location, User, $routeParams, $fileUploader) ->
+Grasshopper.controller "EditProfileCtrl", (['$scope','$http', '$location', 'User', '$routeParams', '$fileUploader', 'Uploader', 'Skill', ($scope, $http, $location, User, $routeParams, $fileUploader, Uploader, Skill) ->
 
-  User.loadCurrentUser().then (data) ->
-    console.log $scope.currentUser = data.users[0]
+  notyCreateSkillError = () ->
+    noty { text: 'Skill cannot be created! Please try again', type: 'error' }
 
-    csrf_token = document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+  notyDeleteSkillError = () ->
+    noty { text: 'Skill cannot be deleted! Please try again', type: 'error' }
 
-    console.log uploader = $scope.uploader = $fileUploader.create({
-      alias: 'avatar'
-      scope: $scope
-      url: './api/users/' + $scope.currentUser.id
-      method: 'PUT'
-      headers:
-        'X-CSRF-TOKEN': csrf_token
-      queueLimit: 1
-      })
+  loadUserSkills = () ->
+    User.loadUserProficiencies($scope.currentUser.id).then (data) ->
+      angular.forEach data.proficiencies, (proficiency) ->
+        proficiency.text = proficiency.links.skill.name
+        if proficiency.proficiency_status == 'has'
+          $scope.currentSkills.push proficiency
+          $scope.currentSkillsId.push proficiency.links.skill.id
+        else
+          $scope.desiredSkills.push proficiency
+          $scope.desiredSkillsId.push proficiency.links.skill.id
 
-    uploader.filters.push (item) ->
-      type = if uploader.isHTML5 then item.type else item.value.slice(item.value.lastIndexOf('.') + 1)
-      type = '|' + type.toLowerCase().slice(type.lastIndexOf('/') + 1) + '|'
-      '|jpg|png|jpeg|bmp|gif|'.indexOf(type) != -1
+  initialize = () ->
+    $scope.currentSkills = []
+    $scope.currentSkillsId = []
+    $scope.desiredSkills = []
+    $scope.desiredSkillsId = []
+    $scope.allSkills = []
 
-    uploader.bind 'success', (event, xhr, items, response) ->
-      noty { text: 'Successfully changed profile photo!', type: 'success'}
-      uploader.clearQueue()
-      User.loadCurrentUser().then (data) ->
-        $scope.currentUser = data.users[0]
-
-    uploader.bind 'error', (event, xhr, items, response) ->
-      noty { text: 'Profile photo cannot be changed! Please try again', type: 'error'}
-      uploader.clearQueue()
+  loadSkills = (userId) ->
+    initialize()
+    Skill.loadAll().then (data) ->
+      $scope.allSkills = data.skills
+      angular.forEach $scope.allSkills, (skill) ->
+        skill.text = skill.skill_name
+      loadUserSkills()
 
   $scope.updateProfile = () ->
     User.update($scope.currentUser.id, $scope.currentUser).success (response) ->
@@ -40,12 +42,109 @@ Grasshopper.controller "EditProfileCtrl", (['$scope','$http', '$location', 'User
   $scope.viewProfile = () ->
     $location.url('/')
 
-  $scope.removeProficiency = (proficiencyUrl) ->
-    User.removeProficiency(proficiencyUrl)
-    idx = _.findIndex $scope.currentUser.links.proficiencies, (proficiency) ->
-      proficiency.href == proficiencyUrl
-    $scope.currentUser.links.proficiencies.splice idx, 1
+  substringMatcher = (strs) ->
+    findMatches = (q, cb) ->
+      matches = []
+      substringRegex = new RegExp(q, 'i')
+      $.each strs, (i, str) ->
+        if substringRegex.test(str)
+          matches.push { value: str }
+      cb(matches)
+
+  select2CurrentSkills = () ->
+    $('#current-skills').val($scope.currentSkillsId).select2({
+      placeholder: "Add your current skills here"
+      tags: $scope.allSkills
+      dropdownAutoWidth: true
+    })
+
+  select2DesiredSkills = () ->
+    $('#desired-skills').val($scope.desiredSkillsId).select2({
+      placeholder: "Add desired skills here"
+      tags: $scope.allSkills
+      dropdownAutoWidth: true
+    })
+
+  select2ClickableButton = () ->
+    $('button[data-select2-open]').on 'click', (e) ->
+      $('#' + $(@).data('select2-open')).select2('open')
 
 
+  createProficiency = (user, skillId, proficiency_status) ->
+    data = {
+      skill_id: skillId
+      proficiency_status: proficiency_status
+    }
+    $http.post('./api/users/' + user.id + '/proficiencies', data).success (response) ->
+      loadSkills($scope.currentUser.id)
+    .error (response) ->
+      notyCreateSkillError()
+
+  createSkill = (skill_name) ->
+    skillData = {
+      skill_name: skill_name
+    }
+    $http.post('./api/skills', skillData)
+
+  removeProficiency = (proficiency) ->
+    $http.delete('./api/proficiencies/' + proficiency.id).success (response) ->
+      loadSkills($scope.currentUser.id)
+
+  select2ClickableButton()
+
+  User.loadCurrentUser().then (data) ->
+    $scope.currentUser = data.users[0]
+    $scope.uploader = Uploader.createLoader($scope, User)
+    loadSkills($scope.currentUser.id).then ->
+      if $scope.currentUser.role == 'master'
+        select2CurrentSkills()
+      else
+        select2CurrentSkills()
+        select2DesiredSkills()
+
+  $('#current-skills').on 'change', (e) ->
+    if e.added
+      skillBeingAdded = _.find $scope.allSkills, (skill) ->
+        skill.text == e.added.text
+      if skillBeingAdded
+        createProficiency($scope.currentUser, skillBeingAdded.id, 'has')
+      else
+        createSkill(e.added.text).then ->
+          newSkillId = response.headers('id')
+          createProficiency($scope.currentUser, newSkillId, 'has')
+    else
+      targetedProficiency = _.find $scope.currentSkills, (skill) ->
+        skill.text == e.removed.text
+      User.removeProficiency(targetedProficiency).then (response) ->
+        loadSkills($scope.currentUser.id)
+      .error (response) ->
+        notyDeleteSkillError()
+
+  $('#desired-skills').on 'change', (e) ->
+    if e.added
+      skillBeingAdded = _.find $scope.allSkills, (skill) ->
+        skill.text == e.added.text
+      if skillBeingAdded
+        createProficiency($scope.currentUser, skillBeingAdded.id, 'desired')
+      else
+        createSkill(e.added.text).then (response) ->
+          newSkillId = response.headers('id')
+          createProficiency($scope.currentUser, newSkillId, 'desired')
+    else
+      targetedProficiency = _.find $scope.desiredSkills, (skill) ->
+        skill.text == e.removed.text
+      removeProficiency(targetedProficiency).error (response) ->
+        notyDeleteSkillError()
+        loadSkills($scope.currentUser.id)
 
 ])
+
+
+
+
+
+
+
+
+
+

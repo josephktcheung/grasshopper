@@ -5,7 +5,7 @@ describe Apprenticeship do
   before :each do
     @user1 = User.create(first_name: 'Grass', last_name: 'Hopper', email: 'gh@ga.co', password: '123', password_confirmation: '123', role: 'master')
     @user2 = User.create(first_name: 'App', last_name: 'Rentice', email: 'ap@ga.co', password: '123', password_confirmation: '123', role: 'apprentice')
-    @apprenticeship = Apprenticeship.create(master: @user1, apprentice: @user2, end_date: 1.second.from_now)
+    @apprenticeship = Apprenticeship.create(master: @user1, apprentice: @user2, end_date: 1.second.from_now, status: 'active')
     @rating = Rating.create(rater: @user1, ratee: @user2, apprenticeship: @apprenticeship, rating: 5)
   end
 
@@ -18,15 +18,21 @@ describe Apprenticeship do
     expect(@apprenticeship2.save).to be_false
   end
 
+  it "should not be valid without a status" do
+    @apprenticeship.status = nil
+    expect(@apprenticeship).to_not be_valid
+  end
+
   describe "master" do
-    it "should not be valid without a user who has a master role" do
+    it "should not be valid without a user who has a master role in master_id" do
       @user1.role = 'apprentice'
       expect(@apprenticeship).to_not be_valid
     end
+
   end
 
   describe "apprentice" do
-    it "should not be valid without a user who has a apprentice role" do
+    it "should not be valid without a user who has a apprentice role in apprentice_id" do
       @user2.role = 'master'
       expect(@apprenticeship).to_not be_valid
     end
@@ -43,9 +49,9 @@ describe Apprenticeship do
     end
   end
 
-  describe "is_active" do
-    it "should be true when apprenticeship is created" do
-      expect(@apprenticeship.is_active).to eq true
+  describe "status" do
+    it "should be pending when apprenticeship is created" do
+      expect(@apprenticeship.status).to eq 'pending'
     end
   end
 end

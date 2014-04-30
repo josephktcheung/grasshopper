@@ -42,6 +42,10 @@ Grasshopper::Application.routes.draw do
         end
       end
 
+      resources :skills, except: [ :show, :edit, :new ], defaults: { format: :json } do
+        get ':id' => "skills#index", on: :collection
+      end
+
       resources :conversations, except: [ :show, :edit, :new ], defaults: { format: :json } do
         get ':id' => "conversations#index", on: :collection
 

@@ -1,4 +1,4 @@
-Grasshopper.factory('User', ['$http', ($http) ->
+Grasshopper.factory 'User', ['$http', ($http) ->
 
   User =
     checkActive: (result) ->
@@ -23,6 +23,14 @@ Grasshopper.factory('User', ['$http', ($http) ->
         User.checkActive(result)
         result.data
 
+    loadUserProficiencies: (userId) ->
+      $http.get('./api/users/'+userId+'/proficiencies').then (result) ->
+        result.data
+
+    loadUserConversations: (userId) ->
+      $http.get('./api/users/'+userId+'/conversations').then (result) ->
+        result.data
+
     update: (userId, data) ->
       $http({
         method: "PUT"
@@ -30,18 +38,19 @@ Grasshopper.factory('User', ['$http', ($http) ->
         data: data
       })
 
-    removeProficiency: (proficiencyUrl) ->
-      $http.delete(proficiencyUrl)
+    removeProficiency: (proficiency) ->
+      $http.delete('./api/proficiencies/' + proficiency.id)
 
     createConversationWithMessage: (created_by, created_for, messageText) ->
       conversationParams = {
-        created_by_id:  created_by.id
-        created_for_id: created_for.id
-        messages_attributes: [
-          sender_id: created_by.id
-          recipient_id: created_for.id
-          content: messageText
-        ]
+        conversation:
+          created_by_id:  created_by.id
+          created_for_id: created_for.id
+          messages_attributes: [
+            sender_id: created_by.id
+            recipient_id: created_for.id
+            content: messageText
+          ]
       }
       $http({
         method: "POST"
@@ -64,4 +73,4 @@ Grasshopper.factory('User', ['$http', ($http) ->
 
   User
 
-])
+]

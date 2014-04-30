@@ -1,16 +1,15 @@
 class MessagesController < ApplicationController
   respond_to :json
 
+  before_action :get_conversation
   before_action :get_message, only: [ :update, :destroy ]
-
 
   def index
     @messages = if params[:id]
-      Message.where('id in (?)', params[:id].split(','))
+      Message.where("id in (?) #{@conversation_clause}", params[:id].split(','))
     else
-      Message.all
+      @conversation ? @conversation.messages : Message.all
     end
-
     @users = (@messages.map { |message| [message.sender, message.recipient] }).flatten.sort.uniq
     @conversations = (@messages.map { |message| message.conversation }).sort.uniq
   end
@@ -35,9 +34,17 @@ class MessagesController < ApplicationController
 
   protected
 
+  def get_conversation
+    if params[:conversation_id]
+      head :bad_request unless @conversation = Conversation.where("id = ?", params[:conversation_id]).take
+    end
+    @conversation_clause = @conversation ? "and conversation_id = #{@conversation.id}" : ""
+  end
+
   def message_params
     params.require(:message).permit(:sender_id, :recipient_id, :conversation_id, :content)
   end
+
   def get_message
     head :not_found unless @message = Message.where('id = ?', params[:id]).take
   end

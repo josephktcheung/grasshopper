@@ -59,6 +59,44 @@ about_ds = %{
   and used the power of my office to launch the Clone Wars.
   With Order 66 bringing about the end of the Jedi Order, I declared myself Emperor.
   }.squish
+about_wc = %{
+  Wayne Campbell owns a public access cable show called Wayne's World.
+  He still lives with his parents and has an extensive collections of nametags and hairnets.
+  Waynes best friend is Garth Algar and his girlfriend is Cassandra, lead singer of the band Cruical Taunt.
+  He is portrayed by Mike Myers. He gatecrashes Cassandra and Bobby's arranged marriage
+  and him and Cassandra leave the chapel in a school bus.
+  He arranges a concert in Aurora, once being visited by Jim Morrison in a dream.
+  }.squish
+about_ga = %{
+  Wayne's best friend is Garth Algar. He gets very nervous without Wayne.
+  He appears to have a fear of heights.
+  }.squish
+about_tl = %{
+  Ted Theodore Logan, III (also known as Ted) was, along with his friend Bill,
+  co-founder and guitarist of the rock-group Wyld Stallyns.
+  After an excellent adventure through time and a bogus journey through the afterlife,
+  Bill & Ted's Wyld Stallyns eventually became known as the greatest rock-group to have ever lived,
+  and their music became the basis of all society, inspiring universal harmony.
+  }.squish
+about_bp = %{
+  William S. Preston, Esq. (Also known as Bill) was, along with his friend Ted,
+  co-founder and guitarist of the rock-group Wyld Stallyns.
+  After an excellent adventure through time and a bogus journey through the afterlife,
+  Bill & Ted's Wyld Stallyns eventually became known as the greatest rock-group to have ever lived,
+  and their music became the basis of all society, inspiring universal harmony.
+  }.squish
+about_hy = %{
+  A rat mutated by exposure to toxic ooze,
+  Splinter raised the Teenage Mutant Ninja Turtles and trained them in the art of ninjutsu.
+  He is also the mortal enemy of Shredder.
+  He is a father figure to the turtles and is easily able to fight them all at once.
+  He does not carry a signature weapon however he is well known to walk around with a wooden cane
+  and also seems to be a incredible marksman with the bow and arrow.
+  }.squish
+about_lh = %{
+  Leonardo is the calm, focused, and disciplined leader of his brothers, the Teenage Mutant Ninja Turtles.
+  Nicknamed "Leo," he is usually seen with a blue mask and twin swords.
+  }.squish
 
 cm = User.create(first_name: 'Charles', last_name: 'Munat', email: 'chasm@ga.co', password: '123', password_confirmation: '123', role: 'master', about_me: about_cm, avatar: seed_image('munat'))
 gh = User.create(first_name: 'Grass', last_name: 'Hopper', email: 'gh@ga.co', password: '123', password_confirmation: '123', role: 'apprentice', about_me: about_gh, avatar: seed_image('default-grasshopper'))
@@ -71,11 +109,29 @@ ls = User.create(first_name: 'Luke', last_name: 'Skywalker', email: 'ls@jedi.sw'
 dm = User.create(first_name: 'Darth', last_name: 'Maul', email: 'dm@sith.sw', password: '123', password_confirmation: '123', role: 'apprentice', avatar: seed_image('darth_maul'), about_me: about_dm)
 ds = User.create(first_name: 'Darth', last_name: 'Sidious', email: 'ds@sith.sw', password: '123', password_confirmation: '123', role: 'master', avatar: seed_image('darth_sidious'), about_me: about_ds)
 
+wc = User.create(first_name: 'Wayne', last_name: 'Campbell', email: 'wc@partyon.co', password: '123', password_confirmation: '123', role: 'master', avatar: seed_image('wayne'), about_me: about_wc)
+ga = User.create(first_name: 'Garth', last_name: 'Algar', email: 'ga@partyon.co', password: '123', password_confirmation: '123', role: 'apprentice', avatar: seed_image('garth'), about_me: about_ga)
+
+tl = User.create(first_name: 'Ted', last_name: 'Logan', email: 'tl@excellent.co', password: '123', password_confirmation: '123', role: 'master', avatar: seed_image('ted'), about_me: about_tl)
+bp = User.create(first_name: 'Bill', last_name: 'Preston', email: 'bp@excellent.co', password: '123', password_confirmation: '123', role: 'apprentice', avatar: seed_image('bill'), about_me: about_bp)
+
+hy = User.create(first_name: 'Hamato', last_name: 'Yoshi', email: 'hy@cowabunga.co', password: '123', password_confirmation: '123', role: 'master', avatar: seed_image('splinter'), about_me: about_hy)
+lh = User.create(first_name: 'Leonardo', last_name: 'Hamato', email: 'lh@cowabunga.co', password: '123', password_confirmation: '123', role: 'apprentice', avatar: seed_image('leonardo'), about_me: about_lh)
+
+
 a1 = Apprenticeship.create(master: cm, apprentice: gh, end_date: (1.month.from_now))
 a2 = Apprenticeship.create(master: ds, apprentice: dm, end_date: (20.year.from_now))
+
+a3 = Apprenticeship.create(master: hy, apprentice: lh, end_date: (20.year.from_now))
+
 Rating.create(rater: gh, ratee: ms, apprenticeship: a2, rating: 5)
 Rating.create(rater: ms, ratee: gh, apprenticeship: a1, rating: 3)
-skills = ['Ruby on Rails', 'Javascript', 'CSS', 'Bartending', 'Jedi', 'Sith', 'Pascal', 'Kung Fu']
+
+Rating.create(rater: hy, ratee: lh, apprenticeship: a3, rating: 5)
+Rating.create(rater: lh, ratee: hy, apprenticeship: a3, rating: 5)
+
+# Rating.create(rater: , ratee: , apprenticeship: , rating: )
+skills = ['Ruby on Rails', 'Javascript', 'CSS', 'Bartending', 'Jedi', 'Sith', 'Pascal', 'Kung Fu', 'Ninjitsu', 'Cable TV', 'Rocking Out', 'Time Travel']
 
 skills.each { |skill| Skill.create(skill_name: skill) }
 
@@ -98,11 +154,33 @@ Proficiency.create!(user: ls, skill: skills[4], proficiency_status: 'has')
 Proficiency.create!(user: dm, skill: skills[5], proficiency_status: 'desired')
 Proficiency.create!(user: ds, skill: skills[5], proficiency_status: 'desired')
 
-c1 = Conversation.create!(created_by: gh, created_for: ms)
-Conversation.create!(created_by: gh, created_for: my)
-Conversation.create!(created_by: my, created_for: ms)
+Proficiency.create!(user: wc, skill: skills[9], proficiency_status: 'has')
+Proficiency.create!(user: ga, skill: skills[9], proficiency_status: 'has')
 
-Message.create!(conversation: c1, recipient: gh, sender: ms, content: 'Hello, I hope to work with you!')
-Message.create!(conversation: c1, recipient: ms, sender: gh, content: 'Sure, let me know when you want to meet up!')
+Proficiency.create!(user: tl, skill: skills[10], proficiency_status: 'has')
+Proficiency.create!(user: bp, skill: skills[10], proficiency_status: 'has')
+
+Proficiency.create!(user: tl, skill: skills[11], proficiency_status: 'desired')
+Proficiency.create!(user: bp, skill: skills[11], proficiency_status: 'desired')
+
+Proficiency.create!(user: hy, skill: skills[8], proficiency_status: 'has')
+Proficiency.create!(user: hy, skill: skills[7], proficiency_status: 'has')
+Proficiency.create!(user: lh, skill: skills[8], proficiency_status: 'has')
+
+Proficiency.create!(user: lh, skill: skills[7], proficiency_status: 'desired')
+
+# Proficiency.create!(user: , skill: skills[], proficiency_status: 'has')
+# Proficiency.create!(user: , skill: skills[], proficiency_status: 'desired')
+
+c1 = Conversation.create!(created_by: gh, created_for: ms)
+
+Message.create!(conversation: c1, recipient: ms, sender: gh, content: 'Hello, I hope to work with you!')
+Message.create!(conversation: c1, recipient: gh, sender: ms, content: 'Sure, let me know when you want to meet up!')
+
+c2 = Conversation.create!(created_by: bp, created_for: tl)
+
+Message.create!(conversation: c2, recipient: tl, sender: bp, content: 'Dude?')
+Message.create!(conversation: c2, recipient: bp, sender: tl, content: 'Dude!')
+
 
 

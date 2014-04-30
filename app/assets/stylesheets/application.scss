@@ -1,5 +1,7 @@
 /*
  *= require_self
+ *= require select2
+ *= require select2-bootstrap
  *= require_tree .
  */
 
@@ -108,7 +110,7 @@ h1 {
   color: $bgnd-success;
 }
 
-legend {
+.skill_heading, legend {
   text-align: left;
   font-size: 130%;
   line-height: 1.5;

@@ -4,7 +4,6 @@
     .btn-group-vertical
       .button.button.btn.btn-default data-ng-click="viewProfile()"
         | Return to Profile
-
   .col-md-10
     .row
       .col-md-6
@@ -37,7 +36,6 @@
               tr
                 th width="50%" Name
                 th data-ng-show="uploader.isHTML5" Size
-                th data-ng-show="uploader.isHTML5" Progress
             tbody
               tr data-ng-repeat="item in uploader.queue"
                 td
@@ -45,16 +43,6 @@
                     | {{ item.file.name }}
                   div data-ng-show="uploader.isHTML5" data-ng-thumb="{ file: item.file, height: 100, width: 100 }"
                 td data-ng-show="uploader.isHTML5" nowrap="" {{ item.file.size/1024/1024|number:2 }} MB
-                td data-ng-show="uploader.isHTML5"
-                  .progress
-                    .progress-bar role="progressbar" data-ng-style="{ 'width': item.progress + '%' }"
-                td.text-center
-                  span data-ng-show="item.isSuccess"
-                    i.glyphicon.glyphicon-ok Upload
-                  span data-ng-show="item.isCancel"
-                    i.glyphicon.glyphicon-ban-circle Cancel
-                  span data-ng-show="item.isCancel"
-                    i.glyphicon.glyphicon-ban-trash Remove
           h4 Queue progress:
           .progress sytle=""
             .progress-bar role="progressbar" data-ng-style="{ 'width': uploader.progress + '%' }"
@@ -65,20 +53,18 @@
           button.btn.btn-danger.btn-s type="button" data-ng-click="uploader.clearQueue()" data-ng-disabled="!uploader.queue.length"
             span.glyphicon.glyphicon-trash Remove
     .row
-      form.edit_profile_form
+      form.add_skill_form
         fieldset
           legend Update your skills
           .form-group
-            label.sr-only for="first_name"
-            input.form-control#first_name type="text" placeholder="First name" data-ng-model="currentUser.first_name"
-
-    .panel.panel-default.skills
-      .panel-heading
-        | Current Skills
-      .panel-body
-        | stub
-      ul.list-group
-        li.list-group-item data-ng-repeat="proficiency in currentUser.links.proficiencies"
-          | {{ proficiency.skill }}
-          a.remove-skill href="" data-ng-click="removeProficiency(proficiency.href)" Remove
-
+            label.sr-only for="current-skills"
+            .input-group.select2-bootstrap-prepend
+              span.input-group-btn
+                button.btn.btn-default type="button" data-select2-open="current-skills" Current skills
+              input#current-skills.form-control.select2 type="hidden"
+          .form-group data-ng-show="currentUser.role == 'apprentice'"
+            label.sr-only for="desired-skills"
+            .input-group.select2-bootstrap-prepend
+              span.input-group-btn
+                button.btn.btn-default type="button" data-select2-open="desired-skills" Desired skills
+              input#desired-skills.form-control.select2 type="hidden"
