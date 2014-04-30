@@ -4,10 +4,10 @@ Grasshopper.factory 'User', ['$http', ($http) ->
     checkActive: (result) ->
       if result.data.users[0].is_active
         result.data.users[0].activeorinactive = "Active"
-        result.data.users[0].activeLabel = "label-success"
+        result.data.users[0].activeLabel = "btn-success"
       else
         result.data.users[0].activeorinactive = "Inactive"
-        result.data.users[0].activeLabel = "label-danger"
+        result.data.users[0].activeLabel = "btn-danger"
 
     loadOne: (userId) ->
       $http.get('./api/users/'+userId).then (result) ->

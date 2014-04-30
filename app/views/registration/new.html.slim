@@ -22,10 +22,11 @@
           button#show-password-button.btn.btn-warning data-state="show" Show Passwords
         .btn-group.name-field.btn-group-lg#register-ma-btn-group
           = f.label :role, class: "sr-only"
-          button.btn.btn-success name="user[role]" value="master" type="submit" Master
-          button.btn.btn-success name="user[role]" value="apprentice" type="submit" Apprentice
+          button.btn.btn-primary name="user[role]" value="master" type="submit"
+            | I'm a Master
+          button.btn.btn-success name="user[role]" value="apprentice" type="submit"
+            | I'm an Apprentice
       .col-md-4.col-xs-12.col-sm-6
-        p#pw-quality Password too weak!
         #pw-meter.strength-meter.progress.progress-striped
           #strength-meter.meter.progress-bar role="progressbar" aria-valuemin="0" aria-valuemax="4" aria-valuenow="0"
         .crack-div
